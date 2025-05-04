@@ -2,7 +2,7 @@
 <html lang="hu">
 <head>
   <meta charset="UTF-8">
-  <title>Szoba</title>
+  <title>Szoba – RoomX</title>
   <style>
     body {
       background-color: black;
@@ -15,39 +15,42 @@
       font-size: 5em;
       text-align: center;
     }
-    #tips {
-      margin-top: 30px;
-      width: 100%;
-      background-color: #111;
+    #help {
+      background-color: rgba(255, 255, 255, 0.1);
       color: white;
-      border: none;
-      resize: none;
-      overflow: hidden;
-      font-size: 1.2em;
       padding: 10px;
+      margin-top: 20px;
+      max-height: 400px;
+      overflow-y: auto;
     }
   </style>
 </head>
 <body>
 
   <div id="countdown">00:00</div>
-  <textarea id="tips" readonly></textarea>
+  <div id="help"></div>
 
-  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
   <script>
-    const socket = io("http://localhost:3000");
-    const countdown = document.getElementById("countdown");
-    const tips = document.getElementById("tips");
+    function updateCountdown() {
+      const time = JSON.parse(localStorage.getItem('time'));
+      if (time) {
+        document.getElementById("countdown").textContent = `${time.minutes}:${time.seconds}`;
+      }
+    }
 
-    socket.on("updateTime", (data) => {
-      countdown.textContent = data;
-    });
+    function updateHelpMessage() {
+      const helpMessage = localStorage.getItem("helpMessage");
+      if (helpMessage) {
+        document.getElementById("help").textContent = helpMessage;
+      }
+    }
 
-    socket.on("newTip", (text) => {
-      tips.value += text + '\n';
-      tips.style.height = 'auto';
-      tips.style.height = (tips.scrollHeight) + "px";
-    });
+    // 1 másodpercenként frissítjük az órát és a segítséget
+    setInterval(() => {
+      updateCountdown();
+      updateHelpMessage();
+    }, 1000);
   </script>
+
 </body>
 </html>
