@@ -2,110 +2,52 @@
 <html lang="hu">
 <head>
   <meta charset="UTF-8">
-  <title>Szabadulószoba Felület</title>
+  <title>Szoba</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      background-color: black;
+      color: white;
+      font-family: monospace;
       padding: 20px;
-      background-color: #f2f2f2;
-    }
-    h1 {
-      text-align: center;
     }
     #countdown {
-      font-size: 2em;
+      color: red;
+      font-size: 5em;
       text-align: center;
-      margin-bottom: 30px;
     }
-    textarea {
+    #tips {
+      margin-top: 30px;
       width: 100%;
-      min-height: 50px;
+      background-color: #111;
+      color: white;
+      border: none;
       resize: none;
       overflow: hidden;
-      font-size: 1em;
+      font-size: 1.2em;
       padding: 10px;
-      box-sizing: border-box;
-    }
-    #code-section {
-      margin-top: 20px;
-    }
-    input[type="text"] {
-      width: 200px;
-      padding: 10px;
-      font-size: 1em;
-    }
-    button {
-      padding: 10px 15px;
-      font-size: 1em;
-    }
-    #message {
-      margin-top: 15px;
-      font-weight: bold;
-      color: green;
     }
   </style>
 </head>
 <body>
 
-  <h1>RoomX Szabadulószoba</h1>
-
-  <div id="countdown">60:00</div>
-
-  <h3>Játékmester tippjei:</h3>
+  <div id="countdown">00:00</div>
   <textarea id="tips" readonly></textarea>
 
-  <div id="code-section">
-    <h3>Kód ellenőrzése:</h3>
-    <input type="text" id="codeInput" placeholder="Írd be a kódot">
-    <button onclick="checkCode()">Ellenőriz</button>
-    <div id="message"></div>
-  </div>
-
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
   <script>
-    // Automatikusan növekvő textarea
-    const tipsArea = document.getElementById('tips');
-    function addTip(text) {
-      tipsArea.value += text + '\n';
-      tipsArea.style.height = 'auto';
-      tipsArea.style.height = (tipsArea.scrollHeight) + "px";
-    }
+    const socket = io("http://localhost:3000");
+    const countdown = document.getElementById("countdown");
+    const tips = document.getElementById("tips");
 
-    // Példa: tipp fogadása (ide játékmesteri rendszerből lehet küldeni)
-    setTimeout(() => addTip("Nézzetek körül az óra alatt..."), 5000);
-    setTimeout(() => addTip("Talán a könyvek rejtenek valamit."), 10000);
+    socket.on("updateTime", (data) => {
+      countdown.textContent = data;
+    });
 
-    // Kód ellenőrzés
-    const correctCode = "1234"; // Ezt állítsd át, amire kell
-    function checkCode() {
-      const input = document.getElementById('codeInput').value;
-      const msg = document.getElementById('message');
-      if (input === correctCode) {
-        msg.textContent = "Helyes kód! Tovább léphettek!";
-        msg.style.color = "green";
-      } else {
-        msg.textContent = "Hibás kód.";
-        msg.style.color = "red";
-      }
-    }
-
-    // Visszaszámláló
-    let timeLeft = 60 * 60; // 60 perc másodpercben
-    const countdownEl = document.getElementById("countdown");
-
-    function updateCountdown() {
-      const minutes = Math.floor(timeLeft / 60);
-      const seconds = timeLeft % 60;
-      countdownEl.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-      if (timeLeft > 0) {
-        timeLeft--;
-        setTimeout(updateCountdown, 1000);
-      } else {
-        countdownEl.textContent = "Lejárt az idő!";
-      }
-    }
-
-    updateCountdown();
+    socket.on("newTip", (text) => {
+      tips.value += text + '\n';
+      tips.style.height = 'auto';
+      tips.style.height = (tips.scrollHeight) + "px";
+    });
   </script>
-
 </body>
 </html>
