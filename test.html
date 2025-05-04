@@ -23,12 +23,35 @@
       max-height: 400px;
       overflow-y: auto;
     }
+    #code-container {
+      margin-top: 20px;
+      text-align: center;
+    }
+    #code-input {
+      padding: 10px;
+      font-size: 18px;
+      width: 100px;
+    }
+    #code-message {
+      color: green;
+      font-size: 20px;
+      margin-top: 20px;
+      display: none;
+    }
   </style>
 </head>
 <body>
 
   <div id="countdown">00:00</div>
   <div id="help"></div>
+
+  <!-- Kód bevitele -->
+  <div id="code-container">
+    <h3>Írj be egy 4 számjegyű kódot:</h3>
+    <input type="text" id="code-input" maxlength="4" placeholder="4569">
+    <button onclick="checkCode()">Ellenőrzés</button>
+    <div id="code-message"></div>
+  </div>
 
   <script>
     function updateCountdown() {
@@ -42,6 +65,22 @@
       const helpMessage = localStorage.getItem("helpMessage");
       if (helpMessage) {
         document.getElementById("help").textContent = helpMessage;
+      }
+    }
+
+    function checkCode() {
+      const inputCode = document.getElementById("code-input").value;
+      const correctCode = "4569";
+      const messageDiv = document.getElementById("code-message");
+
+      if (inputCode === correctCode) {
+        messageDiv.textContent = "MOST VAGY SOHA!";
+        messageDiv.style.color = "green";
+        messageDiv.style.display = "block";
+      } else {
+        messageDiv.textContent = "A kód helytelen, próbáld újra!";
+        messageDiv.style.color = "red";
+        messageDiv.style.display = "block";
       }
     }
 
