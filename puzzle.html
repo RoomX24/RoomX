@@ -74,6 +74,14 @@
 
   <script>
     let correctPairs = 0;
+    const pairs = {
+      "Amanda": "2009",
+      "David": "2015",
+      "Nikol": "2019",
+      "Kristina": "2001",
+      "Adam": "2006",
+      "Gabriel": "2011"
+    };
 
     // Az elemek már az elején is összekeverve lesznek
     window.onload = function() {
@@ -91,48 +99,15 @@
     function drop(event) {
       event.preventDefault();
       const draggedId = event.dataTransfer.getData("text");
+      const draggedElement = document.getElementById(draggedId);
       const droppedElement = event.target;
 
-      // Az elem id-jét használjuk a helyes párosítás ellenőrzésére
-      if (droppedElement.id === "year1" && draggedId === "name1" ||
-          droppedElement.id === "year2" && draggedId === "name2" ||
-          droppedElement.id === "year3" && draggedId === "name3" ||
-          droppedElement.id === "year4" && draggedId === "name4" ||
-          droppedElement.id === "year5" && draggedId === "name5" ||
-          droppedElement.id === "year6" && draggedId === "name6") {
+      // Ellenőrizzük, hogy a felhasználó helyes párosítást végzett-e
+      const draggedText = draggedElement.textContent;
+      const droppedText = droppedElement.textContent;
+
+      if (pairs[draggedText] === droppedText) {
         correctPairs++;
-        droppedElement.style.backgroundColor = "#4CAF50"; // Zöldre vált, ha helyes
-        document.getElementById(draggedId).style.backgroundColor = "#4CAF50"; // A húzott elem is zöldre vált
+        droppedElement.style.backgroundColor = "#4CAF50"; // Zöld
+        draggedElement.style.backgroundColor = "#4CAF50"; // Zöld
       } else {
-        // Helytelen párosítás, keverjük össze az elemeket
-        shuffleElements();
-        droppedElement.style.backgroundColor = "#F44336"; // Pirosra vált, ha helytelen
-        document.getElementById(draggedId).style.backgroundColor = "#F44336"; // A húzott elem is pirosra vált
-      }
-
-      if (correctPairs === 6) {
-        document.getElementById("message").style.display = "block";
-      }
-    }
-
-    function shuffleElements() {
-      const names = ["Amanda", "David", "Nikol", "Kristina", "Adam", "Gabriel"];
-      const years = ["2009", "2015", "2019", "2001", "2006", "2011"];
-
-      // Véletlenszerűen keverjük össze a neveket
-      for (let i = names.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [names[i], names[j]] = [names[j], names[i]];
-      }
-
-      // Véletlenszerűen keverjük össze az évszámokat
-      for (let i = years.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [years[i], years[j]] = [years[j], years[i]];
-      }
-
-      // Frissítjük az HTML elemeket az új sorrenddel
-      const nameElements = document.getElementById("names-container").children;
-      const yearElements = document.getElementById("years-container").children;
-
-      for (let i = 0; i < nameElements.length; i++)
