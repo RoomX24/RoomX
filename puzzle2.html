@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <title>Idősorrend játék</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: sans-serif;
+      text-align: center;
+      padding: 30px;
+    }
+
+    h1 {
+      color: red;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      width: 300px;
+      margin: 0 auto;
+    }
+
+    li {
+      padding: 15px;
+      margin: 10px;
+      background-color: #333;
+      border: 2px solid #888;
+      font-size: 20px;
+      cursor: move;
+    }
+
+    .correct {
+      background-color: green;
+      color: white;
+    }
+
+    #result {
+      font-size: 36px;
+      color: red;
+      margin-top: 40px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Rendezd időrendi sorrendbe a neveket</h1>
+
+<ul id="name-list" ondragover="event.preventDefault()">
+  <!-- JavaScript tölti ki -->
+</ul>
+
+<div id="result">NEM MENEKÜLSZ</div>
+
+<script>
+  const people = [
+    { name: "Amanda", year: 2009 },
+    { name: "David", year: 2015 },
+    { name: "Nikol", year: 2019 },
+    { name: "Kristina", year: 2001 },
+    { name: "Adam", year: 2006 },
+    { name: "Gabriel", year: 2011 }
+  ];
+
+  // Véletlen sorrend
+  const shuffled = [...people].sort(() => Math.random() - 0.5);
+  const list = document.getElementById("name-list");
+  const result = document.getElementById("result");
+
+  let dragSrcEl = null;
+
+  shuffled.forEach(person => {
+    const li = document.createElement("li");
+    li.textContent = person.name;
+    li.setAttribute("draggable", true);
+    li.dataset.name = person.name;
+    li.addEventListener("dragstart", function () {
+      dragSrcEl = this;
+    });
+
+    li.addEventListener("drop", function (e) {
+      e.preventDefault();
+      if (dragSrcEl !== this) {
+        const temp = dragSrcEl.textContent;
+        dragSrcEl.textContent = this.textContent;
+        this.textContent = temp;
+
+        const tempData = dragSrcEl.dataset.name;
+        dragSrcEl.dataset.name = this.dataset.name;
+        this.dataset.name = tempData;
+
+        checkOrder();
+      }
+    });
+
+    list.appendChild(li);
+  });
+
+  function checkOrder() {
+    const items = list.querySelectorAll("li");
+    const current = Array.from(items).map(li => li.dataset.name);
+
+    const correct = [...people]
+      .sort((a, b) => a.year - b.year)
+      .map(p => p.name);
+
+    const allCorrect = current.every((name, i) => name === correct[i]);
+
+    if (allCorrect) {
+      result.style.display = "block";
+    } else {
+      result.style.display = "none";
+    }
+  }
+</script>
+
+</body>
+</html>
