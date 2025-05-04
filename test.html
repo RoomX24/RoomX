@@ -45,6 +45,22 @@
       font-size: 18px;
       margin-top: 10px;
     }
+    #startButton {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: green;
+      color: white;
+      border: none;
+      font-size: 18px;
+    }
+    #stopButton {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: blue;
+      color: white;
+      border: none;
+      font-size: 18px;
+    }
   </style>
 </head>
 <body>
@@ -57,8 +73,15 @@
   <input type="text" id="codeInput" placeholder="Írd be a kódot..." />
   <button id="codeButton" onclick="checkCode()">Kód Ellenőrzése</button>
 
+  <!-- Indítás és leállítás gombok -->
+  <button id="startButton" onclick="startTimer()">Óra Indítása</button>
+  <button id="stopButton" onclick="stopTimer()">Óra Leállítása</button>
+
   <script>
     const correctCode = "1546"; // A helyes kód, amit be kell írni
+    let codeUsed = false; // A kód használatának állapota
+    let timerStarted = false; // Az óra állapota
+    let timerStopped = false; // Az óra leállásának állapota
 
     // Formázza az időt
     function formatTime(seconds) {
@@ -101,23 +124,60 @@
         return;
       }
 
-      if (enteredCode === correctCode) {
-        // Helyes kód, adjunk hozzá 5 percet
-        alert("Helyes kód! +5 perc!");
-        if (!countdownEnd) {
-          countdownEnd = Date.now() + 5 * 60 * 1000; // Ha még nincs időzítő, beállítjuk
+      // Ha az óra elindult, de még nem állt le, akkor engedélyezze a kódot egyszeri használatra
+      if (timerStarted && !timerStopped && !codeUsed) {
+        if (enteredCode === correctCode) {
+          // Helyes kód, adjunk hozzá 5 percet
+          alert("Helyes kód! +5 perc!");
+          if (!countdownEnd) {
+            countdownEnd = Date.now() + 5 * 60 * 1000; // Ha még nincs időzítő, beállítjuk
+          } else {
+            countdownEnd = Number(countdownEnd) + 5 * 60 * 1000;
+          }
+          codeUsed = true; // A kód használata
+          document.getElementById("codeInput").disabled = true; // Kód mező letiltása
         } else {
-          countdownEnd = Number(countdownEnd) + 5 * 60 * 1000;
+          // Hibás kód, vegyünk el 5 percet
+          alert("Hibás kód! -5 perc!");
+          countdownEnd = Number(countdownEnd) - 5 * 60 * 1000;
         }
+
+        localStorage.setItem("countdownEnd", countdownEnd);
+        document.getElementById("codeInput").value = ""; // Kód mező törlése
+        updateView(); // Frissítés
+      } else if (timerStopped) {
+        alert("Az óra leállt, már nem használható a kód.");
+      } else if (codeUsed) {
+        alert("A kódot már egyszer használták.");
       } else {
-        // Hibás kód, vegyünk el 5 percet
-        alert("Hibás kód! -5 perc!");
-        countdownEnd = Number(countdownEnd) - 5 * 60 * 1000;
+        alert("Az óra nem indult el.");
+      }
+    }
+
+    // Óra indítása
+    function startTimer() {
+      if (timerStarted) {
+        alert("Az óra már elindult.");
+        return;
       }
 
+      // Indítsuk el az időzítőt
+      const countdownEnd = Date.now() + 5 * 60 * 1000; // 5 perc
       localStorage.setItem("countdownEnd", countdownEnd);
-      document.getElementById("codeInput").value = ""; // Kód mező törlése
+      localStorage.setItem("timerStarted", "true");
+      timerStarted = true; // Az óra elindult
       updateView(); // Frissítés
+    }
+
+    // Óra leállítása
+    function stopTimer() {
+      if (!timerStarted) {
+        alert("Az óra még nem indult el.");
+        return;
+      }
+
+      timerStopped = true; // Az óra leállt
+      alert("Az óra leállt.");
     }
 
     // Frissíti a nézetet minden másodpercben
