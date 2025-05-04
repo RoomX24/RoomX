@@ -2,41 +2,34 @@
 <html lang="hu">
 <head>
   <meta charset="UTF-8">
-  <title>Párosító játék</title>
+  <title>Párosító játék – Legördülő menü</title>
   <style>
     body {
       background-color: #111;
       color: white;
       font-family: sans-serif;
-      padding: 20px;
+      padding: 30px;
       text-align: center;
     }
-    .container {
-      display: flex;
-      justify-content: center;
-      gap: 100px;
-      margin-top: 40px;
-    }
-    .box {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-    .draggable, .dropzone {
-      padding: 10px 20px;
-      border: 2px solid white;
-      background-color: #333;
-      border-radius: 10px;
-      cursor: move;
+    table {
+      margin: 0 auto;
+      border-collapse: collapse;
       font-size: 20px;
-      min-width: 120px;
-      user-select: none;
     }
-    .dropzone.correct {
+    th, td {
+      padding: 15px;
+    }
+    select {
+      font-size: 18px;
+      padding: 5px;
+    }
+    .correct {
       background-color: green;
+      color: white;
     }
-    .dropzone.wrong {
+    .wrong {
       background-color: red;
+      color: white;
     }
   </style>
 </head>
@@ -44,47 +37,69 @@
 
 <h1>Párosítsd a neveket a születési évükkel</h1>
 
-<div class="container">
-  <div class="box" id="names">
-    <div class="draggable" draggable="true" data-name="Amanda">Amanda</div>
-    <div class="draggable" draggable="true" data-name="David">David</div>
-    <div class="draggable" draggable="true" data-name="Nikol">Nikol</div>
-    <div class="draggable" draggable="true" data-name="Kristina">Kristina</div>
-    <div class="draggable" draggable="true" data-name="Adam">Adam</div>
-    <div class="draggable" draggable="true" data-name="Gabriel">Gabriel</div>
-  </div>
-
-  <div class="box" id="years">
-    <div class="dropzone" data-name="Adam">2006</div>
-    <div class="dropzone" data-name="Amanda">2009</div>
-    <div class="dropzone" data-name="Gabriel">2011</div>
-    <div class="dropzone" data-name="David">2015</div>
-    <div class="dropzone" data-name="Nikol">2019</div>
-    <div class="dropzone" data-name="Kristina">2001</div>
-  </div>
-</div>
+<table>
+  <thead>
+    <tr>
+      <th>Név</th>
+      <th>Évszám</th>
+    </tr>
+  </thead>
+  <tbody id="game-table">
+    <!-- JavaScript tölti ki -->
+  </tbody>
+</table>
 
 <script>
-  let draggedItem = null;
+  const pairs = {
+    "Amanda": "2009",
+    "David": "2015",
+    "Nikol": "2019",
+    "Kristina": "2001",
+    "Adam": "2006",
+    "Gabriel": "2011"
+  };
 
-  document.querySelectorAll('.draggable').forEach(elem => {
-    elem.addEventListener('dragstart', e => {
-      draggedItem = elem;
+  const years = Object.values(pairs).sort(() => Math.random() - 0.5);
+
+  const tbody = document.getElementById('game-table');
+
+  Object.keys(pairs).forEach(name => {
+    const tr = document.createElement('tr');
+    const tdName = document.createElement('td');
+    tdName.textContent = name;
+
+    const tdSelect = document.createElement('td');
+    const select = document.createElement('select');
+
+    const defaultOption = document.createElement('option');
+    defaultOption.text = "Válassz évszámot";
+    defaultOption.disabled = true;
+    defaultOption.selected = true;
+    select.appendChild(defaultOption);
+
+    years.forEach(year => {
+      const option = document.createElement('option');
+      option.value = year;
+      option.text = year;
+      select.appendChild(option);
     });
+
+    select.addEventListener('change', () => {
+      if (select.value === pairs[name]) {
+        select.classList.add("correct");
+        select.classList.remove("wrong");
+      } else {
+        select.classList.add("wrong");
+        select.classList.remove("correct");
+      }
+    });
+
+    tdSelect.appendChild(select);
+    tr.appendChild(tdName);
+    tr.appendChild(tdSelect);
+    tbody.appendChild(tr);
   });
+</script>
 
-  document.querySelectorAll('.dropzone').forEach(zone => {
-    zone.addEventListener('dragover', e => {
-      e.preventDefault();
-    });
-
-    zone.addEventListener('drop', e => {
-      if (!draggedItem) return;
-
-      // Megnézzük, hogy helyes-e
-      const name = draggedItem.getAttribute('data-name');
-      const correctName = zone.getAttribute('data-name');
-
-      zone.textContent = `${zone.textContent} ← ${name}`;
-
-      if (name
+</body>
+</html>
