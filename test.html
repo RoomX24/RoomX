@@ -1,7 +1,8 @@
+<!-- Szoba felület számzár szimulátorral (adminhoz csatlakozva) -->
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Szoba Felület</title>
   <style>
     body {
@@ -24,24 +25,25 @@
       border-radius: 8px;
       max-width: 80%;
       word-wrap: break-word;
-      resize: none;
-      overflow: hidden;
       width: 60%;
-      height: auto;
-      min-height: 40px;
-      line-height: 1.5;
     }
-    #helpButton {
-      padding: 10px;
-      background-color: blue;
-      color: white;
-      border: none;
-      font-size: 18px;
-      margin-top: 20px;
+    #codeInput {
+      margin-top: 30px;
     }
-    #helpCount {
+    input[type="text"] {
       font-size: 20px;
+      padding: 5px;
+      width: 100px;
+      text-align: center;
+    }
+    button {
+      font-size: 18px;
+      padding: 8px 16px;
       margin-top: 10px;
+    }
+    #helpCount, #remainingHelp {
+      margin-top: 20px;
+      font-size: 20px;
     }
   </style>
 </head>
@@ -49,82 +51,85 @@
   <div id="countdown">00:00</div>
   <div id="tip">Tipp: (nincs még megadva)</div>
 
-  <hr>
-
-  <!-- Segítségkérés gomb -->
-  <button id="helpButton" onclick="requestHelp()">Segítség Kérés</button>
-  <div id="helpCount">Segítség kérések: 3</div>
-  <div id="remainingHelp">Maradó segítségkérések: 3</div>
+  <!-- Számzár szimulátor -->
+  <div id="codeInput">
+    <input type="text" id="code" maxlength="4" placeholder="Kód">
+    <button onclick="checkCode()">Kód bevitel</button>
+  </div>
 
   <script>
-    let timerStarted = false; // Az óra állapota
-    let helpRequests = 3; // Segítségkérések száma
+    let correctCode = "4629";
+    let codeUsedThisRun = false;
+    let codeAttempts = 0;
+    let maxAttempts = 3;
+    let lastStartTime = 0;
 
-    // Formázza az időt
     function formatTime(seconds) {
       const m = Math.floor(seconds / 60);
       const s = seconds % 60;
       return `${m}:${s.toString().padStart(2, '0')}`;
     }
 
-    // Frissíti a visszaszámlálót és a tippet
     function updateView() {
       const end = localStorage.getItem("countdownEnd");
+      const start = localStorage.getItem("countdownStart");
       const countdownEl = document.getElementById("countdown");
+
+      if (start != lastStartTime) {
+        // Új óra indítás, reseteljük a kódot
+        codeUsedThisRun = false;
+        codeAttempts = 0;
+        lastStartTime = start;
+      }
+
       if (!end) {
         countdownEl.textContent = "00:00";
       } else {
         const remaining = Math.floor((end - Date.now()) / 1000);
-        if (remaining <= 0) {
-          countdownEl.textContent = "00:00";
-        } else {
-          countdownEl.textContent = formatTime(remaining);
-        }
+        countdownEl.textContent = remaining > 0 ? formatTime(remaining) : "00:00";
       }
 
       const tip = localStorage.getItem("roomTip");
       const tipEl = document.getElementById("tip");
-      if (tip) {
-        tipEl.textContent = "Tipp: " + tip;
-      } else {
-        tipEl.textContent = "Tipp: (nincs még megadva)";
+      tipEl.textContent = tip ? "Tipp: " + tip : "Tipp: (nincs még megadva)";
+    }
+
+    function checkCode() {
+      const input = document.getElementById("code").value;
+      const end = parseInt(localStorage.getItem("countdownEnd"));
+      const start = localStorage.getItem("countdownStart");
+
+      if (!end || Date.now() > end || !start) {
+        alert("Az idő már lejárt, vagy az óra nincs elindítva.");
+        return;
       }
 
-      // Frissíti a segítség kérések számát
-      const helpCountEl = document.getElementById("helpCount");
-      helpCountEl.textContent = "Segítség kérések: " + helpRequests;
-
-      // Frissíti a maradó segítségkéréseket
-      const remainingHelpEl = document.getElementById("remainingHelp");
-      remainingHelpEl.textContent = "Maradó segítségkérések: " + helpRequests;
-    }
-
-    // Segítségkérés
-    function requestHelp() {
-      if (helpRequests > 0) {
-        
-        helpRequests--;
-        updateView(); // Frissítés
-      } else {
-        alert("Már nem kérhetsz segítséget!");
+      if (start != lastStartTime) {
+        // új óraindítás történt
+        codeUsedThisRun = false;
+        codeAttempts = 0;
+        lastStartTime = start;
       }
+
+      if (codeUsedThisRun || codeAttempts >= maxAttempts) {
+        alert("A számzár nem használható többször.");
+        return;
+      }
+
+      if (input === correctCode) {
+        localStorage.setItem("countdownEnd", end + 5 * 60 * 1000);
+        alert("Helyes kód! +5 perc hozzáadva.");
+        codeUsedThisRun = true;
+      } else {
+        localStorage.setItem("countdownEnd", end - 3 * 60 * 1000);
+        codeAttempts++;
+        alert(`Helytelen kód! -3 perc levonva. Hátralévő próbálkozások: ${maxAttempts - codeAttempts}`);
+      }
+
+      updateView();
     }
 
-    // Óra indítása
-    function startTimer() {
-      timerStarted = true;
-      const countdownEnd = Date.now() + 60 * 60 * 1000; // 1 óra
-      localStorage.setItem("countdownEnd", countdownEnd);
-      updateView();
-      helpRequests = 3; // Segítségkérések számának nullázása
-      localStorage.setItem("helpRequests", helpRequests);
-    }
-
-    // Frissíti a nézetet minden másodpercben
-    setInterval(function() {
-      updateView();
-    }, 1000);
-
+    setInterval(updateView, 1000);
     updateView();
   </script>
 </body>
