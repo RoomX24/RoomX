@@ -2,8 +2,7 @@
 <html lang="hu">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nevek és Évek Párosítása</title>
+  <title>Párosító játék – RoomX</title>
   <style>
     body {
       background-color: black;
@@ -22,7 +21,7 @@
 
     .item {
       width: 150px;
-      height: 150px;
+      height: 100px;
       background-color: #333;
       border: 2px solid #fff;
       margin: 10px;
@@ -43,38 +42,37 @@
       display: none;
       font-size: 40px;
       color: lime;
-      margin-top: 20px;
+      margin-top: 30px;
     }
   </style>
 </head>
 <body>
 
   <h1>Nevek és Évek Párosítása</h1>
-  <p>Párosítsd a neveket az évszámokkal! Húzd és ejtsd őket a megfelelő helyre.</p>
-  
+  <p>Húzd a neveket a megfelelő évszámhoz!</p>
+
   <div class="container" id="names-container">
-    <div class="item" id="name1" draggable="true" ondragstart="drag(event)">Amanda</div>
-    <div class="item" id="name2" draggable="true" ondragstart="drag(event)">David</div>
-    <div class="item" id="name3" draggable="true" ondragstart="drag(event)">Nikol</div>
-    <div class="item" id="name4" draggable="true" ondragstart="drag(event)">Kristina</div>
-    <div class="item" id="name5" draggable="true" ondragstart="drag(event)">Adam</div>
-    <div class="item" id="name6" draggable="true" ondragstart="drag(event)">Gabriel</div>
+    <div class="item" draggable="true" ondragstart="drag(event)">Amanda</div>
+    <div class="item" draggable="true" ondragstart="drag(event)">David</div>
+    <div class="item" draggable="true" ondragstart="drag(event)">Nikol</div>
+    <div class="item" draggable="true" ondragstart="drag(event)">Kristina</div>
+    <div class="item" draggable="true" ondragstart="drag(event)">Adam</div>
+    <div class="item" draggable="true" ondragstart="drag(event)">Gabriel</div>
   </div>
 
   <div class="container" id="years-container">
-    <div class="item droppable" id="year1" ondrop="drop(event)" ondragover="allowDrop(event)">2009</div>
-    <div class="item droppable" id="year2" ondrop="drop(event)" ondragover="allowDrop(event)">2015</div>
-    <div class="item droppable" id="year3" ondrop="drop(event)" ondragover="allowDrop(event)">2019</div>
-    <div class="item droppable" id="year4" ondrop="drop(event)" ondragover="allowDrop(event)">2001</div>
-    <div class="item droppable" id="year5" ondrop="drop(event)" ondragover="allowDrop(event)">2006</div>
-    <div class="item droppable" id="year6" ondrop="drop(event)" ondragover="allowDrop(event)">2011</div>
+    <div class="item droppable" ondrop="drop(event)" ondragover="allowDrop(event)">2009</div>
+    <div class="item droppable" ondrop="drop(event)" ondragover="allowDrop(event)">2015</div>
+    <div class="item droppable" ondrop="drop(event)" ondragover="allowDrop(event)">2019</div>
+    <div class="item droppable" ondrop="drop(event)" ondragover="allowDrop(event)">2001</div>
+    <div class="item droppable" ondrop="drop(event)" ondragover="allowDrop(event)">2006</div>
+    <div class="item droppable" ondrop="drop(event)" ondragover="allowDrop(event)">2011</div>
   </div>
 
-  <div id="message" class="message">Nem menekülsz!</div>
+  <div class="message" id="message">Nem menekülsz!</div>
 
   <script>
-    let correctPairs = 0;
-    const pairs = {
+    const correctPairs = {
       "Amanda": "2009",
       "David": "2015",
       "Nikol": "2019",
@@ -83,71 +81,40 @@
       "Gabriel": "2011"
     };
 
-    // Kezdeti keverés
-    window.onload = function() {
-      shuffleElements();
-    };
+    let matched = 0;
 
-    function allowDrop(event) {
-      event.preventDefault();
+    function allowDrop(ev) {
+      ev.preventDefault();
     }
 
-    function drag(event) {
-      event.dataTransfer.setData("text", event.target.id);
+    function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.textContent);
     }
 
-    function drop(event) {
-      event.preventDefault();
-      const draggedId = event.dataTransfer.getData("text");
-      const draggedElement = document.getElementById(draggedId);
-      const droppedElement = event.target;
+    function drop(ev) {
+      ev.preventDefault();
+      const draggedName = ev.dataTransfer.getData("text");
+      const targetYear = ev.target.textContent;
 
-      const draggedText = draggedElement.textContent;
-      const droppedText = droppedElement.textContent;
-
-      if (pairs[draggedText] === droppedText) {
-        correctPairs++;
-        droppedElement.style.backgroundColor = "#4CAF50"; // Zöld
-        draggedElement.style.backgroundColor = "#4CAF50"; // Zöld
+      if (correctPairs[draggedName] === targetYear) {
+        ev.target.style.backgroundColor = "#4CAF50";
+        ev.target.textContent = draggedName + " – " + targetYear;
+        ev.target.ondrop = null;
+        ev.target.ondragover = null;
+        matched++;
+        if (matched === 6) {
+          document.getElementById("message").style.display = "block";
+        }
       } else {
-        droppedElement.style.backgroundColor = "#F44336"; // Piros
-        draggedElement.style.backgroundColor = "#F44336"; // Piros
-        shuffleElements(); // Újra keverés
-      }
-
-      if (correctPairs === 6) {
-        document.getElementById("message").style.display = "block"; // Üzenet megjelenítése
+        ev.target.style.backgroundColor = "#F44336";
+        setTimeout(() => {
+          ev.target.style.backgroundColor = "#555";
+        }, 1000);
       }
     }
 
-    function shuffleElements() {
-      const names = ["Amanda", "David", "Nikol", "Kristina", "Adam", "Gabriel"];
-      const years = ["2009", "2015", "2019", "2001", "2006", "2011"];
-
-      // Véletlenszerű keverés
-      for (let i = names.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [names[i], names[j]] = [names[j], names[i]];
-      }
-
-      for (let i = years.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [years[i], years[j]] = [years[j], years[i]];
-      }
-
-      // Frissítjük a HTML elemeket
-      const nameElements = document.getElementById("names-container").children;
-      const yearElements = document.getElementById("years-container").children;
-
-      for (let i = 0; i < nameElements.length; i++) {
-        nameElements[i].textContent = names[i];
-      }
-
-      for (let i = 0; i < yearElements.length; i++) {
-        yearElements[i].textContent = years[i];
-      }
-    }
-  </script>
-
-</body>
-</html>
+    // Véletlen keverés
+    function shuffle(containerId) {
+      const container = document.getElementById(containerId);
+      const items = Array.from(container.children);
+      for (let i = items.length - 1; i > 0; i--) {
