@@ -75,7 +75,7 @@
   <script>
     let correctPairs = 0;
 
-    // Keverjük össze a neveket és évszámokat a játék elején
+    // Az elemek már az elején is összekeverve lesznek
     window.onload = function() {
       shuffleElements();
     };
@@ -135,15 +135,4 @@
       const nameElements = document.getElementById("names-container").children;
       const yearElements = document.getElementById("years-container").children;
 
-      for (let i = 0; i < nameElements.length; i++) {
-        nameElements[i].textContent = names[i];
-      }
-
-      for (let i = 0; i < yearElements.length; i++) {
-        yearElements[i].textContent = years[i];
-      }
-    }
-  </script>
-
-</body>
-</html>
+      for (let i = 0; i < nameElements.length; i++)
