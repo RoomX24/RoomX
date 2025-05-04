@@ -53,15 +53,21 @@
   <p>Párosítsd a neveket az évszámokkal! Húzd és ejtsd őket a megfelelő helyre.</p>
   
   <div class="container" id="names-container">
-    <div class="item" id="name1" draggable="true" ondragstart="drag(event)">Kristina</div>
-    <div class="item" id="name2" draggable="true" ondragstart="drag(event)">Adam</div>
-    <div class="item" id="name3" draggable="true" ondragstart="drag(event)">Gabriel</div>
+    <div class="item" id="name1" draggable="true" ondragstart="drag(event)">Amanda</div>
+    <div class="item" id="name2" draggable="true" ondragstart="drag(event)">David</div>
+    <div class="item" id="name3" draggable="true" ondragstart="drag(event)">Nikol</div>
+    <div class="item" id="name4" draggable="true" ondragstart="drag(event)">Kristina</div>
+    <div class="item" id="name5" draggable="true" ondragstart="drag(event)">Adam</div>
+    <div class="item" id="name6" draggable="true" ondragstart="drag(event)">Gabriel</div>
   </div>
 
   <div class="container" id="years-container">
-    <div class="item droppable" id="year1" ondrop="drop(event)" ondragover="allowDrop(event)">2001</div>
-    <div class="item droppable" id="year2" ondrop="drop(event)" ondragover="allowDrop(event)">2006</div>
-    <div class="item droppable" id="year3" ondrop="drop(event)" ondragover="allowDrop(event)">2011</div>
+    <div class="item droppable" id="year1" ondrop="drop(event)" ondragover="allowDrop(event)">2009</div>
+    <div class="item droppable" id="year2" ondrop="drop(event)" ondragover="allowDrop(event)">2015</div>
+    <div class="item droppable" id="year3" ondrop="drop(event)" ondragover="allowDrop(event)">2019</div>
+    <div class="item droppable" id="year4" ondrop="drop(event)" ondragover="allowDrop(event)">2001</div>
+    <div class="item droppable" id="year5" ondrop="drop(event)" ondragover="allowDrop(event)">2006</div>
+    <div class="item droppable" id="year6" ondrop="drop(event)" ondragover="allowDrop(event)">2011</div>
   </div>
 
   <div id="message" class="message">Nem menekülsz!</div>
@@ -90,7 +96,10 @@
       // Az elem id-jét használjuk a helyes párosítás ellenőrzésére
       if (droppedElement.id === "year1" && draggedId === "name1" ||
           droppedElement.id === "year2" && draggedId === "name2" ||
-          droppedElement.id === "year3" && draggedId === "name3") {
+          droppedElement.id === "year3" && draggedId === "name3" ||
+          droppedElement.id === "year4" && draggedId === "name4" ||
+          droppedElement.id === "year5" && draggedId === "name5" ||
+          droppedElement.id === "year6" && draggedId === "name6") {
         correctPairs++;
         droppedElement.style.backgroundColor = "#4CAF50"; // Zöldre vált, ha helyes
         document.getElementById(draggedId).style.backgroundColor = "#4CAF50"; // A húzott elem is zöldre vált
@@ -101,14 +110,14 @@
         document.getElementById(draggedId).style.backgroundColor = "#F44336"; // A húzott elem is pirosra vált
       }
 
-      if (correctPairs === 3) {
+      if (correctPairs === 6) {
         document.getElementById("message").style.display = "block";
       }
     }
 
     function shuffleElements() {
-      const names = ["Kristina", "Adam", "Gabriel"];
-      const years = ["2001", "2006", "2011"];
+      const names = ["Amanda", "David", "Nikol", "Kristina", "Adam", "Gabriel"];
+      const years = ["2009", "2015", "2019", "2001", "2006", "2011"];
 
       // Véletlenszerűen keverjük össze a neveket
       for (let i = names.length - 1; i > 0; i--) {
