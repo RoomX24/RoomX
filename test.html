@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <title>Szoba Felület</title>
+  <style>
+    body {
+      background-color: black;
+      color: red;
+      font-family: monospace;
+      text-align: center;
+      padding-top: 50px;
+    }
+    #countdown {
+      font-size: 64px;
+      margin-bottom: 40px;
+    }
+    #tip {
+      font-size: 28px;
+      background-color: red;
+      color: black;
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 8px;
+      max-width: 80%;
+      word-wrap: break-word;
+      resize: none;
+      overflow: hidden;
+      width: 60%;
+      height: auto;
+      min-height: 40px;
+      line-height: 1.5;
+    }
+    #chatBox {
+      background-color: black;
+      color: red;
+      width: 80%;
+      height: 200px;
+      margin: 20px auto;
+      overflow-y: scroll;
+      border: 2px solid red;
+      padding: 10px;
+      text-align: left;
+      font-size: 18px;
+    }
+    #chatInput {
+      width: 60%;
+      padding: 10px;
+      font-size: 18px;
+      margin-top: 10px;
+    }
+    #sendButton {
+      padding: 10px;
+      background-color: red;
+      color: black;
+      border: none;
+      font-size: 18px;
+    }
+    #codeInput {
+      margin-top: 20px;
+      font-size: 18px;
+      padding: 10px;
+      width: 60%;
+    }
+    #codeButton {
+      padding: 10px;
+      background-color: red;
+      color: black;
+      border: none;
+      font-size: 18px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="countdown">00:00</div>
+  <div id="tip">Tipp: (nincs még megadva)</div>
+
+  <hr>
+
+  <!-- Szobai Chat -->
+  <div id="chatBox"></div>
+
+  <input type="text" id="chatInput" placeholder="Írd be az üzenetet..." />
+  <button id="sendButton" onclick="sendMessage()">Küldés</button>
+
+  <hr>
+
+  <!-- Kód beírása -->
+  <input type="text" id="codeInput" placeholder="Írd be a kódot..." />
+  <button id="codeButton" onclick="checkCode()">Kód Ellenőrzése</button>
+
+  <script>
+    const correctCode = "12345"; // A helyes kód, amit be kell írni
+
+    // Formázza az időt
+    function formatTime(seconds) {
+      const m = Math.floor(seconds / 60);
+      const s = seconds % 60;
+      return `${m}:${s.toString().padStart(2, '0')}`;
+    }
+
+    // Frissíti a visszaszámlálót és a tippet
+    function updateView() {
+      const end = localStorage.getItem("countdownEnd");
+      const countdownEl = document.getElementById("countdown");
+      if (!end) {
+        countdownEl.textContent = "00:00";
+      } else {
+        const remaining = Math.floor((end - Date.now()) / 1000);
+        if (remaining <= 0) {
+          countdownEl.textContent = "00:00";
+        } else {
+          countdownEl.textContent = formatTime(remaining);
+        }
+      }
+
+      const tip = localStorage.getItem("roomTip");
+      const tipEl = document.getElementById("tip");
+      if (tip) {
+        tipEl.textContent = "Tipp: " + tip;
+      } else {
+        tipEl.textContent = "Tipp: (nincs még megadva)";
+      }
+    }
+
+    // Üzenet küldése a chatbe
+    function sendMessage() {
+      const message = document.getElementById("chatInput").value;
+      if (message.trim() === "") return; // Ha üres, nem küld el üzenetet
+      const messages = JSON.parse(localStorage.getItem("chatMessages")) || [];
+      messages.push(message);
+      localStorage.setItem("chatMessages", JSON.stringify(messages));
+      document.getElementById("chatInput").value = ""; // Üzenet törlése
+      updateChatBox(); // Chat frissítése
+    }
+
+    // A chat box frissítése
+    function updateChatBox() {
+      const chatMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
+      const chatBox = document.getElementById("chatBox");
+      chatBox.innerHTML = ""; // Üzenetek törlése
+
+      chatMessages.forEach(msg => {
+        const messageDiv = document.createElement("div");
+        messageDiv.textContent = msg;
+        chatBox.appendChild(messageDiv);
+      });
+
+      // Görgetés a legújabb üzenethez
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    // Kód ellenőrzése
+    function checkCode() {
+      const enteredCode = document.getElementById("codeInput").value;
+      let countdownEnd = localStorage.getItem("countdownEnd");
+
+      if (!enteredCode) {
+        alert("Kérlek, írd be a kódot!");
+        return;
+      }
+
+      if (enteredCode === correctCode) {
+        // Helyes kód, adjunk hozzá 5 percet
+        alert("Helyes kód! +5 perc!");
+        if (!countdownEnd) {
+          countdownEnd = Date.now() + 5 * 60 * 1000; // Ha még nincs időzítő, beállítjuk
+        } else {
+          countdownEnd = Number(countdownEnd) + 5 * 60 * 1000;
+        }
+      } else {
+        // Hibás kód, vegyünk el 5 percet
+        alert("Hibás kód! -5 perc!");
+        countdownEnd = Number(countdownEnd) - 5 * 60 * 1000;
+      }
+
+      localStorage.setItem("countdownEnd", countdownEnd);
+      document.getElementById("codeInput").value = ""; // Kód mező törlése
+      updateView(); // Frissítés
+    }
+
+    // Frissíti a nézetet és a chatet minden másodpercben
+    setInterval(function() {
+      updateView();
+      updateChatBox();
+    }, 1000);
+
+    updateView();
+    updateChatBox();
+  </script>
+</body>
+</html>
