@@ -42,11 +42,11 @@ const end = localStorage.getItem("countdownEnd");
 const countdownEl = document.getElementById("countdown");
 
 if (!end) {
-countdownEl.textContent = "00:00";
+countdownEl.textContent = "00:00:00";
 } else {
 const remaining = Math.floor((end - Date.now()) / 1000);
 if (remaining <= 0) {
-countdownEl.textContent = "00:00";
+countdownEl.textContent = "00:00:00";
 } else {
 countdownEl.textContent = formatTime(remaining);
 }
