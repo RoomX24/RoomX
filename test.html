@@ -1,136 +1,111 @@
-<!-- Szoba felület számzár szimulátorral (adminhoz csatlakozva) -->
 <!DOCTYPE html>
 <html lang="hu">
 <head>
   <meta charset="UTF-8">
-  <title>Szoba Felület</title>
+  <title>Szabadulószoba Felület</title>
   <style>
     body {
-      background-color: black;
-      color: red;
-      font-family: monospace;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f2f2f2;
+    }
+    h1 {
       text-align: center;
-      padding-top: 50px;
     }
     #countdown {
-      font-size: 64px;
-      margin-bottom: 40px;
+      font-size: 2em;
+      text-align: center;
+      margin-bottom: 30px;
     }
-    #tip {
-      font-size: 28px;
-      background-color: red;
-      color: black;
-      display: inline-block;
-      padding: 10px 20px;
-      border-radius: 8px;
-      max-width: 80%;
-      word-wrap: break-word;
-      width: 60%;
+    textarea {
+      width: 100%;
+      min-height: 50px;
+      resize: none;
+      overflow: hidden;
+      font-size: 1em;
+      padding: 10px;
+      box-sizing: border-box;
     }
-    #codeInput {
-      margin-top: 30px;
+    #code-section {
+      margin-top: 20px;
     }
     input[type="text"] {
-      font-size: 20px;
-      padding: 5px;
-      width: 100px;
-      text-align: center;
+      width: 200px;
+      padding: 10px;
+      font-size: 1em;
     }
     button {
-      font-size: 18px;
-      padding: 8px 16px;
-      margin-top: 10px;
+      padding: 10px 15px;
+      font-size: 1em;
     }
-    #helpCount, #remainingHelp {
-      margin-top: 20px;
-      font-size: 20px;
+    #message {
+      margin-top: 15px;
+      font-weight: bold;
+      color: green;
     }
   </style>
 </head>
 <body>
-  <div id="countdown">00:00</div>
-  <div id="tip">Tipp: (nincs még megadva)</div>
 
-  <!-- Számzár szimulátor -->
-  <div id="codeInput">
-    <input type="text" id="code" maxlength="4" placeholder="Kód">
-    <button onclick="checkCode()">Kód bevitel</button>
+  <h1>RoomX Szabadulószoba</h1>
+
+  <div id="countdown">60:00</div>
+
+  <h3>Játékmester tippjei:</h3>
+  <textarea id="tips" readonly></textarea>
+
+  <div id="code-section">
+    <h3>Kód ellenőrzése:</h3>
+    <input type="text" id="codeInput" placeholder="Írd be a kódot">
+    <button onclick="checkCode()">Ellenőriz</button>
+    <div id="message"></div>
   </div>
 
   <script>
-    let correctCode = "4629";
-    let codeUsedThisRun = false;
-    let codeAttempts = 0;
-    let maxAttempts = 3;
-    let lastStartTime = 0;
-
-    function formatTime(seconds) {
-      const m = Math.floor(seconds / 60);
-      const s = seconds % 60;
-      return `${m}:${s.toString().padStart(2, '0')}`;
+    // Automatikusan növekvő textarea
+    const tipsArea = document.getElementById('tips');
+    function addTip(text) {
+      tipsArea.value += text + '\n';
+      tipsArea.style.height = 'auto';
+      tipsArea.style.height = (tipsArea.scrollHeight) + "px";
     }
 
-    function updateView() {
-      const end = localStorage.getItem("countdownEnd");
-      const start = localStorage.getItem("countdownStart");
-      const countdownEl = document.getElementById("countdown");
+    // Példa: tipp fogadása (ide játékmesteri rendszerből lehet küldeni)
+    setTimeout(() => addTip("Nézzetek körül az óra alatt..."), 5000);
+    setTimeout(() => addTip("Talán a könyvek rejtenek valamit."), 10000);
 
-      if (start != lastStartTime) {
-        // Új óra indítás, reseteljük a kódot
-        codeUsedThisRun = false;
-        codeAttempts = 0;
-        lastStartTime = start;
-      }
-
-      if (!end) {
-        countdownEl.textContent = "00:00";
-      } else {
-        const remaining = Math.floor((end - Date.now()) / 1000);
-        countdownEl.textContent = remaining > 0 ? formatTime(remaining) : "00:00";
-      }
-
-      const tip = localStorage.getItem("roomTip");
-      const tipEl = document.getElementById("tip");
-      tipEl.textContent = tip ? "Tipp: " + tip : "Tipp: (nincs még megadva)";
-    }
-
+    // Kód ellenőrzés
+    const correctCode = "1234"; // Ezt állítsd át, amire kell
     function checkCode() {
-      const input = document.getElementById("code").value;
-      const end = parseInt(localStorage.getItem("countdownEnd"));
-      const start = localStorage.getItem("countdownStart");
-
-      if (!end || Date.now() > end || !start) {
-        alert("Az idő már lejárt, vagy az óra nincs elindítva.");
-        return;
-      }
-
-      if (start != lastStartTime) {
-        // új óraindítás történt
-        codeUsedThisRun = false;
-        codeAttempts = 0;
-        lastStartTime = start;
-      }
-
-      if (codeUsedThisRun || codeAttempts >= maxAttempts) {
-        alert("A számzár nem használható többször.");
-        return;
-      }
-
+      const input = document.getElementById('codeInput').value;
+      const msg = document.getElementById('message');
       if (input === correctCode) {
-        localStorage.setItem("countdownEnd", end + 5 * 60 * 1000);
-        alert("Helyes kód! +5 perc hozzáadva.");
-        codeUsedThisRun = true;
+        msg.textContent = "Helyes kód! Tovább léphettek!";
+        msg.style.color = "green";
       } else {
-        localStorage.setItem("countdownEnd", end - 3 * 60 * 1000);
-        codeAttempts++;
-        alert(`Helytelen kód! -3 perc levonva. Hátralévő próbálkozások: ${maxAttempts - codeAttempts}`);
+        msg.textContent = "Hibás kód.";
+        msg.style.color = "red";
       }
-
-      updateView();
     }
 
-    setInterval(updateView, 1000);
-    updateView();
+    // Visszaszámláló
+    let timeLeft = 60 * 60; // 60 perc másodpercben
+    const countdownEl = document.getElementById("countdown");
+
+    function updateCountdown() {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      countdownEl.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+      if (timeLeft > 0) {
+        timeLeft--;
+        setTimeout(updateCountdown, 1000);
+      } else {
+        countdownEl.textContent = "Lejárt az idő!";
+      }
+    }
+
+    updateCountdown();
   </script>
+
 </body>
 </html>
