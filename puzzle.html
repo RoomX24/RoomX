@@ -16,25 +16,25 @@
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
+      gap: 20px;
       margin-top: 20px;
     }
 
-    .item {
+    .name, .slot {
       width: 150px;
-      height: 100px;
+      height: 60px;
       background-color: #333;
       border: 2px solid #fff;
-      margin: 10px;
       display: flex;
       justify-content: center;
       align-items: center;
       color: white;
       font-size: 20px;
-      cursor: pointer;
+      cursor: grab;
       border-radius: 8px;
     }
 
-    .droppable {
+    .slot {
       background-color: #555;
     }
 
@@ -48,73 +48,19 @@
 </head>
 <body>
 
-  <h1>Nevek és Évek Párosítása</h1>
+  <h1>Ki mikor született?</h1>
   <p>Húzd a neveket a megfelelő évszámhoz!</p>
 
   <div class="container" id="names-container">
-    <div class="item" draggable="true" ondragstart="drag(event)">Amanda</div>
-    <div class="item" draggable="true" ondragstart="drag(event)">David</div>
-    <div class="item" draggable="true" ondragstart="drag(event)">Nikol</div>
-    <div class="item" draggable="true" ondragstart="drag(event)">Kristina</div>
-    <div class="item" draggable="true" ondragstart="drag(event)">Adam</div>
-    <div class="item" draggable="true" ondragstart="drag(event)">Gabriel</div>
+    <div class="name" draggable="true" id="Amanda" ondragstart="drag(event)">Amanda</div>
+    <div class="name" draggable="true" id="David" ondragstart="drag(event)">David</div>
+    <div class="name" draggable="true" id="Nikol" ondragstart="drag(event)">Nikol</div>
+    <div class="name" draggable="true" id="Kristina" ondragstart="drag(event)">Kristina</div>
+    <div class="name" draggable="true" id="Adam" ondragstart="drag(event)">Adam</div>
+    <div class="name" draggable="true" id="Gabriel" ondragstart="drag(event)">Gabriel</div>
   </div>
 
-  <div class="container" id="years-container">
-    <div class="item droppable" ondrop="drop(event)" ondragover="allowDrop(event)">2009</div>
-    <div class="item droppable" ondrop="drop(event)" ondragover="allowDrop(event)">2015</div>
-    <div class="item droppable" ondrop="drop(event)" ondragover="allowDrop(event)">2019</div>
-    <div class="item droppable" ondrop="drop(event)" ondragover="allowDrop(event)">2001</div>
-    <div class="item droppable" ondrop="drop(event)" ondragover="allowDrop(event)">2006</div>
-    <div class="item droppable" ondrop="drop(event)" ondragover="allowDrop(event)">2011</div>
-  </div>
-
-  <div class="message" id="message">Nem menekülsz!</div>
-
-  <script>
-    const correctPairs = {
-      "Amanda": "2009",
-      "David": "2015",
-      "Nikol": "2019",
-      "Kristina": "2001",
-      "Adam": "2006",
-      "Gabriel": "2011"
-    };
-
-    let matched = 0;
-
-    function allowDrop(ev) {
-      ev.preventDefault();
-    }
-
-    function drag(ev) {
-      ev.dataTransfer.setData("text", ev.target.textContent);
-    }
-
-    function drop(ev) {
-      ev.preventDefault();
-      const draggedName = ev.dataTransfer.getData("text");
-      const targetYear = ev.target.textContent;
-
-      if (correctPairs[draggedName] === targetYear) {
-        ev.target.style.backgroundColor = "#4CAF50";
-        ev.target.textContent = draggedName + " – " + targetYear;
-        ev.target.ondrop = null;
-        ev.target.ondragover = null;
-        matched++;
-        if (matched === 6) {
-          document.getElementById("message").style.display = "block";
-        }
-      } else {
-        ev.target.style.backgroundColor = "#F44336";
-        setTimeout(() => {
-          ev.target.style.backgroundColor = "#555";
-        }, 1000);
-      }
-    }
-
-    // Véletlen keverés
-    function shuffle(containerId) {
-      const container = document.getElementById(containerId);
-      const items = Array.from(container.children);
-      for (let i = items.length - 1; i > 0; i--) {
+  <div class="container" id="slots-container">
+    <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)" data-year="2009"></div>
+    <div class="slot" ondrop="drop(event)" ondragover="allowDrop(event)" data-year="2015"></div>
+    <div class="slot"
