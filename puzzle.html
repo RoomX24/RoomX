@@ -52,13 +52,13 @@
   <h1>Nevek és Évek Párosítása</h1>
   <p>Párosítsd a neveket az évszámokkal! Húzd és ejtsd őket a megfelelő helyre.</p>
   
-  <div class="container">
+  <div class="container" id="names-container">
     <div class="item" id="name1" draggable="true" ondragstart="drag(event)">Amanda</div>
     <div class="item" id="name2" draggable="true" ondragstart="drag(event)">David</div>
     <div class="item" id="name3" draggable="true" ondragstart="drag(event)">Nikol</div>
   </div>
 
-  <div class="container">
+  <div class="container" id="years-container">
     <div class="item droppable" id="year1" ondrop="drop(event)" ondragover="allowDrop(event)">2009</div>
     <div class="item droppable" id="year2" ondrop="drop(event)" ondragover="allowDrop(event)">2015</div>
     <div class="item droppable" id="year3" ondrop="drop(event)" ondragover="allowDrop(event)">2019</div>
@@ -90,13 +90,29 @@
         droppedElement.style.backgroundColor = "#4CAF50"; // Zöldre vált, ha helyes
         document.getElementById(draggedId).style.backgroundColor = "#4CAF50"; // A húzott elem is zöldre vált
       } else {
-        // Helytelen párosítás
+        // Helytelen párosítás, keverjük össze az elemeket
+        shuffleElements();
         droppedElement.style.backgroundColor = "#F44336"; // Pirosra vált, ha helytelen
         document.getElementById(draggedId).style.backgroundColor = "#F44336"; // A húzott elem is pirosra vált
       }
 
       if (correctPairs === 3) {
         document.getElementById("message").style.display = "block";
+      }
+    }
+
+    function shuffleElements() {
+      const namesContainer = document.getElementById("names-container");
+      const yearsContainer = document.getElementById("years-container");
+
+      // Keverjük össze a neveket
+      for (let i = namesContainer.children.length; i >= 0; i--) {
+        namesContainer.appendChild(namesContainer.children[Math.random() * i | 0]);
+      }
+
+      // Keverjük össze az évszámokat
+      for (let i = yearsContainer.children.length; i >= 0; i--) {
+        yearsContainer.appendChild(yearsContainer.children[Math.random() * i | 0]);
       }
     }
   </script>
