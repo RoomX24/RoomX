@@ -78,11 +78,18 @@
       if (time) {
         document.getElementById("countdown").textContent = `${time.minutes}:${time.seconds}`;
         
-        // Ha az idő kevesebb mint 10 perc, indítsuk el a villogást
-        if (time.minutes <= 10 && time.seconds <= 0) {
+        // Ha az idő kevesebb, mint 10 perc és minden percben villogjon
+        if (time.minutes <= 10) {
+          if (time.seconds === 0) { // Minden perc első másodperce
+            document.getElementById("countdown").classList.add("blinking");
+          } else {
+            document.getElementById("countdown").classList.remove("blinking");
+          }
+        }
+
+        // Ha az idő kevesebb mint 5 perc, folyamatosan villogjon
+        if (time.minutes <= 5) {
           document.getElementById("countdown").classList.add("blinking");
-        } else {
-          document.getElementById("countdown").classList.remove("blinking");
         }
       }
     }
