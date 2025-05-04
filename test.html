@@ -14,18 +14,18 @@
 
     #countdown {
       color: red;
-      font-size: 20px;
+      font-size: 250px;
       text-align: center;
     }
 
     #help {
-      background-color: rgba(255, 255, 255, 0.1);
-      color: white;
+      background-color: red;
+      color: black;
       padding: 10px;
       margin-top: 20px;
       max-height: 400px;
       overflow-y: auto;
-      font-size: 20px;
+      font-size: 50px;
     }
 
     #code-container {
@@ -51,10 +51,13 @@
   <div id="countdown">00:00</div>
   <div id="help"></div>
 
+
+
+
   <div id="code-container">
-    <h3>Írj be egy 4 számjegyű kódot:</h3>
-    <input type="text" id="code-input" maxlength="4" placeholder="4569">
-    <button onclick="checkCode()">Ellenőrzés</button>
+    <h3></h3>
+    <input type="text" id="code-input" maxlength="4" placeholder="****">
+    <button onclick="checkCode()">NEXT</button>
     <div id="code-message"></div>
   </div>
 
@@ -79,14 +82,15 @@
       const messageDiv = document.getElementById("code-message");
 
       if (inputCode === correctCode) {
-        messageDiv.textContent = "MOST VAGY SOHA!";
+        messageDiv.textContent = "12345678";
         messageDiv.style.color = "lime";
         messageDiv.style.display = "block";
+        font-size: 50px;
       } else {
-        messageDiv.textContent = "A kód helytelen, próbáld újra!";
+        messageDiv.textContent = "X";
         messageDiv.style.color = "red";
         messageDiv.style.display = "block";
-      }
+        font-size: 50px;      }
     }
 
     setInterval(() => {
