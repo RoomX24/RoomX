@@ -31,31 +31,6 @@
       min-height: 40px;
       line-height: 1.5;
     }
-    #chatBox {
-      background-color: black;
-      color: red;
-      width: 80%;
-      height: 200px;
-      margin: 20px auto;
-      overflow-y: scroll;
-      border: 2px solid red;
-      padding: 10px;
-      text-align: left;
-      font-size: 18px;
-    }
-    #chatInput {
-      width: 60%;
-      padding: 10px;
-      font-size: 18px;
-      margin-top: 10px;
-    }
-    #sendButton {
-      padding: 10px;
-      background-color: red;
-      color: black;
-      border: none;
-      font-size: 18px;
-    }
     #codeInput {
       margin-top: 20px;
       font-size: 18px;
@@ -78,20 +53,12 @@
 
   <hr>
 
-  <!-- Szobai Chat -->
-  <div id="chatBox"></div>
-
-  <input type="text" id="chatInput" placeholder="Írd be az üzenetet..." />
-  <button id="sendButton" onclick="sendMessage()">Küldés</button>
-
-  <hr>
-
   <!-- Kód beírása -->
   <input type="text" id="codeInput" placeholder="Írd be a kódot..." />
   <button id="codeButton" onclick="checkCode()">Kód Ellenőrzése</button>
 
   <script>
-    const correctCode = "12345"; // A helyes kód, amit be kell írni
+    const correctCode = "1546"; // A helyes kód, amit be kell írni
 
     // Formázza az időt
     function formatTime(seconds) {
@@ -124,33 +91,6 @@
       }
     }
 
-    // Üzenet küldése a chatbe
-    function sendMessage() {
-      const message = document.getElementById("chatInput").value;
-      if (message.trim() === "") return; // Ha üres, nem küld el üzenetet
-      const messages = JSON.parse(localStorage.getItem("chatMessages")) || [];
-      messages.push(message);
-      localStorage.setItem("chatMessages", JSON.stringify(messages));
-      document.getElementById("chatInput").value = ""; // Üzenet törlése
-      updateChatBox(); // Chat frissítése
-    }
-
-    // A chat box frissítése
-    function updateChatBox() {
-      const chatMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
-      const chatBox = document.getElementById("chatBox");
-      chatBox.innerHTML = ""; // Üzenetek törlése
-
-      chatMessages.forEach(msg => {
-        const messageDiv = document.createElement("div");
-        messageDiv.textContent = msg;
-        chatBox.appendChild(messageDiv);
-      });
-
-      // Görgetés a legújabb üzenethez
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
-
     // Kód ellenőrzése
     function checkCode() {
       const enteredCode = document.getElementById("codeInput").value;
@@ -180,14 +120,12 @@
       updateView(); // Frissítés
     }
 
-    // Frissíti a nézetet és a chatet minden másodpercben
+    // Frissíti a nézetet minden másodpercben
     setInterval(function() {
       updateView();
-      updateChatBox();
     }, 1000);
 
     updateView();
-    updateChatBox();
   </script>
 </body>
 </html>
