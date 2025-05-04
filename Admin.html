@@ -77,19 +77,30 @@ clearInterval(countdownFunction);
 }
 
 // Frissíti a visszaszámláló időt
-function updateCountdown() {
-if (timeLeft <= 0) {
-clearInterval(countdownFunction);
-document.getElementById("countdown").innerHTML = "A visszaszámlálás véget ért!";
-return;
-}
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin</title>
+</head>
+<body>
+  <h1>Admin</h1>
+  <label>Visszaszámlálás idő (másodperc):</label>
+  <input type="number" id="seconds" />
+  <button onclick="start()">Indítás</button>
+  <button onclick="stop()">Leállítás</button>
 
-let minutes = Math.floor(timeLeft / 60);
-let seconds = timeLeft % 60;
+  <script>
+    function start() {
+      const sec = parseInt(document.getElementById("seconds").value);
+      const endTime = Date.now() + sec * 1000;
+      localStorage.setItem("countdownEnd", endTime);
+    }
 
-document.getElementById("countdown").innerHTML = `Visszaszámlálás: ${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
-timeLeft--;
-}
-</script>
+    function stop() {
+      localStorage.removeItem("countdownEnd");
+    }
+  </script>
 </body>
 </html>
