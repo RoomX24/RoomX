@@ -18,7 +18,7 @@
     #help {
       background-color: red;
       color: black;
-      padding: 10px;
+      padding: 50px;
       margin-top: 20px;
       max-height: 400px;
       overflow-y: auto;
@@ -47,9 +47,9 @@
 
   <!-- Kód bevitele -->
   <div id="code-container">
-    <h3>Írj be egy 4 számjegyű kódot:</h3>
+    <h3></h3>
     <input type="text" id="code-input" maxlength="4" placeholder="****">
-    <button onclick="checkCode()">Ellenőrzés</button>
+    <button onclick="checkCode()">NEXT</button>
     <div id="code-message"></div>
   </div>
 
@@ -74,11 +74,11 @@
       const messageDiv = document.getElementById("code-message");
 
       if (inputCode === correctCode) {
-        messageDiv.textContent = "MOST VAGY SOHA!";
+        messageDiv.textContent = "12345678";
         messageDiv.style.color = "green";
         messageDiv.style.display = "block";
       } else {
-        messageDiv.textContent = "A kód helytelen, próbáld újra!";
+        messageDiv.textContent = "X";
         messageDiv.style.color = "red";
         messageDiv.style.display = "block";
       }
