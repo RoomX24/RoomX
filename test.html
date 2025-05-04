@@ -84,19 +84,14 @@
       const messageDiv = document.getElementById("code-message");
 
       if (inputCode === correctCode) {
-  messageDiv.textContent = "MOST VAGY SOHA!";
-  messageDiv.style.color = "lime";
-  messageDiv.style.display = "block";
-} else {
-  messageDiv.textContent = "A kód helytelen, próbáld újra!";
-  messageDiv.style.color = "red";
-  messageDiv.style.display = "block";
-
-  // 👉 glitch effekt:
-  document.body.classList.add("glitch");
-  setTimeout(() => {
-    document.body.classList.remove("glitch");
-  }, 1000);
+        messageDiv.textContent = "12345678";
+        messageDiv.style.color = "lime";
+        messageDiv.style.display = "block";
+      } else {
+        messageDiv.textContent = "X";
+        messageDiv.style.color = "red";
+        messageDiv.style.display = "block";  
+      }   
     }
 
     setInterval(() => {
