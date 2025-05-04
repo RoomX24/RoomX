@@ -58,8 +58,8 @@
 
   <div id="code-container">
     <h3></h3>
-    <input type="text" id="code-input" maxlength="4" placeholder="EXIT">
-    <button onclick="checkCode()"></button>
+    <input type="text" id="code-input" maxlength="4" placeholder="****">
+    <button onclick="checkCode()">EXIT</button>
     <div id="code-message"></div>
   </div>
 
@@ -87,10 +87,12 @@
         messageDiv.textContent = "12345678";
         messageDiv.style.color = "lime";
         messageDiv.style.display = "block";
+        font-size: 60px;
       } else {
         messageDiv.textContent = "X";
         messageDiv.style.color = "red";
         messageDiv.style.display = "block";
+        font-size: 60px;     
       }
     }
 
