@@ -2,140 +2,89 @@
 <html lang="hu">
 <head>
   <meta charset="UTF-8">
-  <title>Párosító játék – RoomX</title>
+  <title>Párosító játék</title>
   <style>
     body {
-      background-color: black;
+      background-color: #111;
       color: white;
-      font-family: Arial, sans-serif;
-      text-align: center;
+      font-family: sans-serif;
       padding: 20px;
+      text-align: center;
     }
-
     .container {
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
-      gap: 20px;
-      margin: 30px 0;
+      gap: 100px;
+      margin-top: 40px;
     }
-
-    .item {
-      width: 160px;
-      height: 60px;
-      background-color: #444;
-      border: 2px solid #aaa;
-      border-radius: 10px;
+    .box {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 18px;
-      color: white;
-      cursor: grab;
+      flex-direction: column;
+      gap: 15px;
     }
-
-    .dropzone {
-      width: 160px;
-      height: 60px;
+    .draggable, .dropzone {
+      padding: 10px 20px;
+      border: 2px solid white;
       background-color: #333;
-      border: 2px dashed #999;
       border-radius: 10px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 18px;
-      color: white;
+      cursor: move;
+      font-size: 20px;
+      min-width: 120px;
+      user-select: none;
     }
-
-    .message {
-      font-size: 40px;
-      color: lime;
-      display: none;
-      margin-top: 30px;
+    .dropzone.correct {
+      background-color: green;
+    }
+    .dropzone.wrong {
+      background-color: red;
     }
   </style>
 </head>
 <body>
 
-  <h1>Ki mikor született?</h1>
-  <p>Húzd a neveket a megfelelő évszámhoz!</p>
+<h1>Párosítsd a neveket a születési évükkel</h1>
 
-  <div class="container" id="names-container">
-    <!-- Drag elemek -->
-    <div class="item" draggable="true" id="Amanda" ondragstart="drag(event)">Amanda</div>
-    <div class="item" draggable="true" id="David" ondragstart="drag(event)">David</div>
-    <div class="item" draggable="true" id="Nikol" ondragstart="drag(event)">Nikol</div>
-    <div class="item" draggable="true" id="Kristina" ondragstart="drag(event)">Kristina</div>
-    <div class="item" draggable="true" id="Adam" ondragstart="drag(event)">Adam</div>
-    <div class="item" draggable="true" id="Gabriel" ondragstart="drag(event)">Gabriel</div>
+<div class="container">
+  <div class="box" id="names">
+    <div class="draggable" draggable="true" data-name="Amanda">Amanda</div>
+    <div class="draggable" draggable="true" data-name="David">David</div>
+    <div class="draggable" draggable="true" data-name="Nikol">Nikol</div>
+    <div class="draggable" draggable="true" data-name="Kristina">Kristina</div>
+    <div class="draggable" draggable="true" data-name="Adam">Adam</div>
+    <div class="draggable" draggable="true" data-name="Gabriel">Gabriel</div>
   </div>
 
-  <div class="container" id="dates-container">
-    <!-- Drop zónák -->
-    <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)" data-name="Amanda">2009</div>
-    <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)" data-name="David">2015</div>
-    <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)" data-name="Nikol">2019</div>
-    <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)" data-name="Kristina">2001</div>
-    <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)" data-name="Adam">2006</div>
-    <div class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)" data-name="Gabriel">2011</div>
+  <div class="box" id="years">
+    <div class="dropzone" data-name="Adam">2006</div>
+    <div class="dropzone" data-name="Amanda">2009</div>
+    <div class="dropzone" data-name="Gabriel">2011</div>
+    <div class="dropzone" data-name="David">2015</div>
+    <div class="dropzone" data-name="Nikol">2019</div>
+    <div class="dropzone" data-name="Kristina">2001</div>
   </div>
+</div>
 
-  <div class="message" id="message">Nem menekülsz!</div>
+<script>
+  let draggedItem = null;
 
-  <script>
-    const correctPairs = {
-      "Amanda": "2009",
-      "David": "2015",
-      "Nikol": "2019",
-      "Kristina": "2001",
-      "Adam": "2006",
-      "Gabriel": "2011"
-    };
+  document.querySelectorAll('.draggable').forEach(elem => {
+    elem.addEventListener('dragstart', e => {
+      draggedItem = elem;
+    });
+  });
 
-    let matchedCount = 0;
+  document.querySelectorAll('.dropzone').forEach(zone => {
+    zone.addEventListener('dragover', e => {
+      e.preventDefault();
+    });
 
-    function allowDrop(ev) {
-      ev.preventDefault();
-    }
+    zone.addEventListener('drop', e => {
+      if (!draggedItem) return;
 
-    function drag(ev) {
-      ev.dataTransfer.setData("text", ev.target.id);
-    }
+      // Megnézzük, hogy helyes-e
+      const name = draggedItem.getAttribute('data-name');
+      const correctName = zone.getAttribute('data-name');
 
-    function drop(ev) {
-      ev.preventDefault();
-      const nameId = ev.dataTransfer.getData("text");
-      const name = document.getElementById(nameId);
-      const dropzone = ev.target;
+      zone.textContent = `${zone.textContent} ← ${name}`;
 
-      if (dropzone.hasChildNodes()) return;
-
-      dropzone.appendChild(name);
-
-      const expectedName = dropzone.getAttribute("data-name");
-      if (nameId === expectedName) {
-        dropzone.style.backgroundColor = "#4CAF50";
-        matchedCount++;
-        if (matchedCount === 6) {
-          document.getElementById("message").style.display = "block";
-        }
-      } else {
-        dropzone.style.backgroundColor = "#f44336";
-      }
-    }
-
-    // Egyszeri keverés
-    function shuffle(containerId) {
-      const container = document.getElementById(containerId);
-      for (let i = container.children.length; i >= 0; i--) {
-        container.appendChild(container.children[Math.random() * i | 0]);
-      }
-    }
-
-    window.onload = () => {
-      shuffle("names-container");
-    };
-  </script>
-
-</body>
-</html>
+      if (name
