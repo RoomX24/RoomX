@@ -2,91 +2,70 @@
 <html lang="hu">
 <head>
   <meta charset="UTF-8">
-  <title>Admin</title>
+  <title>Admin – RoomX</title>
   <style>
-    body {
-      font-family: Arial;
-      padding: 20px;
-    }
-    label, textarea, input, button {
-      display: block;
-      margin-top: 10px;
-    }
-    textarea {
-      width: 100%;
-      height: 100px;
-      resize: vertical;
-      font-size: 1em;
-    }
+    body { font-family: sans-serif; padding: 20px; }
+    input, button, textarea { margin-top: 10px; font-size: 16px; }
+    h2 { font-size: 2em; }
   </style>
 </head>
 <body>
-
-  <h2>Óra beállítása</h2>
-  <label>Óra: <input type="number" id="hours" min="0" value="1"></label>
-  <label>Perc: <input type="number" id="minutes" min="0" value="0"></label>
+  <h1>Admin felület</h1>
+  <label>Óra: <input type="number" id="hours" value="0" min="0" max="24"></label>
+  <label>Perc: <input type="number" id="minutes" value="0" min="0" max="59"></label>
   <button onclick="startTimer()">Indítás</button>
-  <button onclick="pauseResumeTimer()">Szünet / Folytatás</button>
+  <button onclick="pauseResume()">Szünet / Folytatás</button>
   <button onclick="stopTimer()">Leállítás</button>
 
-  <h2>Tipp küldése</h2>
-  <textarea id="tipInput" placeholder="Írd ide a tippet..."></textarea>
-  <button onclick="sendTip()">Tipp küldése</button>
+  <h2>Idő: <span id="display">00:00</span></h2>
 
-  <div id="status"></div>
+  <h3>Játékmester segítség:</h3>
+  <textarea id="helpMessage" rows="4" cols="50" placeholder="Írd be a segítséget ide..."></textarea>
+  <button onclick="sendHelpMessage()">Segítség küldése</button>
 
-  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
   <script>
-    const socket = io("http://localhost:3000");
-
-    let timerInterval;
     let totalSeconds = 0;
+    let timer = null;
     let isPaused = false;
 
-    function updateClients() {
-      const min = Math.floor(totalSeconds / 60);
-      const sec = totalSeconds % 60;
-      const formatted = `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
-      socket.emit("updateTime", formatted);
+    // Visszaszámláló frissítése
+    function updateDisplay() {
+      const m = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+      const s = String(totalSeconds % 60).padStart(2, '0');
+      document.getElementById("display").textContent = `${m}:${s}`;
+      // Tároljuk az időt a localStorage-ban
+      localStorage.setItem('time', JSON.stringify({ minutes: m, seconds: s }));
     }
 
     function startTimer() {
-      const hours = parseInt(document.getElementById("hours").value) || 0;
-      const minutes = parseInt(document.getElementById("minutes").value) || 0;
-      totalSeconds = (hours * 60 + minutes) * 60;
-      clearInterval(timerInterval);
+      const h = parseInt(document.getElementById("hours").value) || 0;
+      const m = parseInt(document.getElementById("minutes").value) || 0;
+      totalSeconds = (h * 60 + m) * 60;
+      if (timer) clearInterval(timer);
       isPaused = false;
-
-      timerInterval = setInterval(() => {
+      timer = setInterval(() => {
         if (!isPaused && totalSeconds > 0) {
           totalSeconds--;
-          updateClients();
+          updateDisplay();
         }
       }, 1000);
-
-      updateClients();
+      updateDisplay();
     }
 
-    function pauseResumeTimer() {
-      if (timerInterval) {
-        isPaused = !isPaused;
-      }
+    function pauseResume() {
+      isPaused = !isPaused;
     }
 
     function stopTimer() {
-      clearInterval(timerInterval);
-      timerInterval = null;
+      clearInterval(timer);
       totalSeconds = 0;
-      isPaused = false;
-      socket.emit("updateTime", "00:00");
+      updateDisplay();
     }
 
-    function sendTip() {
-      const tipText = document.getElementById("tipInput").value.trim();
-      if (tipText) {
-        socket.emit("newTip", tipText);
-        document.getElementById("tipInput").value = '';
-      }
+    // Segítség küldése
+    function sendHelpMessage() {
+      const helpMessage = document.getElementById("helpMessage").value;
+      localStorage.setItem("helpMessage", helpMessage);
     }
   </script>
 </body>
