@@ -31,18 +31,16 @@
       min-height: 40px;
       line-height: 1.5;
     }
-    #codeInput {
-      margin-top: 20px;
-      font-size: 18px;
+    #helpButton {
       padding: 10px;
-      width: 60%;
-    }
-    #codeButton {
-      padding: 10px;
-      background-color: red;
-      color: black;
+      background-color: blue;
+      color: white;
       border: none;
       font-size: 18px;
+      margin-top: 20px;
+    }
+    #helpCount {
+      font-size: 20px;
       margin-top: 10px;
     }
   </style>
@@ -53,14 +51,14 @@
 
   <hr>
 
-  <!-- Kód beírása -->
-  <input type="text" id="codeInput" placeholder="Írd be a kódot..." />
-  <button id="codeButton" onclick="checkCode()">Kód Ellenőrzése</button>
+  <!-- Segítségkérés gomb -->
+  <button id="helpButton" onclick="requestHelp()">Segítség Kérés</button>
+  <div id="helpCount">Segítség kérések: 3</div>
+  <div id="remainingHelp">Maradó segítségkérések: 3</div>
 
   <script>
-    const correctCode = "1546"; // A helyes kód, amit be kell írni
-    let codeUsed = false; // A kód használatának állapota
     let timerStarted = false; // Az óra állapota
+    let helpRequests = 3; // Segítségkérések száma
 
     // Formázza az időt
     function formatTime(seconds) {
@@ -91,44 +89,35 @@
       } else {
         tipEl.textContent = "Tipp: (nincs még megadva)";
       }
+
+      // Frissíti a segítség kérések számát
+      const helpCountEl = document.getElementById("helpCount");
+      helpCountEl.textContent = "Segítség kérések: " + helpRequests;
+
+      // Frissíti a maradó segítségkéréseket
+      const remainingHelpEl = document.getElementById("remainingHelp");
+      remainingHelpEl.textContent = "Maradó segítségkérések: " + helpRequests;
     }
 
-    // Kód ellenőrzése
-    function checkCode() {
-      const enteredCode = document.getElementById("codeInput").value;
-      let countdownEnd = localStorage.getItem("countdownEnd");
-
-      if (!enteredCode) {
-        alert("Kérlek, írd be a kódot!");
-        return;
-      }
-
-      // Ha az óra elindult, de még nem állt le, akkor engedélyezze a kódot egyszeri használatra
-      if (!timerStarted) {
-        alert("Az óra még nem indult el.");
-        return;
-      }
-
-      if (!codeUsed) {
-        if (enteredCode === correctCode) {
-          // Helyes kód, adjunk hozzá 5 percet
-          alert("Helyes kód! +5 perc!");
-          countdownEnd = Number(countdownEnd) + 5 * 60 * 1000;
-          codeUsed = true; // A kódot egyszer használták
-          document.getElementById("codeInput").disabled = true; // Kód mező letiltása
-        } else {
-          // Hibás kód, vegyünk el 5 percet
-          alert("Hibás kód! -5 perc!");
-          countdownEnd = Number(countdownEnd) - 5 * 60 * 1000;
-        }
-
-        localStorage.setItem("countdownEnd", countdownEnd);
+    // Segítségkérés
+    function requestHelp() {
+      if (helpRequests > 0) {
+        alert("Segítséget kértél! (Még " + (helpRequests - 1) + " segítség maradt.)");
+        helpRequests--;
         updateView(); // Frissítés
       } else {
-        alert("A kódot már egyszer használták.");
+        alert("Már nem kérhetsz segítséget!");
       }
+    }
 
-      document.getElementById("codeInput").value = ""; // Kód mező törlése
+    // Óra indítása
+    function startTimer() {
+      timerStarted = true;
+      const countdownEnd = Date.now() + 60 * 60 * 1000; // 1 óra
+      localStorage.setItem("countdownEnd", countdownEnd);
+      updateView();
+      helpRequests = 3; // Segítségkérések számának nullázása
+      localStorage.setItem("helpRequests", helpRequests);
     }
 
     // Frissíti a nézetet minden másodpercben
