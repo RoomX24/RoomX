@@ -48,19 +48,49 @@ document.getElementById('tipDisplay').innerHTML = `Tipp: ${tip}`;
 
   
 // Funkció, amely frissíti a visszaszámláló időt
-function updateCountdown() {
-const countdownTime = localStorage.getItem('countdownTime');
-if (countdownTime) {
-let timeLeft = countdownTime;
-let minutes = Math.floor(timeLeft / 60);
-let seconds = timeLeft % 60;
-document.getElementById("countdown").innerHTML = `Visszaszámlálás: ${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
-localStorage.setItem('countdownTime', timeLeft - 1);
-}
-}
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Szoba</title>
+  <style>
+    body {
+      background-color: black;
+      color: red;
+      font-size: 48px;
+      text-align: center;
+      margin-top: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div id="timer">00:00</div>
 
-setInterval(displayTip, 10); // Frissíti a tippet
-setInterval(updateCountdown, 10); // Frissíti a visszaszámlálót
-</script>
+  <script>
+    function update() {
+      const end = localStorage.getItem("countdownEnd");
+      const now = Date.now();
+
+      if (!end) {
+        document.getElementById("timer").textContent = "00:00";
+        return;
+      }
+
+      const remaining = Math.floor((end - now) / 1000);
+      if (remaining <= 0) {
+        document.getElementById("timer").textContent = "00:00";
+        return;
+      }
+
+      const minutes = Math.floor(remaining / 60);
+      const seconds = remaining % 60;
+      document.getElementById("timer").textContent =
+        `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    setInterval(update, 1000);
+    update();
+  </script>
 </body>
 </html>
