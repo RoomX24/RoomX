@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8" />
+<title>Admin Felület</title>
+<style>
+body {
+font-family: sans-serif;
+padding: 30px;
+}
+label, input, button {
+font-size: 18px;
+margin: 10px 0;
+}
+#countdown-display {
+font-size: 32px;
+margin-top: 20px;
+}
+</style>
+</head>
+<body>
+<h1>Admin Felület</h1>
+
+<label for="tipInput">Tipp:</label><br>
+<input type="text" id="tipInput" placeholder="Írd be a tippet...">
+<button onclick="sendTip()">Tipp küldése</button>
+
+<hr>
+
+<label for="secondsInput">Visszaszámlálás idő (másodpercben):</label><br>
+<input type="number" id="secondsInput" placeholder="pl. 3600">
+<button onclick="startCountdown()">Indítás</button>
+<button onclick="stopCountdown()">Leállítás</button>
+
+<div id="countdown-display">Visszaszámlálás: 00:00</div>
+
+<script>
+let interval;
+
+function formatTime(seconds) {
+const m = Math.floor(seconds / 60);
+const s = seconds % 60;
+return `${m}:${s.toString().padStart(2, '0')}`;
+}
+
+function updateCountdownDisplay() {
+const end = localStorage.getItem("countdownEnd");
+if (!end) {
+document.getElementById("countdown-display").textContent = "Visszaszámlálás: 00:00";
+return;
+}
+const now = Date.now();
+const remaining = Math.floor((end - now) / 1000);
+if (remaining <= 0) {
+clearInterval(interval);
+document.getElementById("countdown-display").textContent = "Visszaszámlálás: 00:00";
+localStorage.removeItem("countdownEnd");
+} else {
+document.getElementById("countdown-display").textContent = "Visszaszámlálás: " + formatTime(remaining);
+}
+}
+
+function startCountdown() {
+const seconds = parseInt(document.getElementById("secondsInput").value);
+if (!seconds || seconds <= 0) return alert("Adj meg érvényes időt!");
+const endTime = Date.now() + seconds * 1000;
+localStorage.setItem("countdownEnd", endTime);
+updateCountdownDisplay();
+clearInterval(interval);
+interval = setInterval(updateCountdownDisplay, 1000);
+}
+
+function stopCountdown() {
+localStorage.removeItem("countdownEnd");
+clearInterval(interval);
+document.getElementById("countdown-display").textContent = "Visszaszámlálás: 00:00";
+}
+
+function sendTip() {
+const tip = document.getElementById("tipInput").value;
+localStorage.setItem("roomTip", tip);
+document.getElementById("tipInput").value = "";
+}
+
+updateCountdownDisplay();
+interval = setInterval(updateCountdownDisplay, 1000);
+</script>
+</body>
+</html>
