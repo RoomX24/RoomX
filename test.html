@@ -99,31 +99,33 @@
       let countdownEnd = localStorage.getItem("countdownEnd");
 
       if (!enteredCode) {
-        
+        alert("Kérlek, írd be a kódot!");
         return;
       }
 
       // Ha az óra elindult, de még nem állt le, akkor engedélyezze a kódot egyszeri használatra
       if (!timerStarted) {
+        alert("Az óra még nem indult el.");
+        return;
+      }
+
+      if (!codeUsed) {
         if (enteredCode === correctCode) {
           // Helyes kód, adjunk hozzá 5 percet
-          
-          countdownEnd = Date.now() + 5 * 60 * 1000; // Ha még nincs időzítő, beállítjuk
-          timerStarted = true; // Az óra elindult
+          alert("Helyes kód! +5 perc!");
+          countdownEnd = Number(countdownEnd) + 5 * 60 * 1000;
+          codeUsed = true; // A kódot egyszer használták
           document.getElementById("codeInput").disabled = true; // Kód mező letiltása
-          localStorage.setItem("countdownEnd", countdownEnd);
         } else {
           // Hibás kód, vegyünk el 5 percet
-          
+          alert("Hibás kód! -5 perc!");
           countdownEnd = Number(countdownEnd) - 5 * 60 * 1000;
         }
 
         localStorage.setItem("countdownEnd", countdownEnd);
         updateView(); // Frissítés
-      } else if (codeUsed) {
-        
       } else {
-        
+        alert("A kódot már egyszer használták.");
       }
 
       document.getElementById("codeInput").value = ""; // Kód mező törlése
