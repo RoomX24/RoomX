@@ -31,6 +31,12 @@
       background-color: red;
       color: white;
     }
+    #message {
+      margin-top: 30px;
+      font-size: 40px;
+      color: red;
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -49,6 +55,8 @@
   </tbody>
 </table>
 
+<div id="message">NEM MENEKÜLSZ</div>
+
 <script>
   const pairs = {
     "Amanda": "2009",
@@ -60,8 +68,9 @@
   };
 
   const years = Object.values(pairs).sort(() => Math.random() - 0.5);
-
   const tbody = document.getElementById('game-table');
+  const message = document.getElementById('message');
+  const selects = [];
 
   Object.keys(pairs).forEach(name => {
     const tr = document.createElement('tr');
@@ -92,13 +101,26 @@
         select.classList.add("wrong");
         select.classList.remove("correct");
       }
+      checkAllCorrect();
     });
 
     tdSelect.appendChild(select);
     tr.appendChild(tdName);
     tr.appendChild(tdSelect);
     tbody.appendChild(tr);
+    selects.push({ select, name });
   });
+
+  function checkAllCorrect() {
+    const allCorrect = selects.every(item =>
+      item.select.value === pairs[item.name]
+    );
+    if (allCorrect) {
+      message.style.display = "block";
+    } else {
+      message.style.display = "none";
+    }
+  }
 </script>
 
 </body>
