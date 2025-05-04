@@ -83,7 +83,7 @@
       "Gabriel": "2011"
     };
 
-    // Az elemek már az elején is összekeverve lesznek
+    // Kezdeti keverés
     window.onload = function() {
       shuffleElements();
     };
@@ -102,7 +102,6 @@
       const draggedElement = document.getElementById(draggedId);
       const droppedElement = event.target;
 
-      // Ellenőrizzük, hogy a felhasználó helyes párosítást végzett-e
       const draggedText = draggedElement.textContent;
       const droppedText = droppedElement.textContent;
 
@@ -111,3 +110,44 @@
         droppedElement.style.backgroundColor = "#4CAF50"; // Zöld
         draggedElement.style.backgroundColor = "#4CAF50"; // Zöld
       } else {
+        droppedElement.style.backgroundColor = "#F44336"; // Piros
+        draggedElement.style.backgroundColor = "#F44336"; // Piros
+        shuffleElements(); // Újra keverés
+      }
+
+      if (correctPairs === 6) {
+        document.getElementById("message").style.display = "block"; // Üzenet megjelenítése
+      }
+    }
+
+    function shuffleElements() {
+      const names = ["Amanda", "David", "Nikol", "Kristina", "Adam", "Gabriel"];
+      const years = ["2009", "2015", "2019", "2001", "2006", "2011"];
+
+      // Véletlenszerű keverés
+      for (let i = names.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [names[i], names[j]] = [names[j], names[i]];
+      }
+
+      for (let i = years.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [years[i], years[j]] = [years[j], years[i]];
+      }
+
+      // Frissítjük a HTML elemeket
+      const nameElements = document.getElementById("names-container").children;
+      const yearElements = document.getElementById("years-container").children;
+
+      for (let i = 0; i < nameElements.length; i++) {
+        nameElements[i].textContent = names[i];
+      }
+
+      for (let i = 0; i < yearElements.length; i++) {
+        yearElements[i].textContent = years[i];
+      }
+    }
+  </script>
+
+</body>
+</html>
