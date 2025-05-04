@@ -1,65 +1,84 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-<meta charset="UTF-8" />
-<title>Szoba Felület</title>
-<style>
-body {
-background-color: black;
-color: red;
-font-family: monospace;
-text-align: center;
-padding-top: 100px;
-}
-#countdown {
-font-size: 400px;
-margin-bottom: 40px;
-}
-#tip {
-font-size: 60px;
-background-color: black;
-color: red;
-display: inline-block;
-padding: 10px 20px;
-border-radius: 8px;
-}
-</style>
+  <meta charset="UTF-8" />
+  <title>Szoba Felület</title>
+  <style>
+    body {
+      background-color: black;
+      color: red;
+      font-family: monospace;
+      text-align: center;
+      padding-top: 100px;
+    }
+    #countdown {
+      font-size: 64px;
+      margin-bottom: 40px;
+    }
+    #tip {
+      font-size: 28px;
+      background-color: red;
+      color: black;
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 8px;
+      max-width: 80%;
+      word-wrap: break-word;
+      resize: none;
+      overflow: hidden;
+      width: 60%;
+      height: auto;
+      min-height: 40px;
+      line-height: 1.5;
+    }
+  </style>
 </head>
 <body>
-<div id="countdown">00:00</div>
-<div id="tip">(nincs még megadva)</div>
+  <div id="countdown">00:00</div>
+  <div id="tip">
+    Tipp: (nincs még megadva)
+  </div>
 
-<script>
-function formatTime(seconds) {
-const m = Math.floor(seconds / 60);
-const s = seconds % 60;
-return `${m}:${s.toString().padStart(2, '0')}`;
-}
+  <script>
+    function formatTime(seconds) {
+      const m = Math.floor(seconds / 60);
+      const s = seconds % 60;
+      return `${m}:${s.toString().padStart(2, '0')}`;
+    }
 
-function updateView() {
-// Visszaszámlálás frissítése
-const end = localStorage.getItem("countdownEnd");
-const countdownEl = document.getElementById("countdown");
+    function updateView() {
+      // Visszaszámlálás frissítése
+      const end = localStorage.getItem("countdownEnd");
+      const countdownEl = document.getElementById("countdown");
 
-if (!end) {
-countdownEl.textContent = "00:00";
-} else {
-const remaining = Math.floor((end - Date.now()) / 1000);
-if (remaining <= 0) {
-countdownEl.textContent = "00:00";
-} else {
-countdownEl.textContent = formatTime(remaining);
-}
-}
+      if (!end) {
+        countdownEl.textContent = "00:00";
+      } else {
+        const remaining = Math.floor((end - Date.now()) / 1000);
+        if (remaining <= 0) {
+          countdownEl.textContent = "00:00";
+        } else {
+          countdownEl.textContent = formatTime(remaining);
+        }
+      }
 
-// Tipp frissítése
-const tip = localStorage.getItem("roomTip");
-document.getElementById("tip").textContent = tip ? " " + tip : "Tipp: (nincs még megadva)";
-}
+      // Tipp frissítése
+      const tip = localStorage.getItem("roomTip");
+      const tipEl = document.getElementById("tip");
+      if (tip) {
+        tipEl.textContent = "Tipp: " + tip;
+      } else {
+        tipEl.textContent = "Tipp: (nincs még megadva)";
+      }
 
-// Frissítés minden másodpercben
-setInterval(updateView, 1000);
-updateView();
-</script>
+      // Automatikusan állítsa a tipp mezőt a szöveghez
+      tipEl.style.height = 'auto';  // Reset height before measuring
+      tipEl.style.height = tipEl.scrollHeight + 'px'; // Set to scrollHeight
+    }
+
+    // Frissítés minden másodpercben
+    setInterval(updateView, 1000);
+    updateView();
+  </script>
 </body>
 </html>
