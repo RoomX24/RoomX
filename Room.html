@@ -28,7 +28,7 @@ border-radius: 5px;
 </head>
 <body>
 
-<h1>Szoba Felület</h1>
+<h1>Room X</h1>
 
 <div class="tip" id="tipDisplay">Tipp: Várakozás...</div>
 
@@ -43,6 +43,10 @@ document.getElementById('tipDisplay').innerHTML = `Tipp: ${tip}`;
 }
 }
 
+
+
+
+  
 // Funkció, amely frissíti a visszaszámláló időt
 function updateCountdown() {
 const countdownTime = localStorage.getItem('countdownTime');
@@ -55,8 +59,8 @@ localStorage.setItem('countdownTime', timeLeft - 1);
 }
 }
 
-setInterval(displayTip, 1000); // Frissíti a tippet
-setInterval(updateCountdown, 1000); // Frissíti a visszaszámlálót
+setInterval(displayTip, 10); // Frissíti a tippet
+setInterval(updateCountdown, 10); // Frissíti a visszaszámlálót
 </script>
 </body>
 </html>
