@@ -9,8 +9,8 @@
       color: white;
       font-family: monospace;
       padding: 20px;
-      font-size: 20px; /* Alap betűméret minden elemre */
-      text-align: center;    
+      font-size: 20px;
+      text-align: center;
     }
 
     #countdown {
@@ -30,7 +30,6 @@
       max-width: 90%;
       border-radius: 10px;
       word-wrap: break-word;
-}
     }
 
     #code-container {
@@ -48,6 +47,16 @@
       font-size: 20px;
       margin-top: 20px;
       display: none;
+    }
+
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    .blinking {
+      animation: blink 0.5s infinite;
     }
   </style>
 </head>
@@ -68,6 +77,13 @@
       const time = JSON.parse(localStorage.getItem('time'));
       if (time) {
         document.getElementById("countdown").textContent = `${time.minutes}:${time.seconds}`;
+        
+        // Ha az idő kevesebb mint 10 perc, indítsuk el a villogást
+        if (time.minutes <= 10 && time.seconds <= 0) {
+          document.getElementById("countdown").classList.add("blinking");
+        } else {
+          document.getElementById("countdown").classList.remove("blinking");
+        }
       }
     }
 
