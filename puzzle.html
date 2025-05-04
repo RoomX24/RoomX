@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kirakós játék – RoomX</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .puzzle-container {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-gap: 10px;
+      justify-content: center;
+      margin: 20px auto;
+    }
+
+    .puzzle-piece {
+      width: 100px;
+      height: 100px;
+      background-color: #333;
+      border: 2px solid #fff;
+      cursor: pointer;
+    }
+
+    .puzzle-piece img {
+      width: 100%;
+      height: 100%;
+    }
+
+    #message {
+      display: none;
+      font-size: 40px;
+      color: lime;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Szabadulószoba Kirakós Játék</h1>
+  <div class="puzzle-container">
+    <div class="puzzle-piece" id="piece1" onclick="checkPuzzle()">
+      <img src="image1.jpg" alt="Puzzle Piece 1">
+    </div>
+    <div class="puzzle-piece" id="piece2" onclick="checkPuzzle()">
+      <img src="image2.jpg" alt="Puzzle Piece 2">
+    </div>
+    <div class="puzzle-piece" id="piece3" onclick="checkPuzzle()">
+      <img src="image3.jpg" alt="Puzzle Piece 3">
+    </div>
+    <div class="puzzle-piece" id="piece4" onclick="checkPuzzle()">
+      <img src="image4.jpg" alt="Puzzle Piece 4">
+    </div>
+    <div class="puzzle-piece" id="piece5" onclick="checkPuzzle()">
+      <img src="image5.jpg" alt="Puzzle Piece 5">
+    </div>
+    <div class="puzzle-piece" id="piece6" onclick="checkPuzzle()">
+      <img src="image6.jpg" alt="Puzzle Piece 6">
+    </div>
+  </div>
+
+  <div id="message">Nem menekülsz!</div>
+
+  <script>
+    // Egy egyszerű kirakós játék, amely akkor aktiválódik, amikor az összes darab helyes
+    let piecesClicked = 0;
+
+    function checkPuzzle() {
+      piecesClicked++;
+      if (piecesClicked === 6) {
+        document.getElementById("message").style.display = "block";
+      }
+    }
+  </script>
+
+</body>
+</html>
