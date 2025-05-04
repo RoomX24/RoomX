@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kirakós játék – RoomX</title>
+  <title>Nevek és Évek Párosítása</title>
   <style>
     body {
       background-color: black;
@@ -14,24 +14,24 @@
     }
 
     .puzzle-container {
-      display: grid;
-      grid-template-columns: repeat(3, 100px);
-      grid-gap: 10px;
+      display: flex;
       justify-content: center;
-      margin: 20px auto;
+      margin: 20px;
     }
 
     .puzzle-piece {
-      width: 100px;
-      height: 100px;
+      width: 150px;
+      height: 150px;
       background-color: #333;
       border: 2px solid #fff;
       cursor: pointer;
-    }
-
-    .puzzle-piece img {
-      width: 100%;
-      height: 100%;
+      margin: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 20px;
+      text-align: center;
     }
 
     #message {
@@ -44,38 +44,52 @@
 </head>
 <body>
 
-  <h1>Szabadulószoba Kirakós Játék</h1>
+  <h1>Szabadulószoba Nevek és Évek Párosítása</h1>
+  <p>Párosítsd a neveket az évszámokkal!</p>
+  
   <div class="puzzle-container">
-    <div class="puzzle-piece" id="piece1" onclick="checkPuzzle()">
-      <img src="image1.jpg" alt="Puzzle Piece 1">
+    <div class="puzzle-piece" id="name1" onclick="checkPair('Amanda', 2009)">
+      Amanda
     </div>
-    <div class="puzzle-piece" id="piece2" onclick="checkPuzzle()">
-      <img src="image2.jpg" alt="Puzzle Piece 2">
+    <div class="puzzle-piece" id="name2" onclick="checkPair('David', 2015)">
+      David
     </div>
-    <div class="puzzle-piece" id="piece3" onclick="checkPuzzle()">
-      <img src="image3.jpg" alt="Puzzle Piece 3">
+    <div class="puzzle-piece" id="name3" onclick="checkPair('Nikol', 2019)">
+      Nikol
     </div>
-    <div class="puzzle-piece" id="piece4" onclick="checkPuzzle()">
-      <img src="image4.jpg" alt="Puzzle Piece 4">
+  </div>
+
+  <div class="puzzle-container">
+    <div class="puzzle-piece" id="year1" onclick="checkPair('Amanda', 2015)">
+      2015
     </div>
-    <div class="puzzle-piece" id="piece5" onclick="checkPuzzle()">
-      <img src="image5.jpg" alt="Puzzle Piece 5">
+    <div class="puzzle-piece" id="year2" onclick="checkPair('David', 2009)">
+      2009
     </div>
-    <div class="puzzle-piece" id="piece6" onclick="checkPuzzle()">
-      <img src="image6.jpg" alt="Puzzle Piece 6">
+    <div class="puzzle-piece" id="year3" onclick="checkPair('Nikol', 2019)">
+      2019
     </div>
   </div>
 
   <div id="message">Nem menekülsz!</div>
 
   <script>
-    // Egy egyszerű kirakós játék, amely akkor aktiválódik, amikor az összes darab helyes
-    let piecesClicked = 0;
+    let correctPairs = 0;
+    
+    // Az év és név párosítása
+    function checkPair(name, year) {
+      const pairs = {
+        'Amanda': 2009,
+        'David': 2015,
+        'Nikol': 2019
+      };
 
-    function checkPuzzle() {
-      piecesClicked++;
-      if (piecesClicked === 6) {
-        document.getElementById("message").style.display = "block";
+      // Ha a megfelelő párost választják
+      if (pairs[name] === year) {
+        correctPairs++;
+        if (correctPairs === 3) {
+          document.getElementById("message").style.display = "block";
+        }
       }
     }
   </script>
