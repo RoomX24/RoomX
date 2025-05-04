@@ -13,28 +13,33 @@
       padding: 20px;
     }
 
-    .puzzle-container {
+    .container {
       display: flex;
       justify-content: center;
-      margin: 20px;
+      flex-wrap: wrap;
+      margin-top: 20px;
     }
 
-    .puzzle-piece {
+    .item {
       width: 150px;
       height: 150px;
       background-color: #333;
       border: 2px solid #fff;
-      cursor: pointer;
       margin: 10px;
       display: flex;
       justify-content: center;
       align-items: center;
       color: white;
       font-size: 20px;
-      text-align: center;
+      cursor: pointer;
+      border-radius: 8px;
     }
 
-    #message {
+    .droppable {
+      background-color: #555;
+    }
+
+    .message {
       display: none;
       font-size: 40px;
       color: lime;
@@ -44,52 +49,54 @@
 </head>
 <body>
 
-  <h1>Szabadulószoba Nevek és Évek Párosítása</h1>
-  <p>Párosítsd a neveket az évszámokkal!</p>
+  <h1>Nevek és Évek Párosítása</h1>
+  <p>Párosítsd a neveket az évszámokkal! Húzd és ejtsd őket a megfelelő helyre.</p>
   
-  <div class="puzzle-container">
-    <div class="puzzle-piece" id="name1" onclick="checkPair('Amanda', 2009)">
-      Amanda
-    </div>
-    <div class="puzzle-piece" id="name2" onclick="checkPair('David', 2015)">
-      David
-    </div>
-    <div class="puzzle-piece" id="name3" onclick="checkPair('Nikol', 2019)">
-      Nikol
-    </div>
+  <div class="container">
+    <div class="item" id="name1" draggable="true" ondragstart="drag(event)">Amanda</div>
+    <div class="item" id="name2" draggable="true" ondragstart="drag(event)">David</div>
+    <div class="item" id="name3" draggable="true" ondragstart="drag(event)">Nikol</div>
   </div>
 
-  <div class="puzzle-container">
-    <div class="puzzle-piece" id="year1" onclick="checkPair('Amanda', 2015)">
-      2015
-    </div>
-    <div class="puzzle-piece" id="year2" onclick="checkPair('David', 2009)">
-      2009
-    </div>
-    <div class="puzzle-piece" id="year3" onclick="checkPair('Nikol', 2019)">
-      2019
-    </div>
+  <div class="container">
+    <div class="item droppable" id="year1" ondrop="drop(event)" ondragover="allowDrop(event)">2009</div>
+    <div class="item droppable" id="year2" ondrop="drop(event)" ondragover="allowDrop(event)">2015</div>
+    <div class="item droppable" id="year3" ondrop="drop(event)" ondragover="allowDrop(event)">2019</div>
   </div>
 
-  <div id="message">Nem menekülsz!</div>
+  <div id="message" class="message">Nem menekülsz!</div>
 
   <script>
     let correctPairs = 0;
-    
-    // Az év és név párosítása
-    function checkPair(name, year) {
-      const pairs = {
-        'Amanda': 2009,
-        'David': 2015,
-        'Nikol': 2019
-      };
 
-      // Ha a megfelelő párost választják
-      if (pairs[name] === year) {
+    function allowDrop(event) {
+      event.preventDefault();
+    }
+
+    function drag(event) {
+      event.dataTransfer.setData("text", event.target.id);
+    }
+
+    function drop(event) {
+      event.preventDefault();
+      const draggedId = event.dataTransfer.getData("text");
+      const droppedElement = event.target;
+
+      // Az elem id-jét használjuk a helyes párosítás ellenőrzésére
+      if (droppedElement.id === "year1" && draggedId === "name1" ||
+          droppedElement.id === "year2" && draggedId === "name2" ||
+          droppedElement.id === "year3" && draggedId === "name3") {
         correctPairs++;
-        if (correctPairs === 3) {
-          document.getElementById("message").style.display = "block";
-        }
+        droppedElement.style.backgroundColor = "#4CAF50"; // Zöldre vált, ha helyes
+        document.getElementById(draggedId).style.backgroundColor = "#4CAF50"; // A húzott elem is zöldre vált
+      } else {
+        // Helytelen párosítás
+        droppedElement.style.backgroundColor = "#F44336"; // Pirosra vált, ha helytelen
+        document.getElementById(draggedId).style.backgroundColor = "#F44336"; // A húzott elem is pirosra vált
+      }
+
+      if (correctPairs === 3) {
+        document.getElementById("message").style.display = "block";
       }
     }
   </script>
