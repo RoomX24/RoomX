@@ -99,7 +99,7 @@
       let countdownEnd = localStorage.getItem("countdownEnd");
 
       if (!enteredCode) {
-        alert("Kérlek, írd be a kódot!");
+        
         return;
       }
 
@@ -107,7 +107,7 @@
       if (!timerStarted) {
         if (enteredCode === correctCode) {
           // Helyes kód, adjunk hozzá 5 percet
-          alert("Helyes kód! +5 perc!");
+          
           countdownEnd = Date.now() + 5 * 60 * 1000; // Ha még nincs időzítő, beállítjuk
           timerStarted = true; // Az óra elindult
           document.getElementById("codeInput").disabled = true; // Kód mező letiltása
