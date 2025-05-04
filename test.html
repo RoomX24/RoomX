@@ -9,31 +9,37 @@
       color: white;
       font-family: monospace;
       padding: 20px;
+      font-size: 20px; /* Alap betűméret minden elemre */
     }
+
     #countdown {
       color: red;
-      font-size: 5em;
+      font-size: 20px;
       text-align: center;
     }
+
     #help {
-      background-color: red;
-      color: black;
-      padding: 50px;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      padding: 10px;
       margin-top: 20px;
       max-height: 400px;
       overflow-y: auto;
+      font-size: 20px;
     }
+
     #code-container {
       margin-top: 20px;
       text-align: center;
     }
+
     #code-input {
       padding: 10px;
-      font-size: 18px;
-      width: 100px;
+      font-size: 20px;
+      width: 120px;
     }
+
     #code-message {
-      color: green;
       font-size: 20px;
       margin-top: 20px;
       display: none;
@@ -45,11 +51,10 @@
   <div id="countdown">00:00</div>
   <div id="help"></div>
 
-  <!-- Kód bevitele -->
   <div id="code-container">
-    <h3></h3>
-    <input type="text" id="code-input" maxlength="4" placeholder="****">
-    <button onclick="checkCode()">NEXT</button>
+    <h3>Írj be egy 4 számjegyű kódot:</h3>
+    <input type="text" id="code-input" maxlength="4" placeholder="4569">
+    <button onclick="checkCode()">Ellenőrzés</button>
     <div id="code-message"></div>
   </div>
 
@@ -74,17 +79,16 @@
       const messageDiv = document.getElementById("code-message");
 
       if (inputCode === correctCode) {
-        messageDiv.textContent = "12345678";
-        messageDiv.style.color = "green";
+        messageDiv.textContent = "MOST VAGY SOHA!";
+        messageDiv.style.color = "lime";
         messageDiv.style.display = "block";
       } else {
-        messageDiv.textContent = "X";
+        messageDiv.textContent = "A kód helytelen, próbáld újra!";
         messageDiv.style.color = "red";
         messageDiv.style.display = "block";
       }
     }
 
-    // 1 másodpercenként frissítjük az órát és a segítséget
     setInterval(() => {
       updateCountdown();
       updateHelpMessage();
