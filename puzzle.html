@@ -53,21 +53,26 @@
   <p>Párosítsd a neveket az évszámokkal! Húzd és ejtsd őket a megfelelő helyre.</p>
   
   <div class="container" id="names-container">
-    <div class="item" id="name1" draggable="true" ondragstart="drag(event)">Amanda</div>
-    <div class="item" id="name2" draggable="true" ondragstart="drag(event)">David</div>
-    <div class="item" id="name3" draggable="true" ondragstart="drag(event)">Nikol</div>
+    <div class="item" id="name1" draggable="true" ondragstart="drag(event)">Kristina</div>
+    <div class="item" id="name2" draggable="true" ondragstart="drag(event)">Adam</div>
+    <div class="item" id="name3" draggable="true" ondragstart="drag(event)">Gabriel</div>
   </div>
 
   <div class="container" id="years-container">
-    <div class="item droppable" id="year1" ondrop="drop(event)" ondragover="allowDrop(event)">2009</div>
-    <div class="item droppable" id="year2" ondrop="drop(event)" ondragover="allowDrop(event)">2015</div>
-    <div class="item droppable" id="year3" ondrop="drop(event)" ondragover="allowDrop(event)">2019</div>
+    <div class="item droppable" id="year1" ondrop="drop(event)" ondragover="allowDrop(event)">2001</div>
+    <div class="item droppable" id="year2" ondrop="drop(event)" ondragover="allowDrop(event)">2006</div>
+    <div class="item droppable" id="year3" ondrop="drop(event)" ondragover="allowDrop(event)">2011</div>
   </div>
 
   <div id="message" class="message">Nem menekülsz!</div>
 
   <script>
     let correctPairs = 0;
+
+    // Keverjük össze a neveket és évszámokat a játék elején
+    window.onload = function() {
+      shuffleElements();
+    };
 
     function allowDrop(event) {
       event.preventDefault();
@@ -102,17 +107,31 @@
     }
 
     function shuffleElements() {
-      const namesContainer = document.getElementById("names-container");
-      const yearsContainer = document.getElementById("years-container");
+      const names = ["Kristina", "Adam", "Gabriel"];
+      const years = ["2001", "2006", "2011"];
 
-      // Keverjük össze a neveket
-      for (let i = namesContainer.children.length; i >= 0; i--) {
-        namesContainer.appendChild(namesContainer.children[Math.random() * i | 0]);
+      // Véletlenszerűen keverjük össze a neveket
+      for (let i = names.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [names[i], names[j]] = [names[j], names[i]];
       }
 
-      // Keverjük össze az évszámokat
-      for (let i = yearsContainer.children.length; i >= 0; i--) {
-        yearsContainer.appendChild(yearsContainer.children[Math.random() * i | 0]);
+      // Véletlenszerűen keverjük össze az évszámokat
+      for (let i = years.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [years[i], years[j]] = [years[j], years[i]];
+      }
+
+      // Frissítjük az HTML elemeket az új sorrenddel
+      const nameElements = document.getElementById("names-container").children;
+      const yearElements = document.getElementById("years-container").children;
+
+      for (let i = 0; i < nameElements.length; i++) {
+        nameElements[i].textContent = names[i];
+      }
+
+      for (let i = 0; i < yearElements.length; i++) {
+        yearElements[i].textContent = years[i];
       }
     }
   </script>
