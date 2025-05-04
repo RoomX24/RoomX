@@ -12,7 +12,7 @@ text-align: center;
 padding-top: 100px;
 }
 #countdown {
-font-size: 250px;
+font-size: 350px;
 margin-bottom: 40px;
 }
 #tip {
@@ -54,7 +54,7 @@ countdownEl.textContent = formatTime(remaining);
 
 // Tipp frissítése
 const tip = localStorage.getItem("roomTip");
-document.getElementById("tip").textContent = tip ? "Tipp: " + tip : "Tipp: (nincs még megadva)";
+document.getElementById("tip").textContent = tip ? " " + tip : "Tipp: (nincs még megadva)";
 }
 
 // Frissítés minden másodpercben
