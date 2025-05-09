@@ -2,30 +2,37 @@
 <html lang="hu">
 <head>
   <meta charset="UTF-8">
-  <title>RoomX Foglalás</title>
+  <title>RoomX Időpontfoglalás</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #111;
-      color: white;
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #000;
+      color: #fff;
       text-align: center;
-      padding: 20px;
     }
     h1 {
-      color: #ff0000;
+      background-color: #ce2525;
+      color: #fff;
+      padding: 20px;
+      margin: 0;
+    }
+    .wrapper {
+      padding: 20px;
     }
   </style>
 </head>
 <body>
-  <h1>Foglalás a RoomX szabadulószobába</h1>
-
-  <!-- Calendly inline widget begin -->
-  <div class="calendly-inline-widget" 
-       data-url="https://calendly.com/atornyai2/roomx?background_color=ff0000&primary_color=ff0000" 
-       style="min-width:320px;height:700px;">
+  <h1>RoomX Időpontfoglalás</h1>
+  <div class="wrapper">
+    <!-- Calendly inline widget begin -->
+    <div class="calendly-inline-widget" 
+         data-url="https://calendly.com/atornyai2/roomx?background_color=ce2525&primary_color=000000" 
+         style="min-width:320px;height:700px;">
+    </div>
+    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    <!-- Calendly inline widget end -->
   </div>
-  <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-  <!-- Calendly inline widget end -->
 </body>
 </html>
