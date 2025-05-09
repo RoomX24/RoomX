@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Szoba Foglalás</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+    }
+
+    /* Logó */
+    .logo {
+      margin-top: 50px;
+    }
+
+    .logo img {
+      width: 200px;
+      height: auto;
+    }
+
+    /* Átlátszó szövegmező */
+    .text-box {
+      background-color: rgba(255, 255, 255, 0.3);
+      color: red;
+      font-size: 2em;
+      padding: 10px;
+      margin: 20px;
+      display: inline-block;
+    }
+
+    /* Gomb stílusok */
+    .btn {
+      padding: 1em 2em;
+      font-size: 1.2em;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    /* Jobb alsó foglalás gomb */
+    .booking-btn {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      background-color: #ff3333;
+      color: white;
+      padding: 15px 25px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .booking-btn:hover {
+      background-color: #cc2929;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Logó -->
+  <div class="logo">
+    <img src="https://via.placeholder.com/200" alt="Logo">
+  </div>
+
+  <!-- Átlátszó szövegmező -->
+  <div class="text-box">XYZ</div>
+
+  <!-- Szoba gomb -->
+  <div>
+    <button class="btn" onclick="window.location.href='https://www.roomx.com';">Szoba Oldal Megnyitása</button>
+  </div>
+
+  <!-- Foglalás gomb (jobboldalon lent) -->
+  <button class="booking-btn" onclick="window.location.href='https://calendly.com/your-calendly-url';">
+    Foglalás
+  </button>
+
+</body>
+</html>
