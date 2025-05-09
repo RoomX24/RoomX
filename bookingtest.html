@@ -2,33 +2,30 @@
 <html lang="hu">
 <head>
   <meta charset="UTF-8">
-  <title>Foglalás</title>
+  <title>RoomX Foglalás</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f7f7f7;
-      text-align: center;
-      padding: 2em;
-    }
-    .btn {
-      padding: 1em 2em;
-      font-size: 1.2em;
-      background-color: #007bff;
+      background-color: #111;
       color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+      text-align: center;
+      padding: 20px;
     }
-    .btn:hover {
-      background-color: #0056b3;
+    h1 {
+      color: #ff0000;
     }
   </style>
 </head>
 <body>
-  <h1>RoomX Foglalás</h1>
-  <p>Kattints a gombra a foglalás elindításához!</p>
-  <button class="btn" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSeIcwkHff57ClMWu1tLxvbqQ8OiBFaYpODUDSvWqUHkEwjwhg/viewform', '_blank')">
-    Foglalási űrlap megnyitása
-  </button>
+  <h1>Foglalás a RoomX szabadulószobába</h1>
+
+  <!-- Calendly inline widget begin -->
+  <div class="calendly-inline-widget" 
+       data-url="https://calendly.com/atornyai2/roomx?background_color=ff0000&primary_color=ff0000" 
+       style="min-width:320px;height:700px;">
+  </div>
+  <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  <!-- Calendly inline widget end -->
 </body>
 </html>
