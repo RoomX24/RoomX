@@ -4,27 +4,36 @@
   <meta charset="UTF-8">
   <title>RoomX Foglalás</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
   <style>
     body {
       margin: 0;
       font-family: 'Arial', sans-serif;
+      background-image: url('room-x-logo.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
       background-color: #000;
-      color: #d32121;
+      background-attachment: fixed;
+      color: white;
       text-align: center;
     }
     h1 {
-      background-color: #cc2222;
-      color: white;
+      background-color: rgba(204, 34, 34, 0.8);
       padding: 20px;
       margin: 0;
     }
     .wrapper {
       padding: 20px;
+      background-color: rgba(0, 0, 0, 0.65);
+      margin: 20px auto;
+      max-width: 900px;
+      border-radius: 12px;
     }
   </style>
 </head>
 <body>
-  <h1>RoomX</h1>
+  <h1>Foglalj időpontot a RoomX szabadulószobába</h1>
   <div class="wrapper">
     <!-- Calendly inline widget begin -->
     <div class="calendly-inline-widget" 
@@ -34,5 +43,19 @@
     <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
     <!-- Calendly inline widget end -->
   </div>
+
+  <!-- Calendly badge widget begin -->
+  <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  <script type="text/javascript">
+    window.onload = function() {
+      Calendly.initBadgeWidget({
+        url: 'https://calendly.com/atornyai2/roomx?hide_event_type_details=1&background_color=1a1a1a&text_color=c91919&primary_color=c91919',
+        text: 'Foglalj most!',
+        color: '#cb1717',
+        textColor: '#050505'
+      });
+    }
+  </script>
+  <!-- Calendly badge widget end -->
 </body>
 </html>
