@@ -6,7 +6,6 @@
   <title>RoomX</title>
   <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
   <style>
-    /* Alap stílusok */
     html, body {
       height: 100%;
       margin: 0;
@@ -25,12 +24,10 @@
       position: relative;
       z-index: 0;
       overflow: hidden;
-      margin-left: 180px; /* Oldalsó menü eltolása */
     }
 
-    /* Háttérkép és overlay konténer */
-    .background,
-    .overlay {
+    /* Háttér */
+    .background, .overlay {
       position: fixed;
       top: 0;
       left: 0;
@@ -50,19 +47,20 @@
       background-color: rgba(0, 0, 0, 0.6);
     }
 
-    /* Logó baloldalon fent, kisebb méret */
+    /* Logó bal felül */
     .logo {
       position: absolute;
       top: 20px;
-      left: 20px;
+      left: 60px;
+      z-index: 1010;
     }
 
     .logo img {
-      width: 150px; /* Logó méretének csökkentése */
+      width: 150px;
       height: auto;
     }
 
-    /* Átlátszó szövegmező */
+    /* Szövegmező */
     .text-box {
       background-color: rgba(0, 0, 0, 0.7);
       color: red;
@@ -75,7 +73,7 @@
       max-width: 600px;
     }
 
-    /* Gomb stílusok */
+    /* Szoba gomb */
     .btn {
       padding: 1em 2em;
       font-size: 1.2em;
@@ -92,104 +90,92 @@
       background-color: #0056b3;
     }
 
-    /* Calendly badge widget */
-    .calendly-badge {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
+    /* Mobilbarát */
+    @media (max-width: 600px) {
+      .text-box {
+        font-size: 1.2em;
+      }
+
+      .btn {
+        font-size: 1em;
+        padding: 0.8em 1.6em;
+      }
+
+      .logo img {
+        width: 120px;
+      }
     }
 
-    /* Oldalsó menü */
-    .side-menu {
+    /* === Oldalsó menü === */
+    .sidebar {
       position: fixed;
       top: 0;
-      left: 0;
-      width: 180px;
+      left: -250px;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      padding-top: 80px; /* logó helye miatt */
-      z-index: 10;
+      width: 250px;
+      background-color: rgba(0, 0, 0, 0.95);
+      transition: 0.3s ease-in-out;
+      padding-top: 80px;
+      z-index: 1000;
     }
 
-    .side-menu a {
-      text-decoration: none;
-      color: red;
-      padding: 15px 20px;
+    .sidebar a {
       display: block;
-      width: 100%;
-      box-sizing: border-box;
-      border-bottom: 1px solid red;
-      font-size: 1.1em;
-      background: none;
-      text-align: left;
-      transition: background-color 0.2s;
+      padding: 20px;
+      color: white;
+      text-decoration: none;
+      font-size: 1.2em;
+      background-color: red;
+      margin: 20px;
+      border-radius: 5px;
+      text-align: center;
     }
 
-    .side-menu a:hover {
-      background-color: rgba(255, 0, 0, 0.1);
+    .sidebar a:hover {
+      background-color: #cc0000;
     }
 
-    /* Mobilbarát beállítások */
-    @media (max-width: 600px) {
-      .side-menu {
-        width: 100%;
-        height: auto;
-        flex-direction: row;
-        justify-content: space-around;
-        padding-top: 0;
-      }
-
-      .side-menu a {
-        border-bottom: none;
-        border-right: 1px solid red;
-        text-align: center;
-      }
-
-      body {
-        margin-left: 0;
-        margin-top: 60px;
-      }
+    .menu-icon {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 2em;
+      color: white;
+      cursor: pointer;
+      z-index: 1100;
     }
   </style>
 </head>
 <body>
 
-  <!-- Oldalsó menü -->
-  <div class="side-menu">
-    <a href="https://www.roomx.com">Szoba Oldal</a>
-    <a href="#rolunk">Rólunk</a>
-  </div>
-
   <!-- Háttérrétegek -->
   <div class="background"></div>
   <div class="overlay"></div>
 
-  <!-- Logó baloldalon fent -->
+  <!-- Menü ikon -->
+  <div class="menu-icon" onclick="toggleSidebar()">☰</div>
+
+  <!-- Oldalsó menü -->
+  <div id="sidebar" class="sidebar">
+    <a href="https://www.roomx.com">Szoba oldal megnyitása</a>
+  </div>
+
+  <!-- Logó -->
   <div class="logo">
     <img src="https://raw.githubusercontent.com/RoomX24/RoomX/refs/heads/main/room-x-logo.png" alt="Logo">
   </div>
 
-  <!-- Átlátszó szövegmező -->
+  <!-- Szövegmező -->
   <div class="text-box">
     Üdvözlünk a RoomX-ben!<br><br>
     Készen állsz egy igazi kihívásra? A RoomX-ben egy órátok van, hogy csapatként megfejtsétek a rejtélyeket és kijussatok. Az idő ketyeg, és minden másodperc számít! Ne hagyjátok ki – foglaljatok időpontot most, és tedd próbára a csapatotokat!
   </div>
 
-  <!-- Szoba gomb -->
-  <div>
-    <button class="btn" onclick="window.location.href='https://www.roomx.com';">Szoba Oldal Megnyitása</button>
-  </div>
-
-  <!-- Calendly badge widget -->
+  <!-- Calendly badge -->
   <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
-  <script type="text/javascript">
-    window.onload = function() {
-      // Automatikusan beállítja a nyelvet a felhasználó böngészője szerint
-      const userLang = navigator.language || navigator.userLanguage;
-      document.documentElement.lang = userLang;
+  <script>
+    window.onload = function () {
+      document.documentElement.lang = navigator.language || navigator.userLanguage;
 
       Calendly.initBadgeWidget({
         url: 'https://calendly.com/atornyai2/roomx?hide_event_type_details=1&background_color=020202&text_color=aa1919&primary_color=aa1919',
@@ -199,6 +185,11 @@
         branding: false
       });
     };
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      sidebar.style.left = (sidebar.style.left === "0px") ? "-250px" : "0px";
+    }
   </script>
 
 </body>
