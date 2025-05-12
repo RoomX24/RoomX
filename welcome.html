@@ -146,11 +146,13 @@
       cursor: pointer;
       z-index: 1100;
     }
-  }
-    
+
     /* Menü nyitás esetén blur a háttérre */
-    .sidebar-open .background, .sidebar-open .overlay, .sidebar-open .text-box {
+    .sidebar-open .background, 
+    .sidebar-open .overlay, 
+    .sidebar-open .text-box {
       filter: blur(2px);
+      transition: filter 0.3s ease;
     }
   </style>
 </head>
@@ -176,14 +178,14 @@
   </div>
 
   <!-- Szövegmező -->
-<div class="text-box">
-  ÜDVÖZLÜNK A ROOMX-BEN<br><br>
-  AMINT BECSUKÓDIK MÖGÖTTETEK AZ AJTÓ, A VILÁG, AMIT ISMERTETEK, MEGSZŰNIK LÉTEZNI.  
-  A FÉNYEK HALVÁNYULNAK, A CSENDET EGY HIDEGRÁZÓ HANG TÖRI MEG – ÉS MÁRIS A JÁTÉK RÉSZEI VAGYTOK.
-  <br><br>
-  60 PERCETEK VAN, HOGY KIJUSSATOK. A FALAK FIGYELNEK, AZ IDŐ KÖNYÖRTELENÜL KETYEG.  
-  CSAK TI VAGYTOK ÉS A SÖTÉTSÉG.
-</div>
+  <div class="text-box">
+    ÜDVÖZLÜNK A ROOMX-BEN<br><br>
+    AMINT BECSUKÓDIK MÖGÖTTETEK AZ AJTÓ, A VILÁG, AMIT ISMERTETEK, MEGSZŰNIK LÉTEZNI.  
+    A FÉNYEK HALVÁNYULNAK, A CSENDET EGY HIDEGRÁZÓ HANG TÖRI MEG – ÉS MÁRIS A JÁTÉK RÉSZEI VAGYTOK.
+    <br><br>
+    60 PERCETEK VAN, HOGY KIJUSSATOK. A FALAK FIGYELNEK, AZ IDŐ KÖNYÖRTELENÜL KETYEG.  
+    CSAK TI VAGYTOK ÉS A SÖTÉTSÉG.
+  </div>
 
   <!-- Calendly badge -->
   <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
@@ -201,17 +203,16 @@
     };
 
     function toggleSidebar() {
-  const sidebar = document.getElementById("sidebar");
-  const body = document.body;
-  if (sidebar.style.left === "0px") {
-    sidebar.style.left = "-150px";
-    body.classList.remove("sidebar-open");
-  } else {
-    sidebar.style.left = "0px";
-    body.classList.add("sidebar-open");
-  }
-}
-  
+      const sidebar = document.getElementById("sidebar");
+      const body = document.body;
+      if (sidebar.style.left === "0px") {
+        sidebar.style.left = "-150px";
+        body.classList.remove("sidebar-open");
+      } else {
+        sidebar.style.left = "0px";
+        body.classList.add("sidebar-open");
+      }
+    }
   </script>
 
 </body>
