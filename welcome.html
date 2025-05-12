@@ -91,23 +91,7 @@
       background-color: #0056b3;
     }
 
-    /* Mobilbarát */
-    @media (max-width: 600px) {
-      .text-box {
-        font-size: 1.2em;
-      }
-
-      .btn {
-        font-size: 1em;
-        padding: 0.8em 1.6em;
-      }
-
-      .logo img {
-        width: 120px;
-      }
-    }
-
-    /* === Oldalsó menü === */
+    /* Menü nyitás esetén animáció */
     .sidebar {
       position: fixed;
       top: 0;
@@ -147,6 +131,20 @@
       z-index: 1100;
     }
 
+    /* Animáció a navigáció előtt */
+    .fade-out {
+      animation: fadeOut 1s forwards;
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+
     /* Menü nyitás esetén blur a háttérre */
     .sidebar-open .background, 
     .sidebar-open .overlay, 
@@ -167,9 +165,9 @@
 
   <!-- Oldalsó menü -->
   <div id="sidebar" class="sidebar">
-    <a href="https://roomx24.github.io/RoomX/welcome.html">Főoldal</a>
-    <a href="https://roomx24.github.io/RoomX/MrX.html">Mr.X</a>
-    <a href="#rolunk">Rólunk</a>
+    <a href="#" onclick="navigateTo('https://roomx24.github.io/RoomX/welcome.html')">Főoldal</a>
+    <a href="#" onclick="navigateTo('https://roomx24.github.io/RoomX/MrX.html')">Mr.X</a>
+    <a href="#rolunk" onclick="navigateTo('#rolunk')">Rólunk</a>
   </div>
 
   <!-- Logó -->
@@ -212,6 +210,14 @@
         sidebar.style.left = "0px";
         body.classList.add("sidebar-open");
       }
+    }
+
+    function navigateTo(url) {
+      // Elindítja a fade-out animációt
+      document.body.classList.add('fade-out');
+      setTimeout(function() {
+        window.location.href = url;
+      }, 1000); // 1 másodperc után navigál
     }
   </script>
 
