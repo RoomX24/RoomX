@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RoomX</title>
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
   <style>
     html, body {
       height: 100%;
@@ -38,12 +39,15 @@
     }
 
     .overlay {
-      background-color: rgba(0, 0, 0, 0.6); /* halványítás */
+      background-color: rgba(0, 0, 0, 0.6);
     }
 
-    /* Logó */
+    /* Logó baloldalon fent */
     .logo {
-      margin-top: 50px;
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      margin: 0;
     }
 
     .logo img {
@@ -78,26 +82,6 @@
     .btn:hover {
       background-color: #0056b3;
     }
-
-    /* Jobb alsó foglalás gomb */
-    .booking-btn {
-      position: fixed;
-      right: 20px;
-      bottom: 20px;
-      background-color: #ff3333;
-      color: white;
-      padding: 15px 25px;
-      font-size: 1.2em;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-      z-index: 1;
-    }
-
-    .booking-btn:hover {
-      background-color: #cc2929;
-    }
   </style>
 </head>
 <body>
@@ -106,7 +90,7 @@
   <div class="background"></div>
   <div class="overlay"></div>
 
-  <!-- Logó -->
+  <!-- Logó baloldalon fent -->
   <div class="logo">
     <img src="https://raw.githubusercontent.com/RoomX24/RoomX/refs/heads/main/room-x-logo.png" alt="Logo">
   </div>
@@ -119,10 +103,19 @@
     <button class="btn" onclick="window.location.href='https://www.roomx.com';">Szoba Oldal Megnyitása</button>
   </div>
 
-  <!-- Foglalás gomb (jobboldalon lent) -->
-  <button class="booking-btn" onclick="window.location.href='https://calendly.com/atornyai2/roomx';">
-    Foglalás
-  </button>
+  <!-- Calendly badge widget -->
+  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+  <script type="text/javascript">
+    window.onload = function() {
+      Calendly.initBadgeWidget({
+        url: 'https://calendly.com/atornyai2/roomx?hide_event_type_details=1&background_color=020202&text_color=aa1919&primary_color=aa1919',
+        text: 'Időpontfoglalás',
+        color: '#aa1919',
+        textColor: '#020202',
+        branding: false
+      });
+    };
+  </script>
 
 </body>
 </html>
