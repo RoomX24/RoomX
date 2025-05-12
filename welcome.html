@@ -125,14 +125,15 @@
       color: white;
       text-decoration: none;
       font-size: 1.2em;
-      background-color: red;
+      background: none;
       margin: 20px;
-      border-radius: 5px;
       text-align: center;
+      border-bottom: 1px solid red;
+      transition: background-color 0.2s;
     }
 
     .sidebar a:hover {
-      background-color: #cc0000;
+      background-color: rgba(255, 0, 0, 0.1);
     }
 
     .menu-icon {
@@ -158,6 +159,7 @@
   <!-- Oldalsó menü -->
   <div id="sidebar" class="sidebar">
     <a href="https://www.roomx.com">Szoba oldal megnyitása</a>
+    <a href="#rolunk">Rólunk</a>
   </div>
 
   <!-- Logó -->
