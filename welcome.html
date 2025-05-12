@@ -202,7 +202,13 @@
 
     function toggleSidebar() {
       const sidebar = document.getElementById("sidebar");
-      sidebar.style.left = (sidebar.style.left === "0px") ? "-150px" : "0px";
+      const body = document.body;
+      if (sidebar.style.left === "0px") {
+        sidebar.style.left = "-150px";
+        body.classList.remove("sidebar-open");
+      } else {
+        sidebar.style.left = "0px";
+        body.classList.add("sidebar-open");
     }
   </script>
 
