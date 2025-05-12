@@ -5,13 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RoomX</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    html, body {
+      height: 100%;
       margin: 0;
       padding: 0;
-      background-color: #000;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
       color: #fff;
       text-align: center;
+      background-image: url('hatter.jpg'); /* Itt add meg a háttérképed elérési útját */
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
     }
 
     /* Logó */
@@ -26,12 +34,13 @@
 
     /* Átlátszó szövegmező */
     .text-box {
-      background-color: black;
+      background-color: rgba(0, 0, 0, 0.7); /* Átlátszó fekete háttér */
       color: red;
       font-size: 2em;
       padding: 10px;
       margin: 20px;
       display: inline-block;
+      border-radius: 10px;
     }
 
     /* Gomb stílusok */
@@ -75,7 +84,7 @@
 
   <!-- Logó -->
   <div class="logo">
-    <img src=https://raw.githubusercontent.com/RoomX24/RoomX/refs/heads/main/room-x-logo.png alt="Logo">
+    <img src="https://raw.githubusercontent.com/RoomX24/RoomX/refs/heads/main/room-x-logo.png" alt="Logo">
   </div>
 
   <!-- Átlátszó szövegmező -->
