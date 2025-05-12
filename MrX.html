@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mr.X</title>
+  <meta name="description" content="Szabadulószoba – egy ismeretlen igazságszolgáltató teszi próbára bűneiteket. Vajon meg tudjátok oldani Mr.X rejtélyét?">
   <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
   <style>
@@ -11,16 +12,13 @@
       height: 100%;
       margin: 0;
       padding: 0;
-    }
-
-    body {
       font-family: 'Bebas Neue', sans-serif;
       color: #aa1919;
+      background-color: #000;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
-      height: 100%;
       position: relative;
       z-index: 0;
       overflow-x: hidden;
@@ -56,6 +54,8 @@
       border-radius: 10px;
       width: 80%;
       max-width: 600px;
+      box-sizing: border-box;
+      overflow-wrap: break-word;
     }
 
     .text-box-new {
@@ -63,28 +63,14 @@
       color: #aa1919;
       font-size: 2.5vw;
       padding: 20px;
-      margin: 20px auto;
-      display: inline-block;
+      margin: 40px auto 20px auto;
       border-radius: 10px;
       width: 80%;
       max-width: 600px;
+      box-sizing: border-box;
+      overflow-wrap: break-word;
     }
 
-    .text-box-new {
-      margin-top: 40px;
-    }
-
-/* Mobil nézetre optimalizálás */
-@media (max-width: 768px) {
-  .text-box {
-    font-size: 10vw;  /* A mobil nézethez nagyobb betűméret */
-  }
-
-  .text-box-new {
-    font-size: 4vw;  /* A mobil nézethez is rugalmas betűméret */
-  }
-}
-    
     .btn {
       padding: 1em 2em;
       font-size: 1.2em;
@@ -98,7 +84,7 @@
     }
 
     .btn:hover {
-      background-color: #0056b3;
+      background-color: #660000;
     }
 
     .sidebar {
@@ -137,7 +123,7 @@
       font-size: 2em;
       color: white;
       cursor: pointer;
-      z-index: 1100;
+      z-index: 2000;
     }
 
     .button-container {
@@ -169,38 +155,37 @@
       transform: scale(1.05);
     }
 
-    .content {
+    main.content {
       margin-left: 1px;
       padding: 20px;
       overflow-y: auto;
       max-height: 100vh;
       width: 100%;
       box-sizing: border-box;
-
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 20px;
     }
 
-    /* RESPONSIVE RÉSZ */
+    .sidebar-open .content {
+      filter: blur(2px);
+    }
+
     @media (max-width: 768px) {
-      .logo img {
-        width: 120px;
+      .text-box {
+        font-size: 8vw;
+        padding: 15px;
       }
 
-      .text-box, .text-box-new {
-        font-size: 1.2em;
+      .text-box-new {
+        font-size: 4vw;
         padding: 15px;
       }
 
       .btn {
         font-size: 1em;
         padding: 0.8em 1.6em;
-      }
-
-      .content {
-        margin-left: 0;
       }
 
       .gallery {
@@ -210,9 +195,12 @@
     }
 
     @media (max-width: 480px) {
-      .text-box, .text-box-new {
-        font-size: 1em;
-        padding: 12px;
+      .text-box {
+        font-size: 10vw;
+      }
+
+      .text-box-new {
+        font-size: 5vw;
       }
 
       .btn {
@@ -226,11 +214,6 @@
         left: 15px;
       }
     }
-
-    /* Menü nyitás esetén blur a háttérre */
-    .sidebar-open .content {
-      filter: blur(2px);
-    }
   </style>
 </head>
 <body>
@@ -240,13 +223,13 @@
 
   <div class="menu-icon" onclick="toggleSidebar()">☰</div>
 
-  <div id="sidebar" class="sidebar">
+  <nav id="sidebar" class="sidebar">
     <a href="https://roomx24.github.io/RoomX/welcome.html">Főoldal</a>
     <a href="https://roomx24.github.io/RoomX/MrX.html">Mr.X</a>
     <a href="#rolunk">Rólunk</a>
-  </div>
+  </nav>
 
-  <div class="content">
+  <main class="content">
     <div class="text-box">
       Mr.X<br><br>
     </div>
@@ -262,23 +245,23 @@
 
     <div class="gallery">
       <a href="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek1.jpg">
-        <img src="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek1.jpg" alt="Kép 1" class="gallery-item">
+        <img src="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek1.jpg" alt="Szabadulószoba jelenet 1" class="gallery-item">
       </a>
       <a href="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek2.jpg">
-        <img src="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek2.jpg" alt="Kép 2" class="gallery-item">
+        <img src="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek2.jpg" alt="Szabadulószoba jelenet 2" class="gallery-item">
       </a>
       <a href="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek3.jpg">
-        <img src="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek3.jpg" alt="Kép 3" class="gallery-item">
+        <img src="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek3.jpg" alt="Szabadulószoba jelenet 3" class="gallery-item">
       </a>
       <a href="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek4.jpg">
-        <img src="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek4.jpg" alt="Kép 4" class="gallery-item">
+        <img src="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek4.jpg" alt="Szabadulószoba jelenet 4" class="gallery-item">
       </a>
     </div>
 
     <div class="button-container">
       <button class="btn" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/atornyai2/roomx?hide_event_type_details=1&background_color=020202&text_color=aa1919&primary_color=aa1919'}); return false;">Foglalás</button>
     </div>
-  </div>
+  </main>
 
   <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
   <script>
