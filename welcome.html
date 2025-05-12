@@ -27,7 +27,6 @@
       overflow: hidden;
     }
 
-    /* Háttér */
     .background, .overlay {
       position: fixed;
       top: 0;
@@ -48,7 +47,6 @@
       background-color: rgba(0, 0, 0, 0.6);
     }
 
-    /* Logó jobb felül */
     .logo {
       position: absolute;
       top: 20px;
@@ -61,7 +59,6 @@
       height: auto;
     }
 
-    /* Szövegmező */
     .text-box {
       background-color: rgba(0, 0, 0, 0.7);
       color: '#aa1919';
@@ -74,7 +71,6 @@
       max-width: 600px;
     }
 
-    /* Szoba gomb */
     .btn {
       padding: 1em 2em;
       font-size: 1.2em;
@@ -91,7 +87,6 @@
       background-color: #0056b3;
     }
 
-    /* Menü nyitás esetén animáció */
     .sidebar {
       position: fixed;
       top: 0;
@@ -131,27 +126,20 @@
       z-index: 1100;
     }
 
-    /* Animáció a navigáció előtt */
-    .fade-out {
-      animation: fadeOut 1s forwards;
+    /* Slide-out animáció */
+    .slide-out {
+      animation: slideOut 1s forwards;
     }
 
-    @keyframes fadeOut {
+    @keyframes slideOut {
       from {
-        opacity: 1;
+        transform: translateX(0);
       }
       to {
-        opacity: 0;
+        transform: translateX(-100%);
       }
     }
 
-    /* Menü nyitás esetén blur a háttérre */
-    .sidebar-open .background, 
-    .sidebar-open .overlay, 
-    .sidebar-open .text-box {
-      filter: blur(2px);
-      transition: filter 0.3s ease;
-    }
   </style>
 </head>
 <body>
@@ -185,7 +173,6 @@
     CSAK TI VAGYTOK ÉS A SÖTÉTSÉG.
   </div>
 
-  <!-- Calendly badge -->
   <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
   <script>
     window.onload = function () {
@@ -213,8 +200,8 @@
     }
 
     function navigateTo(url) {
-      // Elindítja a fade-out animációt
-      document.body.classList.add('fade-out');
+      // Elindítja a slide-out animációt
+      document.body.classList.add('slide-out');
       setTimeout(function() {
         window.location.href = url;
       }, 1000); // 1 másodperc után navigál
