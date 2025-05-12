@@ -16,8 +16,14 @@
       font-family: Arial, sans-serif;
       color: #fff;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
       position: relative;
       z-index: 0;
+      overflow: hidden;
     }
 
     /* Háttérkép és overlay konténer */
@@ -47,7 +53,6 @@
       position: absolute;
       top: 20px;
       left: 20px;
-      margin: 0;
     }
 
     .logo img {
@@ -81,6 +86,29 @@
 
     .btn:hover {
       background-color: #0056b3;
+    }
+
+    /* Calendly badge widget */
+    .calendly-badge {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+    }
+
+    /* Mobilbarát beállítások */
+    @media (max-width: 600px) {
+      .text-box {
+        font-size: 1.5em;
+      }
+
+      .btn {
+        font-size: 1em;
+        padding: 0.8em 1.6em;
+      }
+
+      .logo img {
+        width: 150px;
+      }
     }
   </style>
 </head>
