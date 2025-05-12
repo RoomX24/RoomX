@@ -159,6 +159,26 @@
       justify-content: center;
       margin-bottom: 40px;
     }
+
+    /* Képgaléria stílus */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .gallery-item {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.05);
+    }
   </style>
 </head>
 <body>
@@ -196,6 +216,24 @@
     **De mi lesz, ha nem sikerül?**
   </div>
 
+  <!-- Képgaléria -->
+  <div class="gallery">
+    <a href="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek1.jpg">
+      <img src="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek1.jpg" alt="Kép 1" class="gallery-item">
+    </a>
+    <a href="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek2.jpg">
+      <img src="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek2.jpg" alt="Kép 2" class="gallery-item">
+    </a>
+    <a href="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek3.jpg">
+      <img src="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek3.jpg" alt="Kép 3" class="gallery-item">
+    </a>
+    <a href="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek4.jpg">
+      <img src="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek4.jpg" alt="Kép 4" class="gallery-item">
+    </a>
+    <!-- További képek itt -->
+  </div>
+
+  <!-- Button Container -->
   <div class="button-container">
     <button class="btn" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/atornyai2/roomx?hide_event_type_details=1&background_color=020202&text_color=aa1919&primary_color=aa1919'}); return false;">Foglalás</button>
   </div>
