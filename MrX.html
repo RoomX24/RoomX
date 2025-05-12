@@ -179,6 +179,14 @@
     .gallery-item:hover {
       transform: scale(1.05);
     }
+
+    .content {
+      margin-left: 160px; /* Oldalsó menü melletti hely */
+      padding: 20px;
+      overflow-y: auto; /* Görgethető tartalom */
+      max-height: 100vh; /* Maximum magasság */
+    }
+
   </style>
 </head>
 <body>
@@ -197,45 +205,47 @@
     <img src="https://raw.githubusercontent.com/RoomX24/RoomX/refs/heads/main/room-x-logo.png" alt="Logo">
   </div>
 
-  <div class="text-box">
-    ÜDVÖZLÜNK A ROOMX-BEN<br><br>
-    AMINT BECSUKÓDIK MÖGÖTTETEK AZ AJTÓ, A VILÁG, AMIT ISMERTETEK, MEGSZŰNIK LÉTEZNI.  
-    A FÉNYEK HALVÁNYULNAK, A CSENDET EGY HIDEGRÁZÓ HANG TÖRI MEG – ÉS MÁRIS A JÁTÉK RÉSZEI VAGYTOK.
-    <br><br>
-    60 PERCETEK VAN, HOGY KIJUSSATOK. A FALAK FIGYELNEK, AZ IDŐ KÖNYÖRTELENÜL KETYEG.  
-    CSAK TI VAGYTOK ÉS A SÖTÉTSÉG.
-  </div>
+  <div class="content">
+    <div class="text-box">
+      ÜDVÖZLÜNK A ROOMX-BEN<br><br>
+      AMINT BECSUKÓDIK MÖGÖTTETEK AZ AJTÓ, A VILÁG, AMIT ISMERTETEK, MEGSZŰNIK LÉTEZNI.  
+      A FÉNYEK HALVÁNYULNAK, A CSENDET EGY HIDEGRÁZÓ HANG TÖRI MEG – ÉS MÁRIS A JÁTÉK RÉSZEI VAGYTOK.
+      <br><br>
+      60 PERCETEK VAN, HOGY KIJUSSATOK. A FALAK FIGYELNEK, AZ IDŐ KÖNYÖRTELENÜL KETYEG.  
+      CSAK TI VAGYTOK ÉS A SÖTÉTSÉG.
+    </div>
 
-  <!-- Új szövegmező -->
-  <div class="text-box-new">
-    **Az ismeretlen igazságszolgáltató figyel rátok...**
-    <br><br>
-    Az egész történet egyetlen kérdés köré épül: Vajon elég erősek vagytok ahhoz, hogy szembenézzetek saját bűneitekkel?  
-    Csak egyetlen esélyetek van: ha megoldjátok a rejtélyt, megszabadulhattok. 
-    <br><br>
-    **De mi lesz, ha nem sikerül?**
-  </div>
+    <!-- Új szövegmező -->
+    <div class="text-box-new">
+      **Az ismeretlen igazságszolgáltató figyel rátok...**
+      <br><br>
+      Az egész történet egyetlen kérdés köré épül: Vajon elég erősek vagytok ahhoz, hogy szembenézzetek saját bűneitekkel?  
+      Csak egyetlen esélyetek van: ha megoldjátok a rejtélyt, megszabadulhattok. 
+      <br><br>
+      **De mi lesz, ha nem sikerül?**
+    </div>
 
-  <!-- Képgaléria -->
-  <div class="gallery">
-    <a href="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek1.jpg">
-      <img src="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek1.jpg" alt="Kép 1" class="gallery-item">
-    </a>
-    <a href="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek2.jpg">
-      <img src="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek2.jpg" alt="Kép 2" class="gallery-item">
-    </a>
-    <a href="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek3.jpg">
-      <img src="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek3.jpg" alt="Kép 3" class="gallery-item">
-    </a>
-    <a href="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek4.jpg">
-      <img src="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek4.jpg" alt="Kép 4" class="gallery-item">
-    </a>
-    <!-- További képek itt -->
-  </div>
+    <!-- Képgaléria -->
+    <div class="gallery">
+      <a href="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek1.jpg">
+        <img src="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek1.jpg" alt="Kép 1" class="gallery-item">
+      </a>
+      <a href="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek2.jpg">
+        <img src="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek2.jpg" alt="Kép 2" class="gallery-item">
+      </a>
+      <a href="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek3.jpg">
+        <img src="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek3.jpg" alt="Kép 3" class="gallery-item">
+      </a>
+      <a href="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek4.jpg">
+        <img src="https://raw.githubusercontent.com/RoomX24/RoomX/main/kepek/kepek4.jpg" alt="Kép 4" class="gallery-item">
+      </a>
+      <!-- További képek itt -->
+    </div>
 
-  <!-- Button Container -->
-  <div class="button-container">
-    <button class="btn" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/atornyai2/roomx?hide_event_type_details=1&background_color=020202&text_color=aa1919&primary_color=aa1919'}); return false;">Foglalás</button>
+    <!-- Button Container -->
+    <div class="button-container">
+      <button class="btn" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/atornyai2/roomx?hide_event_type_details=1&background_color=020202&text_color=aa1919&primary_color=aa1919'}); return false;">Foglalás</button>
+    </div>
   </div>
 
   <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
