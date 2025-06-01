@@ -299,7 +299,7 @@
     <!-- Nyereményjáték rész -->
     <section id="prize-game">
       <h2>Nyereményjáték</h2>
-      <p>Írd be a nyereménykódot, és nyerj egy ingyenes belépőt!</p>
+      <p>Keresd meg a fenti szövegben elrejtett kódot, és nyerj!</p>
       <input id="codeInput" placeholder="Nyereménykód" autocomplete="off" />
       <button onclick="checkCode()">Ellenőrzés</button>
       <div id="prize-message"></div>
@@ -358,12 +358,12 @@
 
     function checkCode() {
       const codes = ['445566'];  // Itt változtathatod a helyes kódot
-      const prizes = ['Gratulálunk! 20% kedvezményt nyertél! MRX2025 Mutasd meg ezt a kódot a játékmesternek!'];
+      const prizes = ['Gratulálunk! 20% kedvezményt nyertél! Mutasd meg ezt a kódot a játékmesternek: MRX2025'];
       const input = document.getElementById('codeInput').value.trim().toUpperCase();
       const messageEl = document.getElementById('prize-message');
 
       if (input === '') {
-        messageEl.textContent = 'Kérlek, adj meg egy kódot!';
+        messageEl.textContent = 'Adj meg egy kódot!';
         return;
       }
 
