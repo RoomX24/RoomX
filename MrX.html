@@ -358,7 +358,7 @@
 
     function checkCode() {
       const codes = ['445566'];  // Itt változtathatod a helyes kódot
-      const prizes = ['Gratulálunk! 20% kedvezményt nyertél'];
+      const prizes = ['Gratulálunk! 20% kedvezményt nyertél! MRX2025 Mutasd meg ezt a kódot a játékmesternek!'];
       const input = document.getElementById('codeInput').value.trim().toUpperCase();
       const messageEl = document.getElementById('prize-message');
 
@@ -370,4 +370,9 @@
       if (codes.includes(input)) {
         messageEl.textContent = prizes[0];
       } else {
-        messageEl.textContent = 'Sajnos ez a
+        messageEl.textContent = 'Sajnos ez a kód nem érvényes.';
+      }
+    }
+  </script>
+</body>
+</html>
