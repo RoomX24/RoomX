@@ -44,6 +44,60 @@
     .overlay {
       background-color: rgba(0, 0, 0, 0.6);
     }
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      border-bottom: 2px solid #aa1919;
+      z-index: 10000;
+    }
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      height: 40px;
+      cursor: pointer;
+    }
+    nav ul.menu {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 25px;
+    }
+    nav ul.menu li a {
+      text-decoration: none;
+      color: #aa1919;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2em;
+      transition: color 0.3s;
+    }
+    nav ul.menu li a:hover {
+      color: #ff4c4c;
+    }
+    /* Egy kis plusz hely a header miatt */
+    main.content {
+      padding-top: 80px; /* vagy a header magassága + egy kis extra */
+    }
+    /* Mobil reszponzív menü */
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: column;
+        gap: 10px;
+      }
+      nav ul.menu {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+      }
+    }
     .text-box {
       background-color: transparent;
       color: #aa1919;
@@ -139,17 +193,6 @@
       color: white;
       cursor: pointer;
     }
-    main.content {
-      padding: 20px;
-      width: 100%;
-      max-width: 100%;
-      margin: 0 auto;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
     #prize-game {
       background-color: rgba(0, 0, 0, 0.7);
       color: #aa1919;
@@ -205,7 +248,22 @@
 <body>
   <div class="background"></div>
   <div class="overlay"></div>
-  
+
+  <header>
+    <div class="header-container">
+      <a href="https://roomx24.github.io/RoomX/">
+        <img src="https://roomx24.github.io/RoomX/roomx-favicon.png" alt="RoomX Logo" class="logo" />
+      </a>
+      <nav>
+        <ul class="menu">
+          <li><a href="#prize-game">Nyereményjáték</a></li>
+          <li><a href="#gallery">Galéria</a></li>
+          <li><a href="https://roomx24.github.io/RoomX/otherpage.html">Másik oldal</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
   <main class="content">
     <div class="text-box">Mr.X<br /><br /></div>
     <div class="text-box-new">
@@ -217,7 +275,7 @@
       De ha hibáztok… a szoba lesz a sírotok.<br /><br />
       A játék elkezdődött! Mr.X már figyel!
     </div>
-    <div class="gallery">
+    <div class="gallery" id="gallery">
       <img src="https://raw.githubusercontent.com/RoomX24/RoomX/refs/heads/main/photo1.webp" class="gallery-item" alt="1" />
       <img src="https://github.com/RoomX24/RoomX/blob/main/photo2.jpg?raw=true" class="gallery-item" alt="2" />
       <img src="https://github.com/RoomX24/RoomX/blob/main/photo3.jpg?raw=true" class="gallery-item" alt="3" />
@@ -263,37 +321,25 @@
     }
 
     function changeImage(direction) {
-      currentImage = (currentImage + direction + images.length) % images.length;
+      currentImage += direction;
+      if (currentImage < 0) currentImage = images.length - 1;
+      if (currentImage >= images.length) currentImage = 0;
       lightboxImg.src = images[currentImage].src;
     }
 
     function checkCode() {
-      const codes = ['415531'];
-      const prizes = ['Gratulálunk! 20% kedvezményt nyertél! Mutasd meg ezt a kódot a játékmesternek: MRX2025'];
       const input = document.getElementById('codeInput').value.trim();
-      const messageEl = document.getElementById('prize-message');
+      const prizeMessage = document.getElementById('prize-message');
+      const correctCode = '123456'; // Ide írd be a helyes kódot!
 
-      if (input === '') {
-        messageEl.textContent = 'Adj meg egy kódot!';
-        return;
-      }
-
-      if (codes.includes(input)) {
-        messageEl.textContent = prizes[0];
+      if (input === correctCode) {
+        prizeMessage.textContent = 'Gratulálunk! Megfejtetted a kódot!';
+        prizeMessage.style.color = '#0f0';
       } else {
-        messageEl.textContent = 'Sajnos ez a kód nem érvényes.';
+        prizeMessage.textContent = 'Helytelen kód, próbáld újra!';
+        prizeMessage.style.color = '#f00';
       }
     }
-
-    window.onload = function () {
-      Calendly.initBadgeWidget({
-        url: 'https://calendly.com/escaperoomx/roomx',
-        text: 'Időpontfoglalás',
-        color: '#aa1919',
-        textColor: '#020202',
-      });
-    };
   </script>
-  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 </body>
 </html>
