@@ -20,14 +20,15 @@
       text-align: center;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
-      height: 100%;
+      min-height: 100vh;
       position: relative;
       z-index: 0;
-      overflow: hidden;
+      overflow-x: hidden;
     }
 
+    /* Háttér */
     .background, .overlay {
       position: fixed;
       top: 0;
@@ -48,10 +49,20 @@
       background-color: rgba(0, 0, 0, 0.6);
     }
 
+    /* Logó szekció */
+    .logo-section {
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 20px 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+      z-index: 10;
+    }
+
     .logo {
-      position: relative;
-      top: 20px;
-      z-index: 1010;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .logo img {
@@ -59,8 +70,9 @@
       height: auto;
     }
 
+    /* Menü */
     .center-menu {
-      margin-top: 40px;
+      margin: 30px 0;
       display: flex;
       justify-content: center;
       gap: 40px;
@@ -112,6 +124,7 @@
       background-color: #0056b3;
     }
 
+    /* Mobilbarát */
     @media (max-width: 600px) {
       .text-box {
         font-size: 1.2em;
@@ -139,12 +152,14 @@
   <div class="background"></div>
   <div class="overlay"></div>
 
-  <!-- Logó -->
-  <div class="logo">
-    <img src="https://raw.githubusercontent.com/RoomX24/RoomX/refs/heads/main/room-x-logo.png" alt="Logo">
+  <!-- Logó szekció teljes szélességben -->
+  <div class="logo-section">
+    <div class="logo">
+      <img src="https://raw.githubusercontent.com/RoomX24/RoomX/refs/heads/main/room-x-logo.png" alt="Logo">
+    </div>
   </div>
 
-  <!-- Középre igazított menü -->
+  <!-- Menü -->
   <div class="center-menu">
     <a href="https://roomx24.github.io/RoomX/welcome.html">Főoldal</a>
     <a href="https://roomx24.github.io/RoomX/MrX.html">Mr.X</a>
