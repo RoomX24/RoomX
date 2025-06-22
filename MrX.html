@@ -1,120 +1,78 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Szabadulószoba</title>
+  <link rel="icon" href="https://roomx24.github.io/RoomX/roomx-favicon.png" type="image/png" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mr.X</title>
+  <meta name="description" content="RoomX–Mr.X">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
   <style>
-    /* Alap stílusok */
-    body, html {
+    html, body {
+      width: 100%;
+      height: 100%;
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
-      color: white;
-      height: 100%;
+      font-family: 'Bebas Neue', sans-serif;
+      color: #aa1919;
+      background-color: #000;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 0;
       overflow-x: hidden;
-      background-color: black;
     }
-
-    .background {
+    .background, .overlay {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: url('your-background.jpg') no-repeat center center/cover;
-      z-index: -2;
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-color: rgba(0, 0, 0, 0.7);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       z-index: -1;
     }
-
-    header {
+    .background {
+      background-image: url('https://github.com/RoomX24/RoomX/blob/main/background1.webp?raw=true');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+    .text-box {
+      background-color: transparent;
+      color: #aa1919;
+      font-family: 'Special Elite', monospace;
+      font-size: 90px;
       padding: 20px;
-      text-align: center;
-      background-color: rgba(0,0,0,0.8);
-      border-bottom: 2px solid red;
+      margin: 20px auto;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow-wrap: break-word;
     }
-
-    header img {
-      max-height: 60px;
+    .text-box-new {
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #aa1919;
+      font-size: 22px;
+      padding: 20px;
+      margin: 40px auto 20px auto;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow-wrap: break-word;
+      font-family: 'Special Elite', monospace;
     }
+    .btn {
+      padding: 1em 2em;
+      font-size: 1.2em;
+      background-color: red;
+      color: black;
+      border: none;
 
-    nav {
-      margin-top: 10px;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      margin: 0 15px;
-      font-size: 1.1em;
-      padding: 5px 10px;
-      border-bottom: 2px solid transparent;
-      transition: border-color 0.3s;
-    }
-
-    nav a:hover {
-      border-color: red;
-    }
-
-    main.content {
-      padding: 40px 20px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    /* Lightbox stílus, ha kell */
-    .lightbox {
-      display: none;
-      position: fixed;
-      z-index: 2000;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.9);
-      justify-content: center;
-      align-items: center;
-    }
-
-    .lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-      border: 3px solid red;
-      border-radius: 8px;
-    }
-
-    .lightbox:target {
-      display: flex;
-    }
-  </style>
-</head>
-<body>
-  <div class="background"></div>
-  <div class="overlay"></div>
-
-  <header>
-    <img src="logo.png" alt="Szabadulószoba logó" />
-    <nav>
-      <a href="#home">Főoldal</a>
-      <a href="#jatekok">Játékok</a>
-      <a href="#rolunk">Rólunk</a>
-      <a href="#kapcsolat">Kapcsolat</a>
-    </nav>
-  </header>
-
-  <main class="content">
-    <h1>Üdvözlünk a Szabadulószobában!</h1>
-    <p>Izgalmas, hangulatos játékokkal várunk, hogy megfejtsd a rejtélyeket és kijuss a szobából.</p>
-
-    <!-- Példa lightbox link -->
-    <a href="#img1"><img src="puzzle-thumb.jpg" alt="Puzzle kép" style="max-width: 200px; border: 2px solid red; cursor: pointer;" /></a>
-
-    <div id="img1" class="lightbox" onclick="this.style.display='none'">
-      <img src="puzzle-large.jpg" alt="Puzzle nagy kép" />
-    </div>
-
-  </main>
-</body>
-</html>
+    
