@@ -1,395 +1,196 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-  <link rel="icon" href="https://roomx24.github.io/RoomX/roomx-favicon.png" type="image/png" />
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mr.X</title>
-  <meta name="description" content="RoomX–Mr.X">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Language" content="hu" />
+  <title>RoomX</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/lightbox2@2/dist/css/lightbox.min.css" rel="stylesheet" />
   <style>
-    html, body {
-      width: 100%;
-      height: 100%;
+    body {
+      font-family: 'Orbitron', sans-serif;
       margin: 0;
       padding: 0;
-      font-family: 'Bebas Neue', sans-serif;
-      color: #aa1919;
-      background-color: #000;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      z-index: 0;
-      overflow-x: hidden;
-    }
-    .background, .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-    }
-    .background {
-      background-image: url('https://github.com/RoomX24/RoomX/blob/main/background1.webp?raw=true');
+      background: url('hatter.jpg') no-repeat center center fixed;
       background-size: cover;
-      background-position: center center;
-      background-repeat: no-repeat;
+      color: white;
     }
     .overlay {
-      background-color: rgba(0, 0, 0, 0.6);
-    }
-
-    /* Logó szekció */
-    .logo-section {
-      width: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      padding: 20px 0;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-      z-index: 10;
-    }
-
-    .logo {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .logo img {
-      width: 300px;
-      height: auto;
-    }
-
-    /* Menü */
-    .center-menu {
-      margin: 30px 0;
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      z-index: 1000;
-      flex-wrap: wrap;
-    }
-
-    .center-menu a {
-      font-size: 1.5em;
-      color: white;
-      text-decoration: none;
-      padding: 10px 20px;
-      border: 2px solid #aa1919;
-      border-radius: 5px;
-      background-color: rgba(0, 0, 0, 0.6);
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    .center-menu a:hover {
-      background-color: #aa1919;
-      color: black;
-    }
-    .text-box {
-      background-color: transparent;
-      color: #aa1919;
-      font-family: 'Special Elite', monospace;
-      font-size: 90px;
+      background-color: rgba(0, 0, 0, 0.85);
+      min-height: 100vh;
       padding: 20px;
-      margin: 20px auto;
-      border-radius: 10px;
-      width: 100%;
-      max-width: 100%;
-      box-sizing: border-box;
-      overflow-wrap: break-word;
     }
-    .text-box-new {
-      background-color: rgba(0, 0, 0, 0.7);
-      color: #aa1919;
-      font-size: 22px;
-      padding: 20px;
-      margin: 40px auto 20px auto;
-      border-radius: 10px;
-      width: 100%;
-      max-width: 100%;
-      box-sizing: border-box;
-      overflow-wrap: break-word;
-      font-family: 'Special Elite', monospace;
-    }
-    .btn {
-      padding: 1em 2em;
-      font-size: 1.2em;
-      background-color: red;
-      color: black;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-top: 20px;
-      transition: background-color 0.3s;
-    }
-    .btn:hover {
-      background-color: #660000;
-    }
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: -150px;
-      height: 100%;
-      width: 150px;
-      background-color: rgba(0, 0, 0, 0.95);
-      transition: 0.3s ease-in-out;
-      padding-top: 80px;
-      z-index: 1000;
-    }
-    .sidebar a {
-      display: block;
-      padding: 10px;
-      color: white;
-      text-decoration: none;
-      font-size: 1.2em;
-      margin: 6px;
-      text-align: center;
-      border-bottom: 1px solid red;
-      transition: background-color 0.2s;
-    }
-    .sidebar a:hover {
-      background-color: rgba(255, 0, 0, 0.1);
-    }
-    .menu-icon {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      font-size: 2em;
-      color: white;
-      cursor: pointer;
-      z-index: 2000;
-    }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 20px;
-      padding: 20px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-    .gallery-item {
-      width: 100%;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-    .gallery-item:hover {
-      transform: scale(1.05);
-    }
-    .lightbox {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.9);
-      justify-content: center;
-      align-items: center;
-      z-index: 3000;
-    }
-    .lightbox img {
-      max-width: 90%;
-      max-height: 80%;
-    }
-    .lightbox-nav {
-      position: absolute;
-      top: 50%;
-      width: 100%;
+    header {
       display: flex;
       justify-content: space-between;
-      transform: translateY(-50%);
-    }
-    .lightbox-nav span {
-      color: white;
-      font-size: 3em;
-      cursor: pointer;
-      padding: 0 20px;
-      user-select: none;
-    }
-    .lightbox-close {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 2em;
-      color: white;
-      cursor: pointer;
-    }
-    main.content {
-      padding: 20px;
-      width: 100%;
-      max-width: 100%;
-      margin: 0 auto;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 20px;
-    }
-    #prize-game {
-      background-color: rgba(0, 0, 0, 0.7);
-      color: #aa1919;
-      font-family: 'Special Elite', monospace;
       padding: 20px;
-      border-radius: 10px;
-      max-width: 400px;
-      width: 90%;
-      box-sizing: border-box;
-      margin: 40px auto 20px auto;
     }
-    #prize-game input {
-      width: 100%;
-      padding: 0.5em;
-      font-size: 1.2em;
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    .menu {
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
+    .sidebar {
+      height: 100%;
+      width: 250px;
+      position: fixed;
+      top: 0;
+      left: -250px;
+      background-color: #111;
+      padding-top: 60px;
+      transition: left 0.3s ease;
+      z-index: 999;
+    }
+    .sidebar.open {
+      left: 0;
+    }
+    .sidebar a {
+      padding: 10px 15px;
+      text-decoration: none;
+      font-size: 18px;
+      color: white;
+      display: block;
+      transition: background 0.3s;
+    }
+    .sidebar a:hover {
+      background-color: #575757;
+    }
+    .content {
+      text-align: center;
+      margin-top: 50px;
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .gallery-item {
+      width: 200px;
+      height: auto;
+      cursor: pointer;
+      border: 2px solid white;
       border-radius: 5px;
-      border: none;
-      margin-top: 10px;
     }
-    #prize-game button {
-      margin-top: 15px;
-      padding: 0.7em 2em;
-      font-size: 1.2em;
-      background-color: red;
+    .prize-section {
+      margin-top: 30px;
+    }
+    .prize-section input {
+      padding: 10px;
+      font-size: 16px;
+    }
+    .prize-section button {
+      padding: 10px;
+      font-size: 16px;
+      background-color: white;
       color: black;
       border: none;
-      border-radius: 5px;
       cursor: pointer;
-      transition: background-color 0.3s;
-      width: 100%;
+      margin-left: 5px;
     }
-    #prize-game button:hover {
-      background-color: #660000;
+    #prizeMessage {
+      margin-top: 10px;
+      font-size: 1.2rem;
+      color: #00ff00;
     }
-    #prize-message {
-      margin-top: 20px;
-      min-height: 3em;
-      font-size: 1.3em;
-    }
-    .sidebar-open .content {
-      filter: blur(2px);
-    }
-    @media (max-width: 768px) {
-      .text-box { font-size: 15vw; }
-      .text-box-new { font-size: 4vw; }
-    }
-    @media (max-width: 480px) {
-      .text-box { font-size: 20vw; }
-      .text-box-new { font-size: 5vw; }
-      .menu-icon { font-size: 1.8em; }
+    #rolunk {
+      margin-top: 50px;
     }
   </style>
 </head>
 <body>
-  <div class="background"></div>
-  <div class="overlay"></div>
-  <div class="menu-icon" onclick="toggleSidebar()">☰</div>
-  <nav id="sidebar" class="sidebar">
-    <a href="https://roomx24.github.io/RoomX/welcome.html">Főoldal</a>
-    <a href="https://roomx24.github.io/RoomX/MrX.html">Mr.X</a>
-    <a href="#rolunk">Rólunk</a>
-  </nav>
-  <main class="content">
-    <div class="text-box">Mr.X<br><br></div>
-    <div class="text-box-new">
-      <strong>Mr.X – A végzet</strong><br><br>
-      Őt csak Mr.X néven ismerik. Egy sorozatgyilkos. Senki sem tudja, ki ő valójában. Egy árny a sötétből, aki csendben figyeli az embereket, a bűnösöket – hónapokon, éveken át.<br><br>
-      Sosem találták meg, nincsenek ujjlenyomatok, nincs arc – csak elhagyatott szobák, rejtett üzenetek és holttestek maradnak utána.<br><br>
-      Mr.X nem véletlenül választja ki áldozatait. Aki a szobájába kerül, kap egy utolsó esélyt. Minden „játéka” egy gondosan megtervezett ítélet. Minden lépés, minden pillanat része a tervnek.<br><br>
-      Egy órát kaptok. Ha együtt dolgoztok, ha megoldjátok a feladványait, talán kijuthattok.<br><br>
-      De ha hibáztok… a szoba lesz a sírotok.<br><br>
-      A játék elkezdődött! Mr.X már figyel!
+  <div class="overlay">
+    <header>
+      <div class="logo">RoomX</div>
+      <div class="menu" onclick="toggleSidebar()">☰</div>
+    </header>
+    <div id="sidebar" class="sidebar">
+      <a href="#rolunk">Rólunk</a>
+      <a href="#galeria">Galéria</a>
+      <a href="#foglalas">Foglalás</a>
     </div>
-    <div class="gallery">
-      <img src="https://raw.githubusercontent.com/RoomX24/RoomX/refs/heads/main/photo1.webp" class="gallery-item" alt="1">
-      <img src="https://github.com/RoomX24/RoomX/blob/main/photo2.jpg?raw=true" class="gallery-item" alt="2">
-      <img src="https://github.com/RoomX24/RoomX/blob/main/photo3.jpg?raw=true" class="gallery-item" alt="3">
-      <img src="https://raw.githubusercontent.com/RoomX24/RoomX/refs/heads/main/photo4.webp" class="gallery-item" alt="4">
+    <div class="content">
+      <h1>Üdvözlünk a RoomX világában!</h1>
+      <p>Fedezd fel a rejtélyeket, oldd meg a kihívásokat, és éld át az élményt!</p>
+
+      <section id="galeria">
+        <h2>Galéria</h2>
+        <div class="gallery">
+          <a href="https://raw.githubusercontent.com/RoomX24/RoomX/main/photo1.jpg" data-lightbox="roomx" data-title="Mr.X szoba - 1">
+            <img src="https://raw.githubusercontent.com/RoomX24/RoomX/main/photo1.jpg" class="gallery-item" alt="Mr.X szoba részlet – fotó 1" />
+          </a>
+          <a href="https://raw.githubusercontent.com/RoomX24/RoomX/main/photo2.jpg" data-lightbox="roomx" data-title="Mr.X szoba - 2">
+            <img src="https://raw.githubusercontent.com/RoomX24/RoomX/main/photo2.jpg" class="gallery-item" alt="Mr.X szoba részlet – fotó 2" />
+          </a>
+          <a href="https://raw.githubusercontent.com/RoomX24/RoomX/main/photo3.jpg" data-lightbox="roomx" data-title="Mr.X szoba - 3">
+            <img src="https://raw.githubusercontent.com/RoomX24/RoomX/main/photo3.jpg" class="gallery-item" alt="Mr.X szoba részlet – fotó 3" />
+          </a>
+        </div>
+      </section>
+
+      <div class="prize-section">
+        <h2>Nyereményjáték</h2>
+        <input type="text" id="codeInput" placeholder="Írd be a kódot" />
+        <button onclick="checkCode()">Ellenőrzés</button>
+        <div id="prizeMessage"></div>
+      </div>
+
+      <section id="rolunk">
+        <h2>Rólunk</h2>
+        <p>A RoomX egy szenvedéllyel létrehozott szabadulószoba, ahol a történetmesélés és az izgalom találkozik. Küldetésünk, hogy felejthetetlen élményt nyújtsunk vendégeinknek!</p>
+      </section>
+
+      <section id="foglalas">
+        <h2>Foglalás</h2>
+        <p>Kattints az oldalsó gombra vagy a lenti linkre a foglaláshoz!</p>
+        <a href="https://calendly.com/escaperoomx/roomx" target="_blank" style="color: #00ffff;">Foglalás megnyitása</a>
+      </section>
     </div>
-    <section id="prize-game">
-      <h2>Nyereményjáték</h2>
-      <p>Keresd meg a fenti szövegben elrejtett hat számjegyű kódot, és nyerj!</p>
-      <input id="codeInput" placeholder="Nyereménykód" autocomplete="off" />
-      <button onclick="checkCode()">Ellenőrzés</button>
-      <div id="prize-message"></div>
-    </section>
-  </main>
-  <div class="lightbox" id="lightbox">
-    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-    <div class="lightbox-nav">
-      <span onclick="changeImage(-1)">&#10094;</span>
-      <span onclick="changeImage(1)">&#10095;</span>
-    </div>
-    <img id="lightbox-img" src="">
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/lightbox2@2/dist/js/lightbox-plus-jquery.min.js"></script>
+  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
   <script>
-    let currentImage = 0;
-    const images = [...document.querySelectorAll('.gallery-item')];
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-
-    images.forEach((img, index) => {
-      img.addEventListener('click', () => {
-        currentImage = index;
-        showLightbox();
-      });
-    });
-
-    function showLightbox() {
-      lightboxImg.src = images[currentImage].src;
-      lightbox.style.display = 'flex';
-    }
-
-    function closeLightbox() {
-      lightbox.style.display = 'none';
-    }
-
-    function changeImage(direction) {
-      currentImage = (currentImage + direction + images.length) % images.length;
-      lightboxImg.src = images[currentImage].src;
-    }
-
     function toggleSidebar() {
-      const sidebar = document.getElementById("sidebar");
-      const body = document.body;
-      if (sidebar.style.left === "0px") {
-        sidebar.style.left = "-150px";
-        body.classList.remove("sidebar-open");
-      } else {
-        sidebar.style.left = "0px";
-        body.classList.add("sidebar-open");
-      }
+      document.getElementById('sidebar').classList.toggle('open');
     }
+
+    const codes = ['12345', '54321', 'ABCDE'];
+    const prizes = ['Gratulálunk! 10% kedvezmény a következő játékra!', 'Gratulálunk! Ingyen ital a csapatnak!', 'Szerencsés vagy! Extra tipp a játék során!'];
 
     function checkCode() {
-      const codes = ['415531'];
-      const prizes = ['Gratulálunk! 20% kedvezményt nyertél! Mutasd meg ezt a kódot a játékmesternek: MRX2025'];
       const input = document.getElementById('codeInput').value.trim();
-      const messageEl = document.getElementById('prize-message');
+      const messageEl = document.getElementById('prizeMessage');
+      const inputEl = document.getElementById('codeInput');
+      const index = codes.indexOf(input);
 
-      if (input === '') {
-        messageEl.textContent = 'Adj meg egy kódot!';
-        return;
-      }
-
-      if (codes.includes(input)) {
-        messageEl.textContent = prizes[0];
+      if (index !== -1) {
+        messageEl.textContent = prizes[index];
+        messageEl.style.color = '#00ff00';
+        inputEl.disabled = true;
       } else {
-        messageEl.textContent = 'Sajnos ez a kód nem érvényes.';
+        messageEl.textContent = 'Érvénytelen kód. Próbáld újra!';
+        messageEl.style.color = '#ff0000';
       }
     }
 
-    window.onload = function() {
-      Calendly.initBadgeWidget({
-        url: 'https://calendly.com/escaperoomx/roomx',
-        text: 'Időpontfoglalás',
-        color: '#aa1919',
-        textColor: '#020202'
-      });
-    };
+    // Calendly widget biztonságos inicializálása
+    window.addEventListener('load', function () {
+      if (window.Calendly) {
+        Calendly.initBadgeWidget({
+          url: 'https://calendly.com/escaperoomx/roomx',
+          text: 'Időpontfoglalás',
+          color: '#aa1919',
+          textColor: '#020202'
+        });
+      }
+    });
   </script>
-  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 </body>
 </html>
