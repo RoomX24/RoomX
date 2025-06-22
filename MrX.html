@@ -4,15 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mr.X - RoomX</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&display=swap" rel="stylesheet" />
   <style>
-    /* Globális box-sizing */
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
       font-family: 'Bebas Neue', cursive, sans-serif;
@@ -22,7 +15,6 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 0 10px; /* kicsi oldalra padding mobilon */
     }
 
     /* Logó szekció teljes szélességben */
@@ -43,9 +35,7 @@
 
     .logo img {
       width: 300px;
-      max-width: 100%;
       height: auto;
-      display: block;
     }
 
     /* Menü */
@@ -74,7 +64,31 @@
       color: black;
     }
 
-    /* Text boxok */
+    /* Mobilbarát */
+    @media (max-width: 600px) {
+      .logo img {
+        width: 150px;
+      }
+
+      .center-menu {
+        flex-direction: row;
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0 10px;
+        box-sizing: border-box;
+        max-width: 100%;
+      }
+
+      .center-menu a {
+        white-space: nowrap;
+        flex: 1 1 auto;
+        min-width: 80px;
+        text-align: center;
+      }
+    }
+
+    /* Kiegészítő stílusok */
     .text-box {
       background-color: transparent;
       color: #aa1919;
@@ -85,6 +99,7 @@
       border-radius: 10px;
       width: 100%;
       max-width: 100%;
+      box-sizing: border-box;
       overflow-wrap: break-word;
       text-align: center;
     }
@@ -98,12 +113,13 @@
       border-radius: 10px;
       width: 100%;
       max-width: 100%;
+      box-sizing: border-box;
       overflow-wrap: break-word;
       font-family: 'Special Elite', monospace;
       text-align: center;
+      line-height: 1.5;
     }
 
-    /* Gomb */
     .btn {
       padding: 1em 2em;
       font-size: 1.2em;
@@ -120,31 +136,29 @@
       background-color: #660000;
     }
 
-    /* Galéria */
     .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 15px;
-      padding: 20px 0;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 20px;
       width: 100%;
+      box-sizing: border-box;
       max-width: 1000px;
       margin: 0 auto 40px auto;
-      box-sizing: border-box;
     }
 
     .gallery-item {
       width: 100%;
       cursor: pointer;
       transition: transform 0.3s ease;
-      display: block;
-      height: auto;
+      border-radius: 5px;
+      object-fit: cover;
     }
 
     .gallery-item:hover {
       transform: scale(1.05);
     }
 
-    /* Lightbox */
     .lightbox {
       display: none;
       position: fixed;
@@ -161,6 +175,7 @@
     .lightbox img {
       max-width: 90%;
       max-height: 80%;
+      border-radius: 10px;
     }
 
     .lightbox-nav {
@@ -189,7 +204,6 @@
       cursor: pointer;
     }
 
-    /* Nyereményjáték szekció */
     #prize-game {
       background-color: rgba(0, 0, 0, 0.7);
       color: #aa1919;
@@ -210,7 +224,6 @@
       border-radius: 5px;
       border: none;
       margin-top: 10px;
-      box-sizing: border-box;
     }
 
     #prize-game button {
@@ -230,83 +243,37 @@
       background-color: #660000;
     }
 
-    /* Reszponzív - mobil */
     @media (max-width: 768px) {
       .text-box {
-        font-size: 15vw !important;
+        font-size: 15vw;
       }
       .text-box-new {
-        font-size: 4vw !important;
+        font-size: 4vw;
       }
     }
-
     @media (max-width: 480px) {
-      .logo img {
-        width: 150px;
-      }
-
-      .center-menu {
-        gap: 10px;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-
-      .center-menu a {
-        white-space: nowrap;
-        flex: 1 1 auto;
-        min-width: 80px;
-        text-align: center;
-      }
-
-      .gallery {
-        grid-template-columns: 1fr; /* egy oszlop */
-        gap: 10px;
-      }
-
       .text-box {
-        font-size: 20vw !important;
+        font-size: 20vw;
       }
-
       .text-box-new {
-        font-size: 5vw !important;
+        font-size: 5vw;
       }
     }
   </style>
 </head>
 <body>
-
-  <!-- Logó szekció teljes szélességben -->
   <div class="logo-section">
     <div class="logo">
       <img src="https://raw.githubusercontent.com/RoomX24/RoomX/refs/heads/main/room-x-logo.png" alt="Logo" />
     </div>
   </div>
 
-  <!-- Menü -->
   <div class="center-menu">
     <a href="https://roomx24.github.io/RoomX/welcome.html">Főoldal</a>
     <a href="https://roomx24.github.io/RoomX/MrX.html">Mr.X</a>
-    <a href="#rolunk">Áraink</a>
+    <a href="#araink">Áraink</a>
     <a href="#rolunk">Rólunk</a>
   </div>
-
-  <div class="background"></div>
-  <div class="overlay"></div>
-
-  <header>
-    <div class="header-container">
-      <a href="https://roomx24.github.io/RoomX/">
-        <img src="https://roomx24.github.io/RoomX/roomx-favicon.png" alt="RoomX Logo" class="logo" />
-      </a>
-      <nav>
-        <ul class="menu">
-          <li><a href="#prize-game">Nyereményjáték</a></li>
-          <li><a href="#gallery">Galéria</a></li>
-          <li><a href="https://roomx24.github.io/RoomX/otherpage.html">Másik oldal</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
 
   <main class="content">
     <div class="text-box">Mr.X<br /><br /></div>
@@ -314,54 +281,52 @@
       <strong>Mr.X – A végzet</strong><br /><br />
       Őt csak Mr.X néven ismerik. Egy sorozatgyilkos. Senki sem tudja, ki ő valójában. Egy árny a sötétből, aki csendben figyeli az embereket, a bűnösöket – hónapokon, éveken át.<br /><br />
       Sosem találták meg, nincsenek ujjlenyomatok, nincs arc – csak elhagyatott szobák, rejtett üzenetek és holttestek maradnak utána.<br /><br />
-      Szállj szembe vele, ha mersz!
+      Mr.X nem véletlenül választja ki áldozatait. Aki a szobájába kerül, kap egy utolsó esélyt. Minden „játéka” egy gondosan megtervezett ítélet. Minden lépés, minden pillanat része a tervnek.<br /><br />
+      Egy órát kaptok. Ha együtt dolgoztok, ha megoldjátok a feladványait, talán kijuthattok.<br /><br />
+      De ha hibáztok… a szoba lesz a sírotok.<br /><br />
+      A játék elkezdődött! Mr.X már figyel!
     </div>
 
-    <!-- Gomb -->
-    <button class="btn">Játssz Mr.X-el</button>
-
-    <!-- Galéria -->
     <div class="gallery" id="gallery">
-      <img src="img1.jpg" alt="Kép 1" class="gallery-item" />
-      <img src="img2.jpg" alt="Kép 2" class="gallery-item" />
-      <img src="img3.jpg" alt="Kép 3" class="gallery-item" />
-      <img src="img4.jpg" alt="Kép 4" class="gallery-item" />
+      <img src="https://raw.githubusercontent.com/RoomX24/RoomX/refs/heads/main/photo1.webp" class="gallery-item" alt="1" />
+      <img src="https://github.com/RoomX24/RoomX/blob/main/photo2.jpg?raw=true" class="gallery-item" alt="2" />
+      <img src="https://github.com/RoomX24/RoomX/blob/main/photo3.jpg?raw=true" class="gallery-item" alt="3" />
+      <img src="https://raw.githubusercontent.com/RoomX24/RoomX/refs/heads/main/photo4.webp" class="gallery-item" alt="4" />
     </div>
 
-    <!-- Lightbox -->
-    <div class="lightbox" id="lightbox">
-      <span class="lightbox-close" id="lightbox-close">&times;</span>
-      <div class="lightbox-nav">
-        <span id="prev">&#10094;</span>
-        <span id="next">&#10095;</span>
-      </div>
-      <img src="" alt="Nagy kép" id="lightbox-img" />
-    </div>
-
-    <!-- Nyereményjáték szekció -->
     <section id="prize-game">
-      <h2>Vegyél részt a nyereményjátékban!</h2>
-      <p>Add meg a neved és email címed:</p>
-      <input type="text" id="name" placeholder="Név" />
-      <input type="email" id="email" placeholder="Email" />
-      <button id="submit-prize">Jelentkezés</button>
+      <h2>Nyereményjáték</h2>
+      <p>Keresd meg a fenti szövegben elrejtett hat számjegyű kódot, és nyerj!</p>
+      <input id="codeInput" placeholder="Nyereménykód" autocomplete="off" />
+      <button onclick="checkCode()">Ellenőrzés</button>
+      <div id="prize-message"></div>
     </section>
   </main>
 
+  <div class="lightbox" id="lightbox">
+    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+    <div class="lightbox-nav">
+      <span onclick="changeImage(-1)">&#10094;</span>
+      <span onclick="changeImage(1)">&#10095;</span>
+    </div>
+    <img id="lightbox-img" src="" />
+  </div>
+
   <script>
-    // Lightbox JS (opcionális, ha használod)
-    const galleryItems = document.querySelectorAll('.gallery-item');
+    let currentImage = 0;
+    const images = [...document.querySelectorAll('.gallery-item')];
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
-    const lightboxClose = document.getElementById('lightbox-close');
-    const prev = document.getElementById('prev');
-    const next = document.getElementById('next');
 
-    let currentIndex = 0;
+    images.forEach((img, index) => {
+      img.addEventListener('click', () => {
+        currentImage = index;
+        showLightbox();
+      });
+    });
 
-    function showLightbox(index) {
-      currentIndex = index;
-      lightboxImg.src = galleryItems[currentIndex].src;
+    function showLightbox() {
+      lightboxImg.src = images[currentImage].src;
       lightbox.style.display = 'flex';
     }
 
@@ -369,30 +334,26 @@
       lightbox.style.display = 'none';
     }
 
-    function showPrev() {
-      currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
-      lightboxImg.src = galleryItems[currentIndex].src;
+    function changeImage(direction) {
+      currentImage += direction;
+      if (currentImage < 0) currentImage = images.length - 1;
+      if (currentImage >= images.length) currentImage = 0;
+      lightboxImg.src = images[currentImage].src;
     }
 
-    function showNext() {
-      currentIndex = (currentIndex + 1) % galleryItems.length;
-      lightboxImg.src = galleryItems[currentIndex].src;
-    }
+    function checkCode() {
+      const input = document.getElementById('codeInput').value.trim();
+      const prizeMessage = document.getElementById('prize-message');
+      const correctCode = '123456'; // Ide írd be a helyes kódot!
 
-    galleryItems.forEach((item, index) => {
-      item.addEventListener('click', () => showLightbox(index));
-    });
-
-    lightboxClose.addEventListener('click', closeLightbox);
-    prev.addEventListener('click', showPrev);
-    next.addEventListener('click', showNext);
-
-    // Zárás lightboxra ESC gombbal
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeLightbox();
+      if (input === correctCode) {
+        prizeMessage.textContent = 'Gratulálunk! Megfejtetted a kódot!';
+        prizeMessage.style.color = '#0f0';
+      } else {
+        prizeMessage.textContent = 'Helytelen kód, próbáld újra!';
+        prizeMessage.style.color = '#f00';
       }
-    });
+    }
   </script>
 </body>
 </html>
