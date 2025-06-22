@@ -2,13 +2,14 @@
 <html lang="hu">
 <head>
   <link rel="icon" href="https://roomx24.github.io/RoomX/roomx-favicon.png" type="image/png" />
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RoomX</title>
-  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
   <style>
-    html, body {
+    html,
+    body {
       height: 100%;
       margin: 0;
       padding: 0;
@@ -29,7 +30,8 @@
     }
 
     /* Háttér */
-    .background, .overlay {
+    .background,
+    .overlay {
       position: fixed;
       top: 0;
       left: 0;
@@ -54,7 +56,7 @@
       width: 100%;
       background-color: rgba(0, 0, 0, 0.7);
       padding: 20px 0;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
       z-index: 10;
     }
 
@@ -87,7 +89,7 @@
       padding: 10px 20px;
       border: 2px solid #aa1919;
       border-radius: 5px;
-      background-color: rgba(0,0,0,0.6);
+      background-color: rgba(0, 0, 0, 0.6);
       transition: background-color 0.3s, color 0.3s;
     }
 
@@ -140,16 +142,25 @@
       }
 
       .center-menu {
-        flex-direction: row;   /* vízszintes elrendezés */
-        gap: 20px;
-        flex-wrap: nowrap;     /* ne törje meg a sort */
-        overflow-x: auto;      /* vízszintes görgetés, ha kell */
+        flex-direction: row;
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0 10px;
+        box-sizing: border-box;
+        max-width: 100%;
+      }
+
+      .center-menu a {
+        white-space: nowrap;
+        flex: 1 1 auto;
+        min-width: 80px;
+        text-align: center;
       }
     }
   </style>
 </head>
 <body>
-
   <!-- Háttérrétegek -->
   <div class="background"></div>
   <div class="overlay"></div>
@@ -157,7 +168,7 @@
   <!-- Logó szekció teljes szélességben -->
   <div class="logo-section">
     <div class="logo">
-      <img src="https://raw.githubusercontent.com/RoomX24/RoomX/refs/heads/main/room-x-logo.png" alt="Logo">
+      <img src="https://raw.githubusercontent.com/RoomX24/RoomX/refs/heads/main/room-x-logo.png" alt="Logo" />
     </div>
   </div>
 
@@ -165,18 +176,17 @@
   <div class="center-menu">
     <a href="https://roomx24.github.io/RoomX/welcome.html">Főoldal</a>
     <a href="https://roomx24.github.io/RoomX/MrX.html">Mr.X</a>
-    <a href="#rolunk">Árain</a> 
+    <a href="#rolunk">Árain</a>
     <a href="#rolunk">Rólunk</a>
-    
   </div>
 
   <!-- Szövegmező -->
   <div class="text-box">
-    ÜDVÖZLÜNK A ROOMX-BEN<br><br>
-    AMINT BECSUKÓDIK MÖGÖTTETEK AZ AJTÓ, A VILÁG, AMIT ISMERTETEK, MEGSZŰNIK LÉTEZNI.  
+    ÜDVÖZLÜNK A ROOMX-BEN<br /><br />
+    AMINT BECSUKÓDIK MÖGÖTTETEK AZ AJTÓ, A VILÁG, AMIT ISMERTETEK, MEGSZŰNIK LÉTEZNI.
     A FÉNYEK HALVÁNYULNAK, A CSENDET EGY HIDEGRÁZÓ HANG TÖRI MEG – ÉS MÁRIS A JÁTÉK RÉSZEI VAGYTOK.
-    <br><br>
-    60 PERCETEK VAN, HOGY KIJUSSATOK. A FALAK FIGYELNEK, AZ IDŐ KÖNYÖRTELENÜL KETYEG.  
+    <br /><br />
+    60 PERCETEK VAN, HOGY KIJUSSATOK. A FALAK FIGYELNEK, AZ IDŐ KÖNYÖRTELENÜL KETYEG.
     CSAK TI VAGYTOK ÉS A SÖTÉTSÉG.
   </div>
 
@@ -195,7 +205,5 @@
       });
     };
   </script>
-
 </body>
 </html>
-
