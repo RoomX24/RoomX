@@ -6,10 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mr.X</title>
   <meta name="description" content="RoomX–Mr.X">
-  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
-
   <style>
     html, body {
       width: 100%;
@@ -27,7 +25,6 @@
       z-index: 0;
       overflow-x: hidden;
     }
-
     .background, .overlay {
       position: fixed;
       top: 0;
@@ -36,33 +33,28 @@
       height: 100%;
       z-index: -1;
     }
-
     .background {
       background-image: url('https://github.com/RoomX24/RoomX/blob/main/background1.webp?raw=true');
       background-size: cover;
       background-position: center center;
       background-repeat: no-repeat;
     }
-
     .overlay {
       background-color: rgba(0, 0, 0, 0.6);
     }
-
     .text-box {
       background-color: transparent;
       color: #aa1919;
-      font-family: 'Special Elite' , monospace;
+      font-family: 'Special Elite', monospace;
       font-size: 90px;
       padding: 20px;
       margin: 20px auto;
-      display: inline-block;
       border-radius: 10px;
       width: 100%;
       max-width: 100%;
       box-sizing: border-box;
       overflow-wrap: break-word;
     }
-
     .text-box-new {
       background-color: rgba(0, 0, 0, 0.7);
       color: #aa1919;
@@ -74,8 +66,8 @@
       max-width: 100%;
       box-sizing: border-box;
       overflow-wrap: break-word;
+      font-family: 'Special Elite', monospace;
     }
-
     .btn {
       padding: 1em 2em;
       font-size: 1.2em;
@@ -87,11 +79,9 @@
       margin-top: 20px;
       transition: background-color 0.3s;
     }
-
     .btn:hover {
       background-color: #660000;
     }
-
     .sidebar {
       position: fixed;
       top: 0;
@@ -103,24 +93,20 @@
       padding-top: 80px;
       z-index: 1000;
     }
-
     .sidebar a {
       display: block;
       padding: 10px;
       color: white;
       text-decoration: none;
       font-size: 1.2em;
-      background: none;
       margin: 6px;
       text-align: center;
       border-bottom: 1px solid red;
       transition: background-color 0.2s;
     }
-
     .sidebar a:hover {
       background-color: rgba(255, 0, 0, 0.1);
     }
-
     .menu-icon {
       position: absolute;
       top: 20px;
@@ -130,7 +116,6 @@
       cursor: pointer;
       z-index: 2000;
     }
-
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -139,18 +124,14 @@
       width: 100%;
       box-sizing: border-box;
     }
-
     .gallery-item {
       width: 100%;
-      max-width: 100%;
       cursor: pointer;
       transition: transform 0.3s ease;
     }
-
     .gallery-item:hover {
       transform: scale(1.05);
     }
-
     .lightbox {
       display: none;
       position: fixed;
@@ -162,12 +143,10 @@
       align-items: center;
       z-index: 3000;
     }
-
     .lightbox img {
       max-width: 90%;
       max-height: 80%;
     }
-
     .lightbox-nav {
       position: absolute;
       top: 50%;
@@ -176,7 +155,6 @@
       justify-content: space-between;
       transform: translateY(-50%);
     }
-
     .lightbox-nav span {
       color: white;
       font-size: 3em;
@@ -184,7 +162,6 @@
       padding: 0 20px;
       user-select: none;
     }
-
     .lightbox-close {
       position: absolute;
       top: 20px;
@@ -193,7 +170,6 @@
       color: white;
       cursor: pointer;
     }
-
     main.content {
       padding: 20px;
       width: 100%;
@@ -205,8 +181,6 @@
       align-items: center;
       gap: 20px;
     }
-
-    /* Nyeremény játék stílus */
     #prize-game {
       background-color: rgba(0, 0, 0, 0.7);
       color: #aa1919;
@@ -225,7 +199,6 @@
       border-radius: 5px;
       border: none;
       margin-top: 10px;
-      box-sizing: border-box;
     }
     #prize-game button {
       margin-top: 15px;
@@ -247,16 +220,13 @@
       min-height: 3em;
       font-size: 1.3em;
     }
-
     .sidebar-open .content {
       filter: blur(2px);
     }
-
     @media (max-width: 768px) {
       .text-box { font-size: 15vw; }
       .text-box-new { font-size: 4vw; }
     }
-
     @media (max-width: 480px) {
       .text-box { font-size: 20vw; }
       .text-box-new { font-size: 5vw; }
@@ -265,39 +235,31 @@
   </style>
 </head>
 <body>
-
   <div class="background"></div>
   <div class="overlay"></div>
-
   <div class="menu-icon" onclick="toggleSidebar()">☰</div>
-
   <nav id="sidebar" class="sidebar">
     <a href="https://roomx24.github.io/RoomX/welcome.html">Főoldal</a>
     <a href="https://roomx24.github.io/RoomX/MrX.html">Mr.X</a>
     <a href="#rolunk">Rólunk</a>
   </nav>
-
   <main class="content">
     <div class="text-box">Mr.X<br><br></div>
-
     <div class="text-box-new">
       <strong>Mr.X – A végzet</strong><br><br>
-      Őt csak Mr.X néven ismerik.  Egy sorozatgyilkos. Senki sem tudja, ki ő valójáb4n.  Egy árny a sötétből, aki csendben figyeli az embereket, a bűnösöket – hónapokon, éveken át.  
-      Sosem találták meg, n1ncsenek ujjlenyomatok, nincs arc - csak elhagyatott szobák, rejtett üzenetek és holtte5tek maradnak utána.<br><br>
-      Mr.X nem véletlenül választja ki áldozatait. Aki a szobájába kerül, kap egy utolsó e5élyt. Minden „játéka” egy gondosan megtervezett ítél3t. Minden lépés, minden pillanat része a tervnek.<br><br>
-      Egy órát kaptok. Ha együtt dolgoztok, ha megoldjátok a feladványa1t, talán kijuthattok.<br><br>
+      Őt csak Mr.X néven ismerik. Egy sorozatgyilkos. Senki sem tudja, ki ő valójában. Egy árny a sötétből, aki csendben figyeli az embereket, a bűnösöket – hónapokon, éveken át.<br><br>
+      Sosem találták meg, nincsenek ujjlenyomatok, nincs arc – csak elhagyatott szobák, rejtett üzenetek és holttestek maradnak utána.<br><br>
+      Mr.X nem véletlenül választja ki áldozatait. Aki a szobájába kerül, kap egy utolsó esélyt. Minden „játéka” egy gondosan megtervezett ítélet. Minden lépés, minden pillanat része a tervnek.<br><br>
+      Egy órát kaptok. Ha együtt dolgoztok, ha megoldjátok a feladványait, talán kijuthattok.<br><br>
       De ha hibáztok… a szoba lesz a sírotok.<br><br>
       A játék elkezdődött! Mr.X már figyel!
     </div>
-
     <div class="gallery">
       <img src="https://raw.githubusercontent.com/RoomX24/RoomX/refs/heads/main/photo1.webp" class="gallery-item" alt="1">
       <img src="https://github.com/RoomX24/RoomX/blob/main/photo2.jpg?raw=true" class="gallery-item" alt="2">
       <img src="https://github.com/RoomX24/RoomX/blob/main/photo3.jpg?raw=true" class="gallery-item" alt="3">
       <img src="https://raw.githubusercontent.com/RoomX24/RoomX/refs/heads/main/photo4.webp" class="gallery-item" alt="4">
     </div>
-
-    <!-- Nyereményjáték rész -->
     <section id="prize-game">
       <h2>Nyereményjáték</h2>
       <p>Keresd meg a fenti szövegben elrejtett hat számjegyű kódot, és nyerj!</p>
@@ -305,9 +267,7 @@
       <button onclick="checkCode()">Ellenőrzés</button>
       <div id="prize-message"></div>
     </section>
-
   </main>
-
   <div class="lightbox" id="lightbox">
     <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
     <div class="lightbox-nav">
@@ -317,7 +277,6 @@
     <img id="lightbox-img" src="">
   </div>
 
-  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
   <script>
     let currentImage = 0;
     const images = [...document.querySelectorAll('.gallery-item')];
@@ -345,13 +304,6 @@
       lightboxImg.src = images[currentImage].src;
     }
 
-
- <!-- Calendly badge widget begin -->
-<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
-<script type="text/javascript">window.onload = function() { Calendly.initBadgeWidget({ url: 'https://calendly.com/escaperoomx/roomx', text: 'Időpontfoglalás', color: '#aa1919', textColor: '#020202' }); }</script>
-<!-- Calendly badge widget end -->
-    
     function toggleSidebar() {
       const sidebar = document.getElementById("sidebar");
       const body = document.body;
@@ -365,9 +317,9 @@
     }
 
     function checkCode() {
-      const codes = ['415531'];  // Itt változtathatod a helyes kódot
+      const codes = ['415531'];
       const prizes = ['Gratulálunk! 20% kedvezményt nyertél! Mutasd meg ezt a kódot a játékmesternek: MRX2025'];
-      const input = document.getElementById('codeInput').value.trim().toUpperCase();
+      const input = document.getElementById('codeInput').value.trim();
       const messageEl = document.getElementById('prize-message');
 
       if (input === '') {
@@ -381,6 +333,16 @@
         messageEl.textContent = 'Sajnos ez a kód nem érvényes.';
       }
     }
+
+    window.onload = function() {
+      Calendly.initBadgeWidget({
+        url: 'https://calendly.com/escaperoomx/roomx',
+        text: 'Időpontfoglalás',
+        color: '#aa1919',
+        textColor: '#020202'
+      });
+    };
   </script>
+  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 </body>
 </html>
