@@ -140,8 +140,10 @@
       }
 
       .center-menu {
-        flex-direction: column;
+        flex-direction: row;   /* vízszintes elrendezés */
         gap: 20px;
+        flex-wrap: nowrap;     /* ne törje meg a sort */
+        overflow-x: auto;      /* vízszintes görgetés, ha kell */
       }
     }
   </style>
