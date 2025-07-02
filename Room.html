@@ -54,33 +54,38 @@
     }
 
     function updateView() {
-      // Visszaszámlálás frissítése
-      const end = localStorage.getItem("countdownEnd");
       const countdownEl = document.getElementById("countdown");
+      const tipEl = document.getElementById("tip");
 
-      if (!end) {
-        countdownEl.textContent = "00:00";
+      const paused = localStorage.getItem("countdownPaused") === "true";
+      const end = localStorage.getItem("countdownEnd");
+
+      if (!end || paused) {
+        // Ha nincs vége vagy szünetel, akkor a remaining-ből számoljuk
+        const remaining = parseInt(localStorage.getItem("countdownRemaining")) || 0;
+        countdownEl.textContent = formatTime(remaining);
       } else {
         const remaining = Math.floor((end - Date.now()) / 1000);
         if (remaining <= 0) {
           countdownEl.textContent = "00:00";
         } else {
           countdownEl.textContent = formatTime(remaining);
+          // Frissítsük a remaining-et, hogy pontos legyen, ha folytatás lesz
+          localStorage.setItem("countdownRemaining", remaining);
         }
       }
 
       // Tipp frissítése
       const tip = localStorage.getItem("roomTip");
-      const tipEl = document.getElementById("tip");
       if (tip) {
         tipEl.textContent = " " + tip;
       } else {
         tipEl.textContent = " (nincs még megadva)";
       }
 
-      // Automatikusan állítsa a tipp mezőt a szöveghez
-      tipEl.style.height = 'auto';  // Reset height before measuring
-      tipEl.style.height = tipEl.scrollHeight + 'px'; // Set to scrollHeight
+      // Tipp doboz magasságának automatikus állítása
+      tipEl.style.height = 'auto';
+      tipEl.style.height = tipEl.scrollHeight + 'px';
     }
 
     // Frissítés minden másodpercben
