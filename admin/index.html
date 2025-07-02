@@ -8,10 +8,14 @@
   </script>
 </head>
 <body>
-  <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
   <script>
-    // Ezt a scriptet a netlify-cms.js betöltése után futtatjuk
-    CMS.init({ config: '/admin/config.yml' });
+    // Létrehozunk egy script elemet a netlify-cms.js betöltéséhez
+    const script = document.createElement('script');
+    script.src = "https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js";
+    script.onload = () => {
+      CMS.init({ config: '/admin/config.yml' });
+    };
+    document.body.appendChild(script);
   </script>
 </body>
 </html>
