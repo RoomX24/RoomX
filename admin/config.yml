@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: Roomx24/RoomX  # ide írd a GitHub repo-d nevét pl. RoomX24/roomx
+  repo: RoomX24/RoomX  # ide írd a GitHub repo-d nevét pl. RoomX24/roomx
 
 media_folder: "static/images/uploads"  # hova kerülnek a képek
 public_folder: "/images/uploads"
