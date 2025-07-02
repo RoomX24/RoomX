@@ -21,6 +21,9 @@
       width: 300px;
       height: 100px;
     }
+    input[type=number] {
+      width: 70px;
+    }
   </style>
 </head>
 <body>
@@ -32,10 +35,13 @@
 
   <hr>
 
-  <label for="secondsInput">Visszaszámlálás idő (másodpercben):</label><br>
-  <input type="number" id="secondsInput" placeholder="pl. 3600"><br>
+  <label>Visszaszámlálás idő:</label><br>
+  <input type="number" id="hoursInput" min="0" placeholder="Óra"> :
+  <input type="number" id="minutesInput" min="0" max="59" placeholder="Perc">
+  <br>
   <button onclick="startCountdown()">Indítás</button>
-  <button onclick="pauseCountdown()">Szünet / Folytatás</button>
+  <button onclick="pauseCountdown()">Szünet</button>
+  <button onclick="resumeCountdown()">Folytatás</button>
   <button onclick="stopCountdown()">Leállítás</button>
 
   <div id="countdown-display">Visszaszámlálás: 00:00</div>
@@ -53,36 +59,49 @@
       const paused = localStorage.getItem("countdownPaused") === "true";
       const end = localStorage.getItem("countdownEnd");
 
-      if (!end || paused) {
-        const remaining = parseInt(localStorage.getItem("countdownRemaining")) || 0;
-        document.getElementById("countdown-display").textContent =
-          "Visszaszámlálás: " + formatTime(remaining);
+      if (!end) {
+        document.getElementById("countdown-display").textContent = "Visszaszámlálás: 00:00";
+        clearInterval(interval);
         return;
       }
 
-      const now = Date.now();
-      const remaining = Math.floor((end - now) / 1000);
-
-      if (remaining <= 0) {
-        clearInterval(interval);
-        localStorage.removeItem("countdownEnd");
-        localStorage.removeItem("countdownPaused");
-        localStorage.removeItem("countdownRemaining");
-        document.getElementById("countdown-display").textContent = "Visszaszámlálás: 00:00";
+      if (paused) {
+        const remaining = parseInt(localStorage.getItem("countdownRemaining")) || 0;
+        document.getElementById("countdown-display").textContent = "Visszaszámlálás (szünet): " + formatTime(remaining);
       } else {
-        localStorage.setItem("countdownRemaining", remaining);
-        document.getElementById("countdown-display").textContent = "Visszaszámlálás: " + formatTime(remaining);
+        const now = Date.now();
+        const remaining = Math.floor((end - now) / 1000);
+
+        if (remaining <= 0) {
+          clearInterval(interval);
+          localStorage.removeItem("countdownEnd");
+          localStorage.removeItem("countdownPaused");
+          localStorage.removeItem("countdownRemaining");
+          document.getElementById("countdown-display").textContent = "Visszaszámlálás: 00:00";
+        } else {
+          localStorage.setItem("countdownRemaining", remaining);
+          document.getElementById("countdown-display").textContent = "Visszaszámlálás: " + formatTime(remaining);
+        }
       }
     }
 
     function startCountdown() {
-      const seconds = parseInt(document.getElementById("secondsInput").value);
-      if (!seconds || seconds <= 0) return alert("Adj meg érvényes időt!");
-      const endTime = Date.now() + seconds * 1000;
+      const hours = parseInt(document.getElementById("hoursInput").value) || 0;
+      const minutes = parseInt(document.getElementById("minutesInput").value) || 0;
 
+      if (hours < 0 || minutes < 0 || minutes > 59) {
+        return alert("Adj meg érvényes időt órában és percben!");
+      }
+
+      const totalSeconds = hours * 3600 + minutes * 60;
+      if (totalSeconds <= 0) {
+        return alert("Az időnek nagyobbnak kell lennie nullánál!");
+      }
+
+      const endTime = Date.now() + totalSeconds * 1000;
       localStorage.setItem("countdownEnd", endTime);
-      localStorage.setItem("countdownPaused", "false");
-      localStorage.setItem("countdownRemaining", seconds);
+      localStorage.removeItem("countdownPaused");
+      localStorage.removeItem("countdownRemaining");
 
       updateCountdownDisplay();
       clearInterval(interval);
@@ -90,24 +109,33 @@
     }
 
     function pauseCountdown() {
-      const paused = localStorage.getItem("countdownPaused") === "true";
+      const end = localStorage.getItem("countdownEnd");
+      if (!end) return;
 
-      if (!paused) {
-        // Szüneteltetés
-        const end = parseInt(localStorage.getItem("countdownEnd"));
-        const now = Date.now();
-        const remaining = Math.max(0, Math.floor((end - now) / 1000));
-        localStorage.setItem("countdownRemaining", remaining);
-        localStorage.setItem("countdownPaused", "true");
-      } else {
-        // Folytatás
-        const remaining = parseInt(localStorage.getItem("countdownRemaining")) || 0;
-        const newEnd = Date.now() + remaining * 1000;
-        localStorage.setItem("countdownEnd", newEnd);
-        localStorage.setItem("countdownPaused", "false");
-      }
+      const now = Date.now();
+      const remaining = Math.floor((end - now) / 1000);
+      if (remaining <= 0) return;
+
+      localStorage.setItem("countdownPaused", "true");
+      localStorage.setItem("countdownRemaining", remaining);
+      localStorage.removeItem("countdownEnd");
+      updateCountdownDisplay();
+    }
+
+    function resumeCountdown() {
+      const paused = localStorage.getItem("countdownPaused");
+      if (paused !== "true") return alert("A visszaszámláló nincs szüneteltetve!");
+
+      const remaining = parseInt(localStorage.getItem("countdownRemaining")) || 0;
+      if (remaining <= 0) return alert("Nincs visszaszámlálás folytatható idővel!");
+
+      const endTime = Date.now() + remaining * 1000;
+      localStorage.setItem("countdownEnd", endTime);
+      localStorage.removeItem("countdownPaused");
 
       updateCountdownDisplay();
+      clearInterval(interval);
+      interval = setInterval(updateCountdownDisplay, 1000);
     }
 
     function stopCountdown() {
@@ -125,7 +153,6 @@
     }
 
     updateCountdownDisplay();
-    clearInterval(interval);
     interval = setInterval(updateCountdownDisplay, 1000);
   </script>
 </body>
