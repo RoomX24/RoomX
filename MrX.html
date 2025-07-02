@@ -319,9 +319,9 @@
     <div class="text-box">Mr.X<br /><br /></div>
     <div class="text-box-new">
       <strong>Mr.X – A VÉGZET</strong><br /><br />
-      ŐT CSAK Mr.X NÉVEN ISMERIK. EGY SOROZATGYILKOS. SENKI SEM TUDJA, KI Ő VALÓJÁBAN. EGY ÁRNY A SÖTÉTBŐL, AKI CSENDBEN FIGYELI AZ EMBEREKET, A BŰNÖSÖKET – HÓNAPOKON, ÉVEKEN ÁT.<br /><br />
-      SOSEM TALÁLTÁK MEG, NINCSENEK UJJLENYOMATOK, NINCS ARC – DE MINDENKI FÉL TŐLE, MERT AZ Ő ÍTÉLETEI MEGKÉRDŐJELEZHETETLENEK. HA VALAKI ROSSZAT TETT, MR.X MEGJELENIK, ÉS AD EGY UTOLSÓ ESÉLYT, HOGY JÓ ÚTRA TÉRJ.<br /><br />
-      A JÁTÉKBAN TE ÉS BARÁTAID Mr.X FOGLYAI LESZTEK. EGY REJTÉLY, EGY KÜZDELEM AZ IDŐVEL ÉS ÖNMAGATOKKAL. KÉSZEN ÁLLSZ SZEMBENÉZNI VELE?<br /><br />
+      ŐT CSAK Mr.X NÉVEN ISMERIK. EGY SOROZATGYILKOS. SENKI SEM TUDJA, KI Ő VALÓJÁB4N. EGY ÁRNY A SÖTÉTBŐL, AKI CSENDBEN FIGYELI AZ EMBEREKET, A BŰNÖSÖKET – HÓNAPOKON, ÉVEKEN ÁT.<br /><br />
+      SOSEM TALÁLTÁK MEG, N1NCSENEK UJJLENYOMATOK, NINCS ARC, CSAK ELHAGYATOTT SZOBÁK, REJTETT ÜZENETEK HOLTTE5TEK MARADNAK UTÁNA.<br /><br />
+      A JÁTÉKBAN TE É5 BARÁTAID Mr.X FOGLYAI LESZTEK. EGY REJTÉLY, EGY KÜZDELEM AZ IDŐV3L ÉS ÖNMAGATOKKAL. KÉSZEN ÁLLSZ SZEMBENÉZN1 VELE?<br /><br />
     </div>
 
        <div class="gallery" id="gallery">
@@ -334,7 +334,7 @@
     <section id="prize-game">
       <h2>Nyereményjáték</h2>
       <p>Keresd meg a fenti szövegben elrejtett hat számjegyű kódot, és nyerj!</p>
-      <input id="codeInput" placeholder="Nyereménykód" autocomplete="off" />
+      <input id="codeInput" placeholder="******" autocomplete="off" />
       <button onclick="checkCode()">Ellenőrzés</button>
       <div id="prize-message"></div>
     </section>
@@ -381,7 +381,7 @@
     function checkCode() {
       const input = document.getElementById('codeInput').value.trim();
       const prizeMessage = document.getElementById('prize-message');
-      const correctCode = '415415'; // Ide írd be a helyes kódot!
+      const correctCode = '415531'; // Ide írd be a helyes kódot!
 
       if (input === correctCode) {
         prizeMessage.textContent = 'Gratulálunk! Nyertél 20% kedvezményt a jétékra, Mutasd meg a játékmesternek ezt a kódot: RX2025MRX';
