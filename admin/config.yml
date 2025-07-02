@@ -1,1 +1,16 @@
+backend:
+  name: github
+  repo: <Roomx24>/<RoomX>  # ide írd a GitHub repo-d nevét pl. RoomX24/roomx-web
 
+media_folder: "static/images/uploads"  # hova kerülnek a képek
+public_folder: "/images/uploads"
+
+collections:
+  - name: "tippek"
+    label: "Tippek"
+    folder: "content"     # ide kell, hogy legyen egy mappád, pl. content/tippek
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Cím", name: "title", widget: "string" }
+      - { label: "Szöveg", name: "body", widget: "text" }
