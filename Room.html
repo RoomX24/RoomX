@@ -41,51 +41,47 @@
   </style>
 </head>
 <body>
-  <div id="countdown">00:00</div>
+  <div id="countdown">00:00:00</div>
   <div id="tip">
     Tipp: (nincs még megadva)
   </div>
 
   <script>
     function formatTime(seconds) {
-      const m = Math.floor(seconds / 60);
+      const h = Math.floor(seconds / 3600);
+      const m = Math.floor((seconds % 3600) / 60);
       const s = seconds % 60;
-      return `${m}:${s.toString().padStart(2, '0')}`;
+      return `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
     }
 
     function updateView() {
-      const countdownEl = document.getElementById("countdown");
-      const tipEl = document.getElementById("tip");
-
-      const paused = localStorage.getItem("countdownPaused") === "true";
+      // Visszaszámlálás frissítése
       const end = localStorage.getItem("countdownEnd");
+      const countdownEl = document.getElementById("countdown");
 
-      if (!end || paused) {
-        // Ha nincs vége vagy szünetel, akkor a remaining-ből számoljuk
-        const remaining = parseInt(localStorage.getItem("countdownRemaining")) || 0;
-        countdownEl.textContent = formatTime(remaining);
+      if (!end) {
+        countdownEl.textContent = "00:00:00";
       } else {
         const remaining = Math.floor((end - Date.now()) / 1000);
         if (remaining <= 0) {
-          countdownEl.textContent = "00:00";
+          countdownEl.textContent = "00:00:00";
         } else {
           countdownEl.textContent = formatTime(remaining);
-          // Frissítsük a remaining-et, hogy pontos legyen, ha folytatás lesz
-          localStorage.setItem("countdownRemaining", remaining);
         }
       }
 
       // Tipp frissítése
       const tip = localStorage.getItem("roomTip");
+      const tipEl = document.getElementById("tip");
       if (tip) {
         tipEl.textContent = " " + tip;
       } else {
         tipEl.textContent = " (nincs még megadva)";
       }
 
-      // Tipp doboz magasságának automatikus állítása
-      tipEl.style.height = 'auto';
-      tipEl.style.height = tipEl.scrollHeight + 'px';
+      // Automatikusan állítsa a tipp mezőt a szöveghez
+      tipEl.style.height = 'auto';  // Reset height before measuring
+      tipEl.style.height = tipEl.scrollHeight + 'px'; // Set to scrollHeight
     }
 
     // Frissítés minden másodpercben
