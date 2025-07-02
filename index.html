@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin felület</title>
+  <script>
+    window.CMS_MANUAL_INIT = true;
+  </script>
+</head>
+<body>
+  <script>
+    // Létrehozunk egy script elemet a netlify-cms.js betöltéséhez
+    const script = document.createElement('script');
+    script.src = "https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js";
+    script.onload = () => {
+      CMS.init({ config: '/admin/config.yml' });
+    };
+    document.body.appendChild(script);
+  </script>
+</body>
+</html>
