@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mr.X - RoomX</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <style>
+  body {
+  margin: 0;
+  font-family: 'Bebas Neue', sans-serif;
+  background-color: #000; /* fallback */
+  color: white;
+}
+      .background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://github.com/RoomX24/RoomX/blob/main/background1.webp?raw=true');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -2;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: -1;
+}
+    
+  
+    /* Logó szekció teljes szélességben */
+    .logo-section {
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 20px 0;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo img {
+      width: 300px;
+      height: auto;
+      max-width: 90vw; /* így nem nyúlik túl szélesre */
+    }
+
+    /* Menü */
+    .center-menu {
+      margin: 30px 0;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      z-index: 1000;
+      flex-wrap: wrap;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+
+    .center-menu a {
+      font-size: 1.5em;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 2px solid #aa1919;
+      border-radius: 5px;
+      background-color: rgba(0, 0, 0, 0.6);
+      transition: background-color 0.3s, color 0.3s;
+      white-space: nowrap;
+    }
+
+    .center-menu a:hover {
+      background-color: #aa1919;
+      color: black;
+    }
+
+    /* Mobilbarát */
+    @media (max-width: 600px) {
+      .logo img {
+        width: 80vw;      /* a képernyő 80%-a, max 150px lesz */
+        max-width: 150px;
+      }
+
+      .center-menu {
+        gap: 10px;
+        padding: 0 10px;
+        justify-content: center;
+        max-width: 100%;
+      }
+
+      .center-menu a {
+        flex: 1 1 120px;  /* rugalmas minimum szélesség */
+        min-width: unset;
+        white-space: normal; /* törjön több sorba, ha kell */
+        font-size: 1.1em;
+        padding: 8px 10px;
+        text-align: center;
+      }
+
+      .text-box-new {
+        width: 90%;       /* szélesség mobilon */
+        font-size: 5vw;   /* dinamikus betűméret */
+        padding: 15px;
+      }
+
+      .text-box {
+        font-size: 18vw;  /* dinamikus méret */
+        padding: 10px 5px;
+      }
+    }
+
+    /* Kiegészítő stílusok */
+    .text-box {
+      background-color: transparent;
+      color: #aa1919;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 90px;
+      padding: 20px;
+      margin: 15px auto 0px auto;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow-wrap: break-word;
+      text-align: center;
+    }
+
+    .text-box-new {
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #aa1919;
+      font-size: 22px;
+      padding: 20px;
+      margin: 0px auto 30px auto;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 600px;
+      box-sizing: border-box;
+      overflow-wrap: break-word;
+      font-family: 'Bebas Neue', sans-serif;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .btn {
+      padding: 1em 2em;
+      font-size: 1.2em;
+      background-color: red;
+      color: black;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #660000;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      width: 100%;
+      box-sizing: border-box;
+      max-width: 1000px;
+      margin: 0 auto 40px auto;
+    }
+
+    .gallery-item {
+      width: 100%;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      border-radius: 5px;
+      object-fit: cover;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.05);
+    }
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 3000;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 10px;
+    }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+    }
+
+    .lightbox-nav span {
+      color: white;
+      font-size: 3em;
+      cursor: pointer;
+      padding: 0 20px;
+      user-select: none;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 2em;
+      color: white;
+      cursor: pointer;
+    }
+
+    #prize-game {
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #aa1919;
+      font-family: 'Bebas Neue', sans-serif;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 90%;
+      box-sizing: border-box;
+      margin: 40px auto 20px auto;
+      text-align: center;
+    }
+
+    #prize-game input {
+      width: 90%;
+      padding: 0.5em;
+      font-size: 1.2em;
+      border-radius: 5px;
+      border: none;
+      margin-top: 10px;
+      margin: 10px auto 0 auto;
+      text-align: center;
+    }
+
+    #prize-game button {
+      margin-top: 15px;
+      padding: 0.7em 2em;
+      font-size: 1.2em;
+      background-color: red;
+      color: black;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      width: 100%;
+    }
+
+    #prize-game button:hover {
+      background-color: #660000;
+    }
+
+    @media (max-width: 768px) {
+      .text-box {
+        font-size: 15vw;
+      }
+      .text-box-new {
+        font-size: 4vw;
+      }
+    }
+    @media (max-width: 480px) {
+      .text-box {
+        font-size: 20vw;
+      }
+      .text-box-new {
+        font-size: 5vw;
+      }
+    }
+  </style>
+</head>
+<body>
+   <!-- Háttérrétegek -->
+  <div class="background"></div>
+  <div class="logo-section">
+    <div class="logo">
+      <img src="https://raw.githubusercontent.com/RoomX24/RoomX/refs/heads/main/room-x-logo.png" alt="Logo" />
+    </div>
+  </div>
+
+  <div class="center-menu">
+    <a href="https://roomx24.github.io/RoomX/welcometestsk.html">DOMOV</a>
+    <a href="https://roomx24.github.io/RoomX/MrXsk.html">Mr.X</a>
+    <a href="#araink">Ceny</a>
+    <a href="https://roomx24.github.io/RoomX/bookingsk.html">Rezervácia</a>
+    <a href="#rolunk">O nás</a>
+  </div>
+
+  <main class="content">
+    <div class="text-box">Mr.X<br /><br /></div>
+    <div class="text-box-new">
+      <strong>Mr.X – OSUD</strong><br /><br />
+      VOLAJÚ HO LEN Mr.X. JE TO SÉRIOVÝ VRAH. NIKTO NEVIE, KTO VLASTNE JE. TIEN Z TEMNOTY, KTORÝ POTICHU SLEDUJE ĽUDÍ, HRIEŠNIKOV – MESIACE, DOKONCA ROKY.<br /><br />
+      NIKDY HO NENAŠLI, NEZANECHÁVA ODTLAČKY PRSTOV, NEMÁ TVÁR – PO ŇOM OSTÁVAJÚ LEN OPUSTENÉ IZBY, SKRYTÉ ODKAZY A MŔTVE TELÁ.<br /><br />
+     V HRE SA TY A TVOJI PRIATELIA STANETE VÄZŇAMI Mr.X. JE TO ZÁHADA, BOJ S ČASOM A SAMÝM SEBOU.
+    </div>
+
+       <div class="gallery" id="gallery">
+      <img src="https://raw.githubusercontent.com/RoomX24/RoomX/refs/heads/main/photo1.webp" class="gallery-item" alt="1" />
+      <img src="https://github.com/RoomX24/RoomX/blob/main/photo2.jpg?raw=true" class="gallery-item" alt="2" />
+      <img src="https://github.com/RoomX24/RoomX/blob/main/photo3.jpg?raw=true" class="gallery-item" alt="3" />
+      <img src="https://raw.githubusercontent.com/RoomX24/RoomX/refs/heads/main/photo4.webp" class="gallery-item" alt="4" />
+    </div>
+
+    <section id="prize-game">
+      <h2>TU SA ZAČÍNA HRA!</h2>
+      <p>Nájdi v hore uvedenom texte ukrytý kód a získaj zľavu!</p>
+      <input id="codeInput" placeholder="******" autocomplete="off" />
+      <button onclick="checkCode()">KONTROLA</button>
+      <div id="prize-message"></div>
+    </section>
+  </main>
+
+  <div class="lightbox" id="lightbox">
+    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+    <div class="lightbox-nav">
+      <span onclick="changeImage(-1)">&#10094;</span>
+      <span onclick="changeImage(1)">&#10095;</span>
+    </div>
+    <img id="lightbox-img" src="" />
+  </div>
+
+  <script>
+    let currentImage = 0;
+    const images = [...document.querySelectorAll('.gallery-item')];
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    images.forEach((img, index) => {
+      img.addEventListener('click', () => {
+        currentImage = index;
+        showLightbox();
+      });
+    });
+
+    function showLightbox() {
+      lightboxImg.src = images[currentImage].src;
+      lightbox.style.display = 'flex';
+    }
+
+    function closeLightbox() {
+      lightbox.style.display = 'none';
+    }
+
+    function changeImage(direction) {
+      currentImage += direction;
+      if (currentImage < 0) currentImage = images.length - 1;
+      if (currentImage >= images.length) currentImage = 0;
+      lightboxImg.src = images[currentImage].src;
+    }
+
+    function checkCode() {
+      const input = document.getElementById('codeInput').value.trim();
+      const prizeMessage = document.getElementById('prize-message');
+      const correctCode = '415531'; // Ide írd be a helyes kódot!
+
+      if (input === correctCode) {
+        prizeMessage.textContent = 'Gratulujeme! Vyhral si 20 % zľavu na hru. Ukáž tento kód majstrovi hry: RX2025MRX';
+        prizeMessage.style.color = '#0f0';
+      } else {
+        prizeMessage.textContent = 'Nesprávny kód, skús to znova!';
+        prizeMessage.style.color = '#f00';
+      }
+    }
+  </script>
+</body>
+</html>
