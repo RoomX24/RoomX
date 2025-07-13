@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+ <link rel="icon" href="https://roomx24.github.io/RoomX/favicon.ico" type="image/png" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tudnivalók</title>
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+       background-color: #000; /* fallback */
+    }
+
+    body {
+      font-family: 'Bebas Neue', sans-serif;
+      color: #aa1919;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      min-height: 100vh;
+      position: relative;
+      z-index: 0;
+      overflow-x: hidden;
+    }
+
+    /* Háttér */
+    .background,
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .background {
+      background-image: url('https://github.com/RoomX24/RoomX/blob/main/background1.webp?raw=true');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    /* Logó szekció */
+    .logo-section {
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 20px 0;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+      z-index: 10;
+    }
+
+    .logo {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo img {
+      width: 300px;
+      height: auto;
+    }
+
+    /* Menü */
+    .center-menu {
+      margin: 30px 0;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      z-index: 1000;
+      flex-wrap: wrap;
+    }
+
+    .center-menu a {
+      font-size: 1.5em;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 2px solid #aa1919;
+      border-radius: 5px;
+      background-color: rgba(0, 0, 0, 0.6);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .center-menu a:hover {
+      background-color: #aa1919;
+      color: black;
+    }
+
+    .text-box {
+      background-color: rgba(0, 0, 0, 0.7);
+      color: '#aa1919';
+      font-size: 2.8em;
+      padding: 20px;
+      margin: 20px;
+      display: inline-block;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 600px;
+    }
+
+    .btn {
+      padding: 1em 2em;
+      font-size: 1.2em;
+      background-color: red;
+      color: black;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    /* Nyelvválasztó */
+    .language-switcher {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 1001;
+      display: flex;
+      gap: 10px;
+    }
+
+    .language-switcher a {
+      background-color: #aa1919;
+      color: black;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 14px;
+      border-radius: 5px;
+      font-size: 1em;
+      border: 2px solid black;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .language-switcher a:hover {
+      background-color: #ff3b3b;
+      color: white;
+    }
+
+    /* Mobilbarát */
+    @media (max-width: 600px) {
+      .text-box {
+        font-size: 1.2em;
+      }
+
+      .btn {
+        font-size: 1em;
+        padding: 0.8em 1.6em;
+      }
+
+      .logo img {
+        width: 150px;
+      }
+
+      .center-menu {
+        flex-direction: row;
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0 10px;
+        box-sizing: border-box;
+        max-width: 100%;
+      }
+
+      .center-menu a {
+        white-space: nowrap;
+        flex: 1 1 auto;
+        min-width: 80px;
+        text-align: center;
+      }
+    
+      .language-switcher {
+        top: 10px;
+        right: 10px;
+        gap: 6px;
+      }
+
+      .language-switcher a {
+        padding: 6px 10px;
+        font-size: 0.9em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Háttérrétegek -->
+  <div class="background"></div>
+
+  <!-- Nyelvválasztó gombok -->
+  <div class="language-switcher">
+    <a href="https://roomx24.github.io/RoomX/welcome.html">HU</a>
+    <a href="https://roomx24.github.io/RoomX/welcomesk.html">SK</a>
+  </div>
+  
+  <!-- Logó szekció teljes szélességben -->
+  <div class="logo-section">
+    <div class="logo">
+      <img src="https://raw.githubusercontent.com/RoomX24/RoomX/refs/heads/main/room-x-logo.png" alt="Logo" />
+    </div>
+  </div>
+
+  <!-- Menü -->
+  <div class="center-menu">
+    <a href="https://roomx24.github.io/RoomX/welcome.html">Főoldal</a>
+    <a href="https://roomx24.github.io/RoomX/MrX.html">Mr.X</a>
+    <a href="https://roomx24.github.io/RoomX/booking.html">Foglalás</a>
+    <a href="#tudnivalok">Tudnivalók</a>
+  </div>
+
+  <!-- Szövegmező -->
+  <div class="text-box">
+    Tudnivalók<br /><br />
+    Ez nem egy átlagos szabadulószoba – egy izgalmas, sorozatgyilkosos történetbe csöppensz, ahol a logika, a megfigyelőképesség és a csapatmunka lesz a legfőbb fegyvered a szabaduláshoz. A játék során különleges rejtélyeket és titkos feladványokat kell megoldanotok, miközben a sötét, feszültséggel teli hangulat egyre csak fokozódik.
+
+Mi vár rád?
+-60 percnyi izgalom és kihívás, amely során nem csak a logikádat, hanem az együttműködési képességeidet is próbára teszi a játék.
+-2–5 fős csapatok számára optimalizált kaland, így baráti társaságok, családok vagy kollégák is tökéletesen élvezhetik a közös élményt.
+-Egy átgondolt, lebilincselő történet, amely egy lépésről lépésre kibontakozó rejtély, és amelybe teljesen belemerülhetsz.
+-Hangulatos, atmoszférikus környezet, amely segít elmélyülni a történetben és fokozza az élményt.
+Kinek ajánljuk?
+-Ha szeretsz gondolkodni, együttműködni, és egy kis adrenalinra vágysz, akkor ez a kaland neked szól! Ideális választás baráti társaságoknak, családoknak, céges csapatépítőknek, vagy bárkinek, aki szeretné kipróbálni magát egy különleges, hangulatos és kihívásokkal teli élményben. Nem számít, hogy tapasztalt vagy-e szabadulószobás játékos vagy kezdő, a Mr. X kalandja mindenkit magával ragad.
+
+Hogyan készülj?
+-Érdemes nyugodt, de éberséggel érkezni, hiszen a részletek észrevétele és a gyors reagálás nagyon fontos.
+-A csapatmunka és a kommunikáció kulcsfontosságú – oszd meg az ötleteidet, hallgasd meg a többieket, és dolgozzatok össze a sikerért!
+-A játék fizikailag nem megterhelő, így bárki részt vehet benne, de a szellemi kihívások garantáltan felpörgetik az agyad.
+-Kényelmes ruházat ajánlott, és érdemes időben érkezni, hogy nyugodtan felkészülhessetek a játékra.
+
+  </div>
+
+
+</body>
+</html>
