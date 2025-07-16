@@ -8,59 +8,59 @@
   <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
   <style>
-    /* Alap beállítások */
     html, body {
+      height: 100%;
       margin: 0;
       padding: 0;
-      height: 100%;
       background-color: #000;
       font-family: 'Bebas Neue', sans-serif;
       color: #aa1919;
       overflow-x: hidden;
     }
 
-    /* Teljes oldal flex oszlopként, hogy sticky footer legyen */
     body {
       display: flex;
       flex-direction: column;
       min-height: 100vh;
-      /* Az oldal tartalma nő, a footer alul marad */
+      position: relative;
     }
 
-    /* Háttér rétegek fixed pozícióban */
-    .background,
-    .overlay {
+    /* Háttérképet fix pozícióban hagyjuk, ne tűnjön el */
+    .background {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      z-index: -1;
-    }
-    .background {
       background-image: url('https://github.com/RoomX24/RoomX/blob/main/background1.webp?raw=true');
       background-size: cover;
       background-position: center center;
       background-repeat: no-repeat;
-    }
-    .overlay {
-      background-color: rgba(0, 0, 0, 0.6);
+      z-index: -2;
     }
 
-    /* Logó szekció */
+    /* Sötét átlátszó réteg */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: -1;
+    }
+
     .logo-section {
       width: 100%;
-      background-color: rgba(0,0,0,0.7);
+      background-color: rgba(0, 0, 0, 0.7);
       padding: 20px 0;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
       flex-shrink: 0;
       text-align: center;
       z-index: 10;
     }
+
     .logo img {
       width: 300px;
       height: auto;
     }
 
-    /* Menü */
     .center-menu {
       margin: 30px 0;
       display: flex;
@@ -70,6 +70,7 @@
       flex-shrink: 0;
       z-index: 1000;
     }
+
     .center-menu a {
       font-size: 1.5em;
       color: white;
@@ -77,26 +78,29 @@
       padding: 10px 20px;
       border: 2px solid #aa1919;
       border-radius: 5px;
-      background-color: rgba(0,0,0,0.6);
+      background-color: rgba(0, 0, 0, 0.6);
       transition: background-color 0.3s, color 0.3s;
     }
+
     .center-menu a:hover {
       background-color: #aa1919;
       color: black;
     }
 
-    /* Calendly konténer - fontos, hogy ne növelje túl az oldal magasságát */
+    /* Calendly konténer */
     .calendly-container {
-      flex-grow: 1; /* kitölti a fennmaradó helyet */
+      flex-grow: 1;
       width: 100%;
       max-width: 1000px;
       min-width: 320px;
       display: flex;
       justify-content: center;
+      padding: 0 10px 20px 10px;
       box-sizing: border-box;
-      padding: 20px 10px 0 10px; /* egy kis padding fent, hogy ne érjen hozzá szorosan */
-      overflow: hidden; /* eltünteti a scrollbar-t, ha bármi miatt keletkezik */
+      overflow: hidden; /* elrejti a görgetősávot ha lenne */
+      z-index: 5;
     }
+
     .calendly-inline-widget {
       width: 100% !important;
       height: 700px !important;
@@ -105,7 +109,6 @@
       box-sizing: border-box;
     }
 
-    /* Lábléc - sticky footer */
     footer {
       background-color: rgba(0, 0, 0, 0.8);
       color: #aa1919;
@@ -117,23 +120,26 @@
       border-top: 1px solid #aa1919;
       z-index: 10;
     }
+
     footer a {
       color: #aa1919;
       text-decoration: underline;
     }
+
     footer a:hover {
       color: #ff3b3b;
     }
 
-    /* Mobilbarát */
     @media (max-width: 600px) {
       .logo img {
         width: 150px;
       }
+
       .center-menu {
         gap: 15px;
         padding: 0 10px;
       }
+
       .center-menu a {
         font-size: 1em;
         padding: 8px 16px;
@@ -142,6 +148,7 @@
         flex: 1 1 auto;
         text-align: center;
       }
+
       .calendly-inline-widget {
         height: 600px !important;
       }
