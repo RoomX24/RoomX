@@ -27,6 +27,7 @@
       align-items: center;
       position: relative;
       z-index: 0;
+      padding-bottom: 60px; /* hely a footernek */
     }
 
     /* Háttér */
@@ -98,7 +99,7 @@
     .center-menu a:hover {
       background-color: #aa1919;
       color: black;
-    }  
+    }
 
     /* Calendly konténer */
     .calendly-container {
@@ -159,6 +160,10 @@
       text-align: center;
       font-size: 0.9em;
       flex-shrink: 0;
+      position: relative; /* nem fixed */
+      bottom: 0;
+      left: 0;
+      z-index: 10;
     }
 
     footer a {
