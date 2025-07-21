@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
- <link rel="icon" href="https://roomx24.github.io/RoomX/favicon.ico" type="image/png" />
+  <link rel="icon" href="https://roomx24.github.io/RoomX/favicon.ico" type="image/png" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Informácie</title>
-  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
+  <title>Test</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
   <style>
     html,
@@ -13,8 +12,8 @@
       height: 100%;
       margin: 0;
       padding: 0;
-       background-color: #000; /* fallback */
-     padding-bottom: 60px;
+      background-color: #000;
+      
     }
 
     body {
@@ -31,7 +30,6 @@
       overflow-x: hidden;
     }
 
-    /* Háttér */
     .background,
     .overlay {
       position: fixed;
@@ -53,7 +51,6 @@
       background-color: rgba(0, 0, 0, 0.6);
     }
 
-    /* Logó szekció */
     .logo-section {
       width: 100%;
       background-color: rgba(0, 0, 0, 0.7);
@@ -74,7 +71,6 @@
       height: auto;
     }
 
-    /* Menü */
     .center-menu {
       margin: 30px 0;
       display: flex;
@@ -100,21 +96,29 @@
       color: black;
     }
 
-    .text-box {
-      background-color: rgba(0, 0, 0, 0.7);
-      color: #aa1919;
-      font-size: 1.5em;
-      padding: 40px 60px;
-      margin: 40px auto 60px;
-      display: inline-block;
-      border-radius: 10px;
+    .text-box-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      padding: 40px 20px;
       width: 100%;
-      max-width: 100%;
-     text-align: left;
-     align-self: flex-start; /* ne középre igazodjon */
-     box-sizing: border-box;
+      max-width: 1200px;
+      box-sizing: border-box;
     }
 
+    .text-box {
+      flex: 1 1 400px;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: #aa1919;
+      font-size: 1.5em;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: left;
+      box-sizing: border-box;
+      min-width: 300px;
+    }
+    
     .btn {
       padding: 1em 2em;
       font-size: 1.2em;
@@ -131,11 +135,14 @@
       background-color: #0056b3;
     }
 
-    /* Mobilbarát */
     @media (max-width: 600px) {
+      .text-box-wrapper {
+        flex-direction: column;
+        padding: 20px 10px;
+      }
+
       .text-box {
         font-size: 1.2em;
-       text-align: left;
       }
 
       .btn {
@@ -169,9 +176,9 @@
 <body>
   <!-- Háttérrétegek -->
   <div class="background"></div>
-
   
-  <!-- Logó szekció teljes szélességben -->
+
+  <!-- Logó szekció -->
   <div class="logo-section">
     <div class="logo">
       <img src="https://raw.githubusercontent.com/RoomX24/RoomX/refs/heads/main/room-x-logo.png" alt="Logo" />
@@ -183,36 +190,45 @@
     <a href="https://roomx24.github.io/RoomX/welcomesk.html">Domov</a>
     <a href="https://roomx24.github.io/RoomX/MrXsk.html">Mr.X</a>
     <a href="https://roomx24.github.io/RoomX/bookingsk.html">Rezervácia</a>
-    <a href="#https://roomx24.github.io/RoomX/infosk.html">Informácie</a>
+    <a href="https://roomx24.github.io/RoomX/infosk.html">Informácie</a>
   </div>
 
-  <!-- Szövegmező -->
-  <div class="text-box">
-    Toto nie je obyčajná úniková hra – ocitneš sa uprostred temného, záhadami prepleteného príbehu, kde tvojimi najväčšími zbraňami budú logika, pozorovanie a tímová spolupráca. Čakajú ťa výnimočné úlohy, nečakané zvraty a narastajúce napätie, zatiaľ čo sa pred vami odhaľuje tajomný svet.
+  <!-- Szövegmezők konténer -->
+  <div class="text-box-wrapper">
+    <div class="text-box">
+      Toto nie je obyčajná úniková hra – ocitneš sa uprostred temného, záhadami prepleteného príbehu, kde tvojimi najväčšími zbraňami budú logika, pozorovanie a tímová spolupráca. Čakajú ťa výnimočné úlohy, nečakané zvraty a narastajúce napätie, zatiaľ čo sa pred vami odhaľuje tajomný svet. 
+      <br><br>
+      Čo ťa čaká?<br>
+      - 60 minút vzrušenia a výziev, ktoré preveria tvoju logiku aj schopnosť spolupracovať.<br>
+      - Navrhnuté pre tímy 2 až 5 hráčov – ideálne pre priateľov, rodiny či kolegov.<br>
+      - Pútavý príbeh, ktorý sa postupne rozvíja krok za krokom.<br>
+      - Atmosférické prostredie, ktoré zintenzívňuje zážitok.<br><br>
+           Pre koho je to určené?<br><br>
+      - Pre každého, kto rád premýšľa, spolupracuje a túži po dávke adrenalínu.<br>
+      - Perfektné pre skupiny priateľov, rodiny, firemné teambuildingy.<br>
+      - Vhodné pre začiatočníkov aj skúsených hráčov.<br><br>
+      
+      Ako sa pripraviť?<br><br>
+      - Buď v strehu, všímaj si detaily a reaguj rýchlo.<br>
+      - Spolupracujte: zdieľajte nápady a počúvajte sa navzájom.<br>
+      - Hra preverí tvoju myseľ, ale fyzicky ťa nevyčerpá.<br>
+      - Obleč sa pohodlne a príď včas, aby si mohol začať hru v pokoji.<br>
+      
+    </div>
 
-<br /><br />
-
-Čo ťa čaká?
-- 60 minút vzrušenia a výziev, ktoré preveria tvoju logiku aj schopnosť spolupracovať.<br>
-- Navrhnuté pre tímy 2 až 5 hráčov – ideálne pre priateľov, rodiny či kolegov.<br>
-- Pútavý príbeh, ktorý sa postupne rozvíja krok za krokom.<br>
-- Atmosférické prostredie, ktoré zintenzívňuje zážitok.<br /><br />
-
-Pre koho je to určené?<br /><br />
-- Pre každého, kto rád premýšľa, spolupracuje a túži po dávke adrenalínu. Perfektné pre skupiny priateľov, rodiny, firemné teambuildingy – vhodné pre začiatočníkov aj skúsených hráčov.<br /><br />
-
-Ako sa pripraviť?<br /><br />
-- Buď v strehu, všímaj si detaily a reaguj rýchlo.<br>
-- Spolupracujte: zdieľajte nápady a počúvajte sa navzájom.<br>
-- Hra preverí tvoju myseľ, ale fyzicky ťa nevyčerpá.<br>
-- Obleč sa pohodlne a príď včas, aby si mohol začať hru v pokoji.<br /><br />
-
-   Cenník:<br /><br />
-   Mr. X – Osud<br>
-Cena hry je 50 € za tím (2–5 osôb), čo zahŕňa 60 minút herného času. Platba prebieha na mieste, výlučne v hotovosti.
-
+    <div class="text-box">
+      Cenník:<br><br>
+      Mr. X – Osud<br>
+      Cena hry je 50 € za tím (2–5 osôb), čo zahŕňa max. 60 minút herného času. Platba prebieha na mieste, výlučne v hotovosti.<br><br>
+ <a href="https://roomx24.github.io/RoomX/vopsk.pdf" target="_blank" style="color: #aa1919; text-decoration: underline; font-size: 1.0em;">Všeobecné obchodné podmienky</a><br><br>
+ <a href="https://roomx24.github.io/RoomX/rekposk.pdf" target="_blank" style="color: #aa1919; text-decoration: underline; font-size: 1.0em;">Reklamačný poriadok</a><br><br>
+ <a href="https://roomx24.github.io/RoomX/herporsk.pdf" target="_blank" style="color: #aa1919; text-decoration: underline; font-size: 1.0em;">Herný poriadok</a><br><br>
+      Kontakt:<br><br>
+      Email: example@example.com<br>
+      Tel. číslo: +421 000 000 000<br>
+      Adresa: ulica xx, mesto, 000 00<br>
+    </div>
   </div>
-
 
 </body>
 </html>
